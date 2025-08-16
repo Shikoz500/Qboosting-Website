@@ -411,7 +411,7 @@
             text-align: center;
             background: linear-gradient(135deg, #00ff88, #00cc6a);
             color: #0a0a0a;
-            padding: 1.5rem;
+            padding: .4rem;
             border-radius: 10px;
             margin: 2rem 0;
         }
@@ -751,6 +751,91 @@
 <meta name="twitter:title" content="Your Best FC26 Boosting Service">
 <meta name="twitter:description" content="Weekend League & Rivals Boosting at QBoosting.store – Fast & Secure.">
 <meta name="twitter:image" content="https://i.ibb.co/Y4Q1JQZF/photo-2025-08-10-01-07-25-1.png">
+  <style>
+/* Promo Code Section Styles */
+.promo-section {
+    margin: 15px 0;
+}
+
+.promo-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #00ff88;
+}
+
+.promo-input-group {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.promo-input-group input {
+    width: 100%;
+    padding: 10px 80px 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    text-transform: uppercase;
+    box-sizing: border-box;
+}
+
+.promo-input-group input:focus {
+    outline: none;
+    border-color: #28a745;
+}
+
+.promo-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 6px 15px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    transition: background 0.3s ease;
+}
+
+.promo-btn:hover {
+    background: #218838;
+}
+
+.promo-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+.promo-message {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+}
+
+.promo-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.promo-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.promo-message.loading {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+</style>
 </head>
 <body>
     <div class="background-overlay"></div>
@@ -1056,6 +1141,14 @@
                     <h3 id="fut-price-amount">$0</h3>
                     <div class="currency" id="fut-currency">USD</div>
                 </div>
+              <div class="promo-section" id="fut-promo-section" style="display: none;">
+    <label for="fut-promo-code">Promo Code</label>
+    <div class="promo-input-group">
+        <input type="text" id="fut-promo-code" placeholder="Enter promo code" maxlength="20">
+        <button type="button" class="promo-btn" onclick="applyPromoCode('fut')">Apply</button>
+    </div>
+    <div class="promo-message" id="fut-promo-message"></div>
+</div>
                 <div class="order-summary" id="fut-summary" style="display: none;">
                     <h4>Order Summary - FUT Champions</h4>
                     <div id="fut-summary-content"></div>
@@ -1119,6 +1212,14 @@
                     <h3 id="div-price-amount">$0</h3>
                     <div class="currency" id="div-currency">USD</div>
                 </div>
+              <div class="promo-section" id="div-promo-section" style="display: none;">
+    <label for="div-promo-code">Promo Code</label>
+    <div class="promo-input-group">
+        <input type="text" id="div-promo-code" placeholder="Enter promo code" maxlength="20">
+        <button type="button" class="promo-btn" onclick="applyPromoCode('div')">Apply</button>
+    </div>
+    <div class="promo-message" id="div-promo-message"></div>
+</div>
                 <div class="order-summary" id="div-summary" style="display: none;">
                     <h4>Order Summary - Division Rivals</h4>
                     <div id="div-summary-content"></div>
@@ -1173,6 +1274,14 @@
                     <h3 id="draft-price-amount">$0</h3>
                     <div class="currency" id="draft-currency">USD</div>
                 </div>
+              <div class="promo-section" id="draft-promo-section" style="display: none;">
+    <label for="draft-promo-code">Promo Code</label>
+    <div class="promo-input-group">
+        <input type="text" id="draft-promo-code" placeholder="Enter promo code" maxlength="20">
+        <button type="button" class="promo-btn" onclick="applyPromoCode('draft')">Apply</button>
+    </div>
+    <div class="promo-message" id="draft-promo-message"></div>
+</div>
                 <div class="order-summary" id="draft-summary" style="display: none;">
                     <h4>Order Summary - Online Draft</h4>
                     <div id="draft-summary-content"></div>
@@ -1650,6 +1759,7 @@ function updateFutPrice() {
         document.getElementById('fut-price-amount').textContent = convertPrice ? convertPrice(price) : '$' + price;
         document.getElementById('fut-currency').textContent = typeof currentCurrency !== 'undefined' ? currentCurrency : 'USD';
         document.getElementById('fut-price').style.display = 'block';
+        document.getElementById('fut-promo-section').style.display = 'block';
         
         const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? 'Express (+$13)' : 'Normal';
         const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
@@ -1671,6 +1781,7 @@ function updateFutPrice() {
         orderBtn.onclick = () => orderFutChampions(wins, loses, rankName, convertPrice ? convertPrice(price) : '$' + price);
     } else {
         document.getElementById('fut-price').style.display = 'none';
+        document.getElementById('fut-promo-section').style.display = 'none';
         document.getElementById('fut-summary').style.display = 'none';
         document.getElementById('fut-order-btn').disabled = true;
         document.getElementById('fut-order-btn').textContent = 'Select all options first';
@@ -1773,6 +1884,7 @@ function updateDivPrice() {
         document.getElementById('div-price-amount').textContent = convertPrice ? convertPrice(totalPrice) : '$' + totalPrice;
         document.getElementById('div-currency').textContent = typeof currentCurrency !== 'undefined' ? currentCurrency : 'USD';
         document.getElementById('div-price').style.display = 'block';
+        document.getElementById('div-promo-section').style.display = 'block';
         
         const currentDivName = current === 0 ? 'Elite Division' : `Division ${current}`;
         const requiredDivName = required === 0 ? 'Elite Division' : `Division ${required}`;
@@ -1796,6 +1908,7 @@ function updateDivPrice() {
         orderBtn.onclick = () => orderDivisionRivals(currentDivName, requiredDivName, convertPrice ? convertPrice(totalPrice) : '$' + totalPrice);
     } else {
         document.getElementById('div-price').style.display = 'none';
+        document.getElementById('div-promo-section').style.display = 'none';
         document.getElementById('div-summary').style.display = 'none';
         document.getElementById('div-order-btn').disabled = true;
         document.getElementById('div-order-btn').textContent = 'Select all options first';
@@ -1856,6 +1969,7 @@ function updateDraftPrice() {
         document.getElementById('draft-price-amount').textContent = convertPrice ? convertPrice(price) : '$' + price;
         document.getElementById('draft-currency').textContent = typeof currentCurrency !== 'undefined' ? currentCurrency : 'USD';
         document.getElementById('draft-price').style.display = 'block';
+        document.getElementById('draft-promo-section').style.display = 'block';
         
         const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? 'Express (+$13)' : 'Normal';
         const paymentText = (serviceOptions.draft && serviceOptions.draft.payment) ? serviceOptions.draft.payment : 'paypal';
@@ -1876,6 +1990,7 @@ function updateDraftPrice() {
         orderBtn.onclick = () => orderOnlineDraft(wins, convertPrice ? convertPrice(price) : '$' + price);
     } else {
         document.getElementById('draft-price').style.display = 'none';
+        document.getElementById('draft-promo-section').style.display = 'none';
         document.getElementById('draft-summary').style.display = 'none';
         document.getElementById('draft-order-btn').disabled = true;
         document.getElementById('draft-order-btn').textContent = 'Select all options first';
