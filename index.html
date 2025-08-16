@@ -411,7 +411,7 @@
             text-align: center;
             background: linear-gradient(135deg, #00ff88, #00cc6a);
             color: #0a0a0a;
-            padding: .4rem;
+            padding: .3rem;
             border-radius: 10px;
             margin: 2rem 0;
         }
@@ -751,6 +751,49 @@
 <meta name="twitter:title" content="Your Best FC26 Boosting Service">
 <meta name="twitter:description" content="Weekend League & Rivals Boosting at QBoosting.store – Fast & Secure.">
 <meta name="twitter:image" content="https://i.ibb.co/Y4Q1JQZF/photo-2025-08-10-01-07-25-1.png">
+<style>
+.tooltip-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #14642c;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  margin-left: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+  top: -10px;
+}
+.tooltip-icon:hover { background: #00cc66; }
+
+.tooltip-container { position: relative; display: inline-block; }
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  width: 240px;
+  background: #222;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  top: -30px;
+  left: 125%;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  transition: opacity 0.3s;
+}
+.tooltip-container.active .tooltip-text { visibility: visible; opacity: 1; }
+</style>
+
   <style>
 /* Promo Code Section Styles */
 .promo-section {
@@ -1115,7 +1158,15 @@
                 
                 <!-- Delivery Speed -->
                 <div class="form-group">
-                    <label>Delivery Speed</label>
+                    <label>
+                        Delivery Speed
+                        <span class="tooltip-container">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">
+                Express Is 70% Faster, Mostly Within 12Hrs.
+                            </span>
+                        </span>
+                    </label>
                     <div class="button-group">
                         <button class="select-btn" data-option="normal" data-service="fut">Normal</button>
                         <button class="select-btn" data-option="express" data-service="fut">Express</button>
@@ -1186,7 +1237,15 @@
 
                 <!-- Delivery Speed -->
                 <div class="form-group">
-                    <label>Delivery Speed</label>
+                    <label>
+                        Delivery Speed
+                        <span class="tooltip-container">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">
+                Express Is 70% Faster, Mostly Within 12Hrs.
+                            </span>
+                        </span>
+                    </label>
                     <div class="button-group">
                         <button class="select-btn" data-option="normal" data-service="div">Normal</button>
                         <button class="select-btn" data-option="express" data-service="div">Express</button>
@@ -1248,7 +1307,15 @@
 
                 <!-- Delivery Speed -->
                 <div class="form-group">
-                    <label>Delivery Speed</label>
+                    <label>
+                        Delivery Speed
+                        <span class="tooltip-container">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">
+                Express Is 70% Faster, Mostly Within 12Hrs.
+                            </span>
+                        </span>
+                    </label>
                     <div class="button-group">
                         <button class="select-btn" data-option="normal" data-service="draft">Normal</button>
                         <button class="select-btn" data-option="express" data-service="draft">Express</button>
@@ -1299,7 +1366,15 @@
 
                 <!-- Delivery Speed -->
                 <div class="form-group">
-                    <label>Delivery Speed</label>
+                    <label>
+                        Delivery Speed
+                        <span class="tooltip-container">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">
+                Express Is 70% Faster, Mostly Within 12Hrs.
+                            </span>
+                        </span>
+                    </label>
                     <div class="button-group">
                         <button class="select-btn" data-option="normal" data-service="friendly">Normal</button>
                         <button class="select-btn" data-option="express" data-service="friendly">Express</button>
@@ -1332,7 +1407,15 @@
 
                 <!-- Delivery Speed -->
                 <div class="form-group">
-                    <label>Delivery Speed</label>
+                    <label>
+                        Delivery Speed
+                        <span class="tooltip-container">
+                            <span class="tooltip-icon">?</span>
+                            <span class="tooltip-text">
+                Express Is 70% Faster, Mostly Within 12Hrs.
+                            </span>
+                        </span>
+                    </label>
                     <div class="button-group">
                         <button class="select-btn" data-option="normal" data-service="squad">Normal</button>
                         <button class="select-btn" data-option="express" data-service="squad">Express</button>
@@ -2054,5 +2137,18 @@ document.addEventListener('click', function(e) {
     }
 });
     </script>
+    <script>
+document.querySelectorAll('.tooltip-container').forEach(function(el){
+  el.addEventListener('click', function(e){
+    e.stopPropagation();
+    document.querySelectorAll('.tooltip-container').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+document.addEventListener('click', function(){
+  document.querySelectorAll('.tooltip-container').forEach(t => t.classList.remove('active'));
+});
+</script>
+
 </body>
 </html>
