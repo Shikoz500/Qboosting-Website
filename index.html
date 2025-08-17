@@ -743,14 +743,14 @@
 <meta property="og:url" content="https://qboosting.store/">
 <meta property="og:title" content="Your Best FC26 Boosting Service">
 <meta property="og:description" content="Weekend League & Rivals Boosting at QBoosting.store – Fast & Secure.">
-<meta property="og:image" content="https://raw.githubusercontent.com/Shikoz500/Qboosting-Website/main/images/blogo.png">
+<meta property="og:image" content="https://i.ibb.co/Y4Q1JQZF/photo-2025-08-10-01-07-25-1.png">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://qboosting.store/">
 <meta name="twitter:title" content="Your Best FC26 Boosting Service">
 <meta name="twitter:description" content="Weekend League & Rivals Boosting at QBoosting.store – Fast & Secure.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Shikoz500/Qboosting-Website/main/images/blogo.png">
+<meta name="twitter:image" content="https://i.ibb.co/Y4Q1JQZF/photo-2025-08-10-01-07-25-1.png">
 <style>
 .tooltip-icon {
   display: inline-flex;
@@ -889,7 +889,7 @@
         <div class="header-content">
             <div class="logo-section">
                 <a href="index.html">
-                <img src="images/logo.png" alt="QBoosting Logo" style="width: 90px; height: 90px; border-radius: 10px; object-fit: cover; margin-top: 5px;">
+                <img src="https://i.ibb.co/vvzLW5Fw/photo-2025-08-10-01-07-25.png" alt="QBoosting Logo" style="width: 90px; height: 90px; border-radius: 10px; object-fit: cover; margin-top: 5px;">
                      </a>
                 <div>
                     <h1>We Grind</h1>
@@ -1492,6 +1492,10 @@
         input[type="email"]:focus {
             outline: none;
             border-color: #28a745;
+        input[type="email"].error {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 10px rgba(220, 53, 69, 0.3);
+}
         }
         </style>
 
@@ -1595,19 +1599,19 @@
                     <div class="payment-methods">
                         <div style="display: flex; align-items: center; gap: 1rem; background: transparent; padding: 1rem 2rem; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
                             <a href="https://www.mastercard.com" target="_blank">
-                                <img src="images/mastercard.png" alt="MasterCard" style="height: 15px;">
+                                <img src="https://i.ibb.co/fY4XpNb8/mastercard-logo.png" alt="MasterCard" style="height: 15px;">
                             </a>
                             <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2);"></div>
                             <a href="https://www.paypal.com" target="_blank">
-                                <img src="images/paypal.png" alt="PayPal" style="height: 15px;">
+                                <img src="https://i.ibb.co/yn9138zB/paypal-logo.png" alt="PayPal" style="height: 15px;">
                             </a>
                             <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2);"></div>
                             <a href="https://www.visa.com" target="_blank">
-                                <img src="images/visa.png" alt="VISA" style="height: 12px;">
+                                <img src="https://i.ibb.co/nNRzKptd/visa-logo.png" alt="VISA" style="height: 12px;">
                             </a>
                             <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2);"></div>
                             <a href="https://www.payoneer.com" target="_blank">
-                                <img src="images/Payoneer.png" alt="Payoneer" style="height: 24px;">
+                                <img src="https://i.ibb.co/r2TBZcfy/Payoneerrrrr.png" alt="Payoneer" style="height: 24px;">
                             </a>
                         </div>
                     </div>
@@ -2017,6 +2021,7 @@
         }
 
         function orderFutChampions(wins, loses, rank, price) {
+            if (!validateEmail('fut')) return;
             const email = document.getElementById('fut-email').value || 'Not provided';
             const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? 'Express' : 'Normal';
             const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
@@ -2153,6 +2158,7 @@ Ready to start when you confirm! 🚀`;
         }
 
         function orderDivisionRivals(current, required, price) {
+            if (!validateEmail('div')) return;
             const email = document.getElementById('div-email').value || 'Not provided';
             const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? 'Express' : 'Normal';
             const paymentText = (serviceOptions.div && serviceOptions.div.payment) ? serviceOptions.div.payment : 'paypal';
@@ -2243,6 +2249,7 @@ Ready to start when you confirm! 🚀`;
         }
 
         function orderOnlineDraft(wins, price) {
+            if (!validateEmail('draft')) return;
             const email = document.getElementById('draft-email').value || 'Not provided';
             const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? 'Express' : 'Normal';
             const paymentText = (serviceOptions.draft && serviceOptions.draft.payment) ? serviceOptions.draft.payment : 'paypal';
@@ -2268,6 +2275,27 @@ Ready to start when you confirm! 🚀`;
             
             window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
         }
+        
+        function validateEmail(service) {
+    const emailInput = document.getElementById(`${service}-email`);
+    const email = emailInput.value.trim();
+    
+    if (!email) {
+        emailInput.classList.add('error');
+        emailInput.focus();
+        return false;
+    }
+    
+    emailInput.classList.remove('error');
+    return true;
+}
+
+// Remove error styling when user starts typing
+document.querySelectorAll('input[type="email"]').forEach(input => {
+    input.addEventListener('input', function() {
+        this.classList.remove('error');
+    });
+});
 </script>
 <script>
 document.querySelectorAll('.tooltip-container').forEach(function(el){
