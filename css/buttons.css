@@ -1,0 +1,53 @@
+/* Button Group Styles */
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.select-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid #00ff88;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  flex: 1;
+  text-align: center;
+}
+
+.select-btn.active,
+.select-btn:hover {
+  background: #00ff88;
+  color: #0a0a0a;
+  transform: translateY(-2px);
+}
+
+.select-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+input[type='email'] {
+  padding: 0.75rem;
+  background: rgba(15, 15, 35, 0.9);
+  border: 1px solid #00ff88;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+input[type='email']:focus {
+  outline: none;
+  border-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+input[type='email'].error {
+  border-color: #dc3545;
+  box-shadow: 0 0 10px rgba(220, 53, 69, 0.3);
+}

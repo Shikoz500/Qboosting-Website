@@ -1,2383 +1,1933 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q16E372XVZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-Q16E372XVZ');
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QBoosting - Professional FIFA Boosting Service</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* FIFA-inspired Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #0a4d3a 0%, #1a5f4a 25%, #2d7359 50%, #1a5f4a 75%, #0a4d3a 100%);
-            z-index: -3;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 136, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(0, 204, 255, 0.08) 0%, transparent 40%),
-                linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%),
-                repeating-linear-gradient(90deg, transparent, transparent 98px, rgba(255, 255, 255, 0.01) 100px);
-            z-index: -2;
-        }
-
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 10, 0.85);
-            z-index: -1;
-        }
-
-        /* Header */
-        .header {
-            background: rgba(15, 15, 35, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 2px solid #00ff88;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.2);
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 80px;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, #00ff88, #00cc6a);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #0a0a0a;
-            font-weight: bold;
-        }
-
-        .logo-text h1 {
-            font-size: 2.2rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #00ff88, #ffffff, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: -5px;
-        }
-
-        .logo-text .slogan {
-            font-size: 0.9rem;
-            color: #cccccc;
-            font-style: italic;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-menu li a {
-            color: #ffffff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            position: relative;
-        }
-
-        .nav-menu li a:hover, .nav-menu li a.active {
-            background: rgba(0, 255, 136, 0.1);
-            color: #00ff88;
-            transform: translateY(-2px);
-        }
-
-        .currency-selector {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .currency-btn {
-            padding: 0.5rem 1rem;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid #00ff88;
-            color: #ffffff;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .currency-btn.active, .currency-btn:hover {
-            background: #00ff88;
-            color: #0a0a0a;
-            transform: translateY(-2px);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Main Content */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .page-content {
-            display: none;
-        }
-
-        .page-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Home Page */
-        .hero {
-            text-align: center;
-            padding: 4rem 0;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #00ff88, #ffffff, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            color: #cccccc;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #00ff88, #00cc6a);
-            color: #0a0a0a;
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
-            cursor: pointer;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
-        }
-
-        /* Features Section */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .feature-card {
-            background: rgba(26, 26, 58, 0.8);
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid #00ff88;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
-        }
-
-        .feature-card i {
-            font-size: 3rem;
-            color: #00ff88;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            color: #00ff88;
-            margin-bottom: 1rem;
-        }
-
-        /* Reviews Section */
-        .reviews {
-            margin: 4rem 0;
-            text-align: center;
-        }
-
-        .reviews h2 {
-            color: #00ff88;
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .review-card {
-            background: rgba(15, 15, 35, 0.9);
-            border-radius: 10px;
-            padding: 1.5rem;
-            border: 1px solid rgba(0, 255, 136, 0.3);
-        }
-
-        .review-stars {
-            color: #ffc107;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .review-text {
-            color: #cccccc;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .review-author {
-            color: #00ff88;
-            font-weight: bold;
-        }
-
-        /* Services Page */
-        .services-tabs {
-            display: flex;
-            justify-content: center;
-            margin: 2rem 0;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .tab {
-            padding: 1rem 2rem;
-            background: rgba(0, 255, 136, 0.1);
-            border: 2px solid transparent;
-            color: #ffffff;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-
-        .tab.active {
-            background: rgba(0, 255, 136, 0.2);
-            border-color: #00ff88;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
-        }
-
-        .tab:hover {
-            background: rgba(0, 255, 136, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .tab.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: rgba(100, 100, 100, 0.1);
-        }
-
-        .service-content {
-            display: none;
-            background: rgba(26, 26, 58, 0.8);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 1px solid #00ff88;
-            backdrop-filter: blur(10px);
-        }
-
-        .service-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-group label {
-            font-weight: bold;
-            color: #00ff88;
-        }
-
-        .form-group select {
-            padding: 0.75rem;
-            background: rgba(15, 15, 35, 0.9);
-            border: 1px solid #00ff88;
-            color: #ffffff;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .form-group select:focus {
-            outline: none;
-            border-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-        }
-
-        .price-display {
-            text-align: center;
-            background: linear-gradient(135deg, #00ff88, #00cc6a);
-            color: #0a0a0a;
-            padding: .3rem;
-            border-radius: 10px;
-            margin: 2rem 0;
-        }
-
-        .price-display h3 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .order-summary {
-            background: rgba(15, 15, 35, 0.9);
-            border: 1px solid #00ff88;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .order-summary h4 {
-            color: #00ff88;
-            margin-bottom: 1rem;
-        }
-
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
-        }
-
-        .order-btn {
-            width: 100%;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #00ff88, #00cc6a);
-            color: #0a0a0a;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-        }
-
-        .order-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
-        }
-
-        .order-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .note {
-            background: rgba(255, 193, 7, 0.1);
-            border: 1px solid #ffc107;
-            color: #ffc107;
-            padding: 1rem;
-            border-radius: 5px;
-            margin: 1rem 0;
-        }
-
-        .coming-soon {
-            text-align: center;
-            padding: 3rem;
-            color: #cccccc;
-        }
-
-        .coming-soon h3 {
-            color: #ffc107;
-            margin-bottom: 1rem;
-        }
-
-        /* Footer */
-        .footer {
-            background: rgba(15, 15, 35, 0.95);
-            border-top: 2px solid #00ff88;
-            padding: 3rem 0 1rem;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            color: #00ff88;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .payment-methods {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .security-badges {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .security-badge {
-            background: linear-gradient(135deg, #00ff88, #ffffff);
-            color: #0a0a0a;
-            padding: 0.4rem .8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .security-badge:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
-        }
-
-        .security-badge i {
-            font-size: 1rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid #00ff88;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00ff88;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: #00ff88;
-            color: #0a0a0a;
-            transform: translateY(-2px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(0, 255, 136, 0.2);
-            color: #cccccc;
-        }
-
-        /* FAQ Section */
-        .faq-item {
-            background: rgba(26, 26, 58, 0.8);
-            border: 1px solid #00ff88;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            background: rgba(0, 255, 136, 0.1);
-            padding: 1rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .faq-question:hover {
-            background: rgba(0, 255, 136, 0.2);
-        }
-
-        .faq-answer {
-            padding: 0 1rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-answer.active {
-            padding: 1rem;
-            max-height: 200px;
-        }
-
-        /* Contact Section */
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .contact-card {
-            background: rgba(26, 26, 58, 0.8);
-            border: 1px solid #00ff88;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .contact-card i {
-            font-size: 1rem;
-            color: #00ff88;
-            margin-bottom: .1rem;
-        }
-
-        /* Trustpilot badge */
-        .tp-badge{
-            display:inline-flex;
-            flex-direction:column;
-            gap:8px;
-            text-decoration:none;
-            align-items:flex-start;
-            transform:translateZ(0);
-        }
-        .tp-brand{
-            display:flex;
-            align-items:center;
-            gap:6px;
-        }
-        .tp-word{
-            font-weight:700;
-            font-size:18px;
-            line-height:1;
-            color:#ffffff;
-        }
-        .tp-stars{
-            display:flex;
-            gap:6px;
-        }
-        .tp-stars svg{
-            width:28px;
-            height:28px;
-        }
-        .tp-badge:hover{
-            filter:brightness(1.05);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(15, 15, 35, 0.98);
-                flex-direction: column;
-                padding: 1rem;
-                border-top: 1px solid #00ff88;
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-                position: absolute;
-                top: 1rem;
-                right: 1rem;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .logo-text h1 {
-                font-size: 1.8rem;
-            }
-
-            .services-tabs {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .container {
-                padding: 1rem;
-            }
-
-            .payment-methods {
-                justify-content: center;
-            }
-        }
-    </style>
-  <!-- SEO Meta Tags -->
-<title>Your Best FC26 Boosting Service | QBoosting.store</title>
-<meta name="description" content="Weekend League & Rivals Boosting at QBoosting.store – Fast & Secure. Professional FIFA 26 boosting service.">
-<meta name="keywords" content="FIFA 26 Boosting, FC26 Boosting, Weekend League Boost, Rivals Boosting, QBoosting, FIFA services">
-<meta name="author" content="QBoosting">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://qboosting.store/">
-<meta property="og:title" content="Your Best FC26 Boosting Service">
-<meta property="og:description" content="Weekend League & Rivals Boosting at QBoosting.store – Fast & Secure.">
-<meta property="og:image" content="https://i.ibb.co/Y4Q1JQZF/photo-2025-08-10-01-07-25-1.png">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://qboosting.store/">
-<meta name="twitter:title" content="Your Best FC26 Boosting Service">
-<meta name="twitter:description" content="Weekend League & Rivals Boosting at QBoosting.store – Fast & Secure.">
-<meta name="twitter:image" content="https://i.ibb.co/Y4Q1JQZF/photo-2025-08-10-01-07-25-1.png">
-<style>
-.tooltip-icon {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #14642c;
-  color: #fff;
-  font-size: 10px;
-  font-weight: bold;
-  margin-left: 4px;
-  cursor: pointer;
-  transition: 0.3s;
-  position: relative;
-  top: -10px;
-}
-.tooltip-icon:hover { background: #00cc66; }
-
-.tooltip-container { position: relative; display: inline-block; }
-
-.tooltip-text {
-  visibility: hidden;
-  opacity: 0;
-  width: 160px;
-  background: #222;
-  color: #fff;
-  text-align: left;
-  border-radius: 6px;
-  padding: 10px;
-  position: absolute;
-  z-index: 1;
-  top: -30px;
-  left: 125%;
-  font-size: 13px;
-  line-height: 1.4;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-  transition: opacity 0.3s;
-}
-.tooltip-container.active .tooltip-text { visibility: visible; opacity: 1; }
-</style>
-
-  <style>
-/* Promo Code Section Styles */
-.promo-section {
-    margin: 15px 0;
-}
-
-.promo-section label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #00ff88;
-}
-
-.promo-input-group {
-    position: relative;
-    margin-bottom: 10px;
-}
-
-.promo-input-group input {
-    width: 100%;
-    padding: 10px 80px 10px 15px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    text-transform: uppercase;
-    box-sizing: border-box;
-}
-
-.promo-input-group input:focus {
-    outline: none;
-    border-color: #28a745;
-}
-
-.promo-btn {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 6px 15px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 13px;
-    transition: background 0.3s ease;
-}
-
-.promo-btn:hover {
-    background: #218838;
-}
-
-.promo-btn:disabled {
-    background: #6c757d;
-    cursor: not-allowed;
-}
-
-.promo-message {
-    margin-top: 8px;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-    display: none;
-}
-
-.promo-message.success {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.promo-message.error {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-.promo-message.loading {
-    background: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeaa7;
-}
-</style>
-  <link rel="icon" href="images/favi.ico" type="image/x-icon">
-<link rel="icon" href="images/favi.png" type="image/png">
-</head>
-<body>
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-Q16E372XVZ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-Q16E372XVZ');
+    </script>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>
+      QBoosting - Professional FIFA Boosting
+      Service
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link
+      rel="stylesheet"
+      href="css/responsive.css"
+    />
+    <link
+      rel="stylesheet"
+      href="css/tooltip.css"
+    />
+    <link rel="stylesheet" href="css/promo.css" />
+    <link
+      rel="stylesheet"
+      href="css/buttons.css"
+    />
+    <!-- SEO Meta Tags -->
+    <title>
+      Your Best FC26 Boosting Service |
+      QBoosting.store
+    </title>
+    <meta
+      name="description"
+      content="Weekend League & Rivals Boosting at QBoosting.store – Fast & Secure. Professional FIFA 26 boosting service."
+    />
+    <meta
+      name="keywords"
+      content="FIFA 26 Boosting, FC26 Boosting, Weekend League Boost, Rivals Boosting, QBoosting, FIFA services"
+    />
+    <meta name="author" content="QBoosting" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://qboosting.store/"
+    />
+    <meta
+      property="og:title"
+      content="Your Best FC26 Boosting Service"
+    />
+    <meta
+      property="og:description"
+      content="Weekend League & Rivals Boosting at QBoosting.store – Fast & Secure."
+    />
+    <meta
+      property="og:image"
+      content="https://i.ibb.co/Y4Q1JQZF/photo-2025-08-10-01-07-25-1.png"
+    />
+
+    <!-- Twitter -->
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+    <meta
+      name="twitter:url"
+      content="https://qboosting.store/"
+    />
+    <meta
+      name="twitter:title"
+      content="Your Best FC26 Boosting Service"
+    />
+    <meta
+      name="twitter:description"
+      content="Weekend League & Rivals Boosting at QBoosting.store – Fast & Secure."
+    />
+    <meta
+      name="twitter:image"
+      content="https://i.ibb.co/Y4Q1JQZF/photo-2025-08-10-01-07-25-1.png"
+    />
+    <link
+      rel="icon"
+      href="images/favi.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="icon"
+      href="images/favi.png"
+      type="image/png"
+    />
+  </head>
+  <body>
     <div class="background-overlay"></div>
-    
-    <header class="header">
-        <div class="header-content">
-            <div class="logo-section">
-                <a href="index.html">
-                <img src="https://i.ibb.co/vvzLW5Fw/photo-2025-08-10-01-07-25.png" alt="QBoosting Logo" style="width: 90px; height: 90px; border-radius: 10px; object-fit: cover; margin-top: 5px;">
-                     </a>
-                <div>
-                    <h1>We Grind</h1>
-                    <h1>You Shine</h1>
-                    <div class="slogan"></div>
-                </div>
-            </div>
-            
-            <nav>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
-                    <li><a href="#" class="nav-link" data-page="services">Services</a></li>
-                    <li><a href="#" class="nav-link" data-page="terms">Terms & Conditions</a></li>
-                    <li><a href="#" class="nav-link" data-page="contact">Contact Us</a></li>
-                </ul>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
 
-            <div class="currency-selector">
-                <button class="currency-btn active" data-currency="USD">USD ($)</button>
-                <button class="currency-btn" data-currency="EUR">EUR (€)</button>
-                <button class="currency-btn" data-currency="GBP">GBP (£)</button>
-            </div>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo-section">
+          <a href="index.html">
+            <img
+              src="https://i.ibb.co/vvzLW5Fw/photo-2025-08-10-01-07-25.png"
+              alt="QBoosting Logo"
+              style="
+                width: 90px;
+                height: 90px;
+                border-radius: 10px;
+                object-fit: cover;
+                margin-top: 5px;
+              "
+            />
+          </a>
+          <div>
+            <h1>We Grind</h1>
+            <h1>You Shine</h1>
+            <div class="slogan"></div>
+          </div>
         </div>
+
+        <nav>
+          <ul class="nav-menu" id="navMenu">
+            <li>
+              <a
+                href="#"
+                class="nav-link active"
+                data-page="home"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="nav-link"
+                data-page="services"
+                >Services</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="nav-link"
+                data-page="terms"
+                >Terms & Conditions</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="nav-link"
+                data-page="contact"
+                >Contact Us</a
+              >
+            </li>
+          </ul>
+          <button
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </nav>
+
+        <div class="currency-selector">
+          <button
+            class="currency-btn active"
+            data-currency="USD"
+          >
+            USD ($)
+          </button>
+          <button
+            class="currency-btn"
+            data-currency="EUR"
+          >
+            EUR (€)
+          </button>
+          <button
+            class="currency-btn"
+            data-currency="GBP"
+          >
+            GBP (£)
+          </button>
+        </div>
+      </div>
     </header>
 
     <div class="container">
-        <!-- Home Page -->
-        <div class="page-content active" id="home">
-            <div class="hero">
-                <h1>Professional FC26 Boosting</h1>
-                <p>Reach your desired goals with our expert boosters. Fast, reliable, and secure service since 2023.</p>
-                <span class="cta-button" onclick="navigateToPage('services')">View Our Services</span>
-            </div>
-
-            <div class="features">
-                <div class="feature-card">
-                    <i class="fas fa-trophy"></i>
-                    <h3>Expert Boosters</h3>
-                    <p>Professional players with proven track records and elite skills to help you reach any rank.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>100% Safe & Secure</h3>
-                    <p>Your account security is our priority. We use premium VPNs and safe methods for all services.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-clock"></i>
-                    <h3>Fast Completion</h3>
-                    <p>Quick turnaround times with 24/7 availability. Most orders completed within 1-2 days.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-gear"></i>
-                    <h3>Customizable Services</h3>
-                    <p>Tailored packages to fit your exact needs, whether you need a full Weekend League run or just a few wins.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-money-bill-1"></i>
-                    <h3>Affordable Prices</h3>
-                    <p>Competitive rates with the best value for top-tier FIFA boosting services.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-headset"></i>
-                    <h3>24/7 Support</h3>
-                    <p>Round-the-clock customer support via Telegram. Real humans, not bots.</p>
-                </div>
-            </div>
-
-            <div class="reviews">
-                <h2>What Our Customers Say</h2>
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                        <div class="review-text">"Amazing service! Got my FUT Champions rewards in just 2 days. Highly recommended!"</div>
-                        <div class="review-author">- Alex M.</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                        <div class="review-text">"Safe and professional. My account was never at risk and the communication was perfect."</div>
-                        <div class="review-author">- Mathvans.</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                        <div class="review-text">"Best boosting service I've used. Fair prices and excellent results every time."</div>
-                        <div class="review-author">- David R.</div>
-                    </div>
-                </div>
-            </div>
-<!-- Trustpilot Badge - في المنتصف -->
-<div style="text-align: center;">
-    <a href="https://www.trustpilot.com/review/qboosting.store" target="_blank" rel="noopener noreferrer" class="tp-badge" aria-label="View our Trustpilot reviews on Trustpilot">
-        <span class="tp-brand">
-            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="#00B67A" d="M12 2l2.9 6.1 7.1 1.1-5.1 4.8 1.2 7.0L12 17.8 5.9 21l1.2-7L2 9.2l7.1-1.1L12 2z"/>
-            </svg>
-            <span class="tp-word">Trustpilot</span>
-        </span>
-        <span class="tp-stars">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="0" y="0" width="24" height="24" rx="2" fill="#00B67A"/>
-                <path fill="#ffffff" d="M12 3.5l2.4 5.1 5.6.9-4.1 3.9 1 5.6L12 16.7 7.1 19l1-5.6-4.1-3.9 5.6-.9L12 3.5z"/>
-            </svg>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="0" y="0" width="24" height="24" rx="2" fill="#00B67A"/>
-                <path fill="#ffffff" d="M12 3.5l2.4 5.1 5.6.9-4.1 3.9 1 5.6L12 16.7 7.1 19l1-5.6-4.1-3.9 5.6-.9L12 3.5z"/>
-            </svg>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="0" y="0" width="24" height="24" rx="2" fill="#00B67A"/>
-                <path fill="#ffffff" d="M12 3.5l2.4 5.1 5.6.9-4.1 3.9 1 5.6L12 16.7 7.1 19l1-5.6-4.1-3.9 5.6-.9L12 3.5z"/>
-            </svg>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="0" y="0" width="24" height="24" rx="2" fill="#00B67A"/>
-                <path fill="#ffffff" d="M12 3.5l2.4 5.1 5.6.9-4.1 3.9 1 5.6L12 16.7 7.1 19l1-5.6-4.1-3.9 5.6-.9L12 3.5z"/>
-            </svg>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="0" y="0" width="24" height="24" rx="2" fill="#00B67A"/>
-                <path fill="#ffffff" d="M12 3.5l2.4 5.1 5.6.9-4.1 3.9 1 5.6L12 16.7 7.1 19l1-5.6-4.1-3.9 5.6-.9L12 3.5z"/>
-            </svg>
-        </span>
-    </a>
-</div>
-            <!-- FAQ Section -->
-            <div style="margin: 3rem 0;">
-                <h2 style="color: #00ff88; text-align: center; margin-bottom: 2rem;">Frequently Asked Questions</h2>
-                
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>What is QBoosting Store?</span>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>QBoosting Store provides professional in-game boosting services to help players reach higher ranks and unlock rewards. We do not sell accounts, in-game currency, or items.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Is boosting safe for my account?</span>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes, we only work with experienced professional players who play manually without using hacks, cheats, or third-party software. However, boosting always carries some risk under the game publisher's rules, so you use our service at your own discretion.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>What information do I need to provide?</span>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We only require your Sony login details (email and password) and any verification codes sent by Sony. We never ask for your WebApp details or other personal information.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Can I log in to my account during the boosting process?</span>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>No. While the booster is working on your account, you must not log in. If you log in during this period, it may interrupt the process, and we are not responsible for any negative effects.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>How long does the boosting take?</span>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Delivery time depends on the service you order and the game conditions. We will provide you with an estimated completion time before starting.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Do you use any hacks or cheats?</span>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>No. All boosting is performed manually by professional players to ensure your account remains safe.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>What happens if you don't achieve my requested rank?</span>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We cannot guarantee an exact rank, but we will give you a minimum guaranteed rank before starting. If we fail to achieve that minimum, you will receive a full refund.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Do you offer refunds?</span>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Refunds are only possible if the service has not yet started. Once we begin, the payment becomes non-refundable unless we fail to deliver the agreed minimum rank.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>How do I know when my order is completed?</span>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Once your booster finishes, you will receive a notification through our system. We also recommend changing your account password immediately after completion.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>What if I have a problem with my booster?</span>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>If your booster is unresponsive or you encounter any issue, contact our support immediately. If a booster contacts you directly outside our system (e.g., via Sony Messages) and you have proof, you'll receive a 50% discount on your next order.</p>
-                    </div>
-                </div>
-            </div>
+      <!-- Home Page -->
+      <div class="page-content active" id="home">
+        <div class="hero">
+          <h1>Professional FC26 Boosting</h1>
+          <p>
+            Reach your desired goals with our
+            expert boosters. Fast, reliable, and
+            secure service since 2023.
+          </p>
+          <span
+            class="cta-button"
+            onclick="navigateToPage('services')"
+            >View Our Services</span
+          >
         </div>
 
-<!-- Services Page -->
-        <div class="page-content" id="services">
-            <div class="hero">
-                <h1>Our FIFA Boosting Services</h1>
-                <p>Choose from our range of professional FIFA boosting services</p>
-            </div>
-
-            <div class="services-tabs">
-                <div class="tab active" data-service="fut-champions">FUT Champions</div>
-                <div class="tab" data-service="division-rivals">Division Rivals</div>
-                <div class="tab" data-service="online-draft">Online Draft</div>
-                <div class="tab disabled" data-service="friendly-cup">Friendly Cup</div>
-                <div class="tab disabled" data-service="squad-battle">Squad Battle</div>
-            </div>
-
-            <!-- FUT Champions -->
-            <div class="service-content active" id="fut-champions">
-                <h2>FUT Champions Boosting</h2>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="fut-current-wins">Current Wins:</label>
-                        <select id="fut-current-wins">
-                            <option value="">Select Current Wins</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="fut-current-loses">Current Loses:</label>
-                        <select id="fut-current-loses">
-                            <option value="">Select Current Loses</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="fut-required-rank">Required Rank:</label>
-                        <select id="fut-required-rank">
-                            <option value="">Select Required Rank</option>
-                        </select>
-                    </div>
-                </div>
-                
-           <!-- Platform -->
-<div class="form-group">
-    <label>Platform</label>
-    <div class="button-group">
-        <button class="select-btn" data-option="playstation" data-service="fut">PlayStation</button>
-        <button class="select-btn" data-option="xbox" data-service="fut">Xbox</button>
-    </div>
-</div>
-                
-                <!-- Delivery Speed -->
-                <div class="form-group">
-                    <label>
-                        Delivery Speed
-                        <span class="tooltip-container">
-                            <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">
-                Express Within 12Hrs.
-                            </span>
-                        </span>
-                    </label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="normal" data-service="fut">Normal</button>
-                        <button class="select-btn" data-option="express" data-service="fut">Express</button>
-                    </div>
-                </div>
-
-                <!-- Payment Processor -->
-                <div class="form-group">
-                    <label>Payment Processor</label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="paypal" data-service="fut">PayPal</button>
-                        <button class="select-btn" data-option="payoneer" data-service="fut">Payoneer</button>
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="form-group">
-                    <label for="fut-email">Email</label>
-                    <input type="email" id="fut-email" placeholder="Where we will send a payment request.">
-                </div>
-
-                <div class="price-display" id="fut-price" style="display: none;">
-                    <h3 id="fut-price-amount">$0</h3>
-                    <div class="currency" id="fut-currency">USD</div>
-                </div>
-              <div class="promo-section" id="fut-promo-section" style="display: none;">
-    <label for="fut-promo-code">Promo Code</label>
-    <div class="promo-input-group">
-        <input type="text" id="fut-promo-code" placeholder="Enter promo code" maxlength="20">
-        <button type="button" class="promo-btn" onclick="applyPromoCode('fut')">Apply</button>
-    </div>
-    <div class="promo-message" id="fut-promo-message"></div>
-</div>
-                <div class="order-summary" id="fut-summary" style="display: none;">
-                    <h4>Order Summary - FUT Champions</h4>
-                    <div id="fut-summary-content"></div>
-                </div>
-                <button class="order-btn" id="fut-order-btn" disabled>Select all options first</button>
-            </div>
-
-            <!-- Division Rivals -->
-            <div class="service-content" id="division-rivals">
-                <h2>Division Rivals Boosting</h2>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="div-current">Current Division:</label>
-                        <select id="div-current">
-                            <option value="">Select Current Division</option>
-                            <option value="10">Division 10</option>
-                            <option value="9">Division 9</option>
-                            <option value="8">Division 8</option>
-                            <option value="7">Division 7</option>
-                            <option value="6">Division 6</option>
-                            <option value="5">Division 5</option>
-                            <option value="4">Division 4</option>
-                            <option value="3">Division 3</option>
-                            <option value="2">Division 2</option>
-                            <option value="1">Division 1</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="div-required">Required Division:</label>
-                        <select id="div-required">
-                            <option value="">Select Required Division</option>
-                        </select>
-                    </div>
-                </div>
-                
-<!-- Platform -->
-<div class="form-group">
-    <label>Platform</label>
-    <div class="button-group">
-        <button class="select-btn" data-option="playstation" data-service="div">PlayStation</button>
-        <button class="select-btn" data-option="xbox" data-service="div">Xbox</button>
-    </div>
-</div>
-
-                <!-- Delivery Speed -->
-                <div class="form-group">
-                    <label>
-                        Delivery Speed
-                        <span class="tooltip-container">
-                            <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">
-                Express Is Within 24Hrs.
-                            </span>
-                        </span>
-                    </label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="normal" data-service="div">Normal</button>
-                        <button class="select-btn" data-option="express" data-service="div">Express</button>
-                    </div>
-                </div>
-
-                <!-- Payment Processor -->
-                <div class="form-group">
-                    <label>Payment Processor</label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="paypal" data-service="div">PayPal</button>
-                        <button class="select-btn" data-option="payoneer" data-service="div">Payoneer</button>
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="form-group">
-                    <label for="div-email">Email</label>
-                    <input type="email" id="div-email" placeholder="Where we will send a payment request.">
-                </div>
-
-                <div class="price-display" id="div-price" style="display: none;">
-                    <h3 id="div-price-amount">$0</h3>
-                    <div class="currency" id="div-currency">USD</div>
-                </div>
-              <div class="promo-section" id="div-promo-section" style="display: none;">
-    <label for="div-promo-code">Promo Code</label>
-    <div class="promo-input-group">
-        <input type="text" id="div-promo-code" placeholder="Enter promo code" maxlength="20">
-        <button type="button" class="promo-btn" onclick="applyPromoCode('div')">Apply</button>
-    </div>
-    <div class="promo-message" id="div-promo-message"></div>
-</div>
-                <div class="order-summary" id="div-summary" style="display: none;">
-                    <h4>Order Summary - Division Rivals</h4>
-                    <div id="div-summary-content"></div>
-                </div>
-                <button class="order-btn" id="div-order-btn" disabled>Select all options first</button>
-            </div>
-
-            <!-- Online Draft -->
-            <div class="service-content" id="online-draft">
-                <h2>Online Draft Boosting</h2>
-                <div class="note">
-                    <strong>Important:</strong> Draft must be started fresh by our booster who will select the squad.
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="draft-wins">Required Wins:</label>
-                        <select id="draft-wins">
-                            <option value="">Select Required Wins</option>
-                            <option value="1">1 Win</option>
-                            <option value="2">2 Wins</option>
-                            <option value="3">3 Wins</option>
-                            <option value="4">4 Wins</option>
-                        </select>
-                    </div>
-                </div>
-                
-<!-- Platform -->
-<div class="form-group">
-    <label>Platform</label>
-    <div class="button-group">
-        <button class="select-btn" data-option="playstation" data-service="draft">PlayStation</button>
-        <button class="select-btn" data-option="xbox" data-service="draft">Xbox</button>
-    </div>
-</div>
-
-                <!-- Delivery Speed -->
-                <div class="form-group">
-                    <label>
-                        Delivery Speed
-                        <span class="tooltip-container">
-                            <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">Express is Within 6Hrs.</span>
-                      </span>
-                    </label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="normal" data-service="draft">Normal</button>
-                        <button class="select-btn" data-option="express" data-service="draft">Express</button>
-                    </div>
-                </div>
-
-                <!-- Payment Processor -->
-                <div class="form-group">
-                    <label>Payment Processor</label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="paypal" data-service="draft">PayPal</button>
-                        <button class="select-btn" data-option="payoneer" data-service="draft">Payoneer</button>
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="form-group">
-                    <label for="draft-email">Email</label>
-                    <input type="email" id="draft-email" placeholder="Where we will send a payment request.">
-                </div>
-
-                <div class="price-display" id="draft-price" style="display: none;">
-                    <h3 id="draft-price-amount">$0</h3>
-                    <div class="currency" id="draft-currency">USD</div>
-                </div>
-              <div class="promo-section" id="draft-promo-section" style="display: none;">
-    <label for="draft-promo-code">Promo Code</label>
-    <div class="promo-input-group">
-        <input type="text" id="draft-promo-code" placeholder="Enter promo code" maxlength="20">
-        <button type="button" class="promo-btn" onclick="applyPromoCode('draft')">Apply</button>
-    </div>
-    <div class="promo-message" id="draft-promo-message"></div>
-</div>
-                <div class="order-summary" id="draft-summary" style="display: none;">
-                    <h4>Order Summary - Online Draft</h4>
-                    <div id="draft-summary-content"></div>
-                </div>
-                <button class="order-btn" id="draft-order-btn" disabled>Select all options first</button>
-            </div>
-
-            <!-- Friendly Cup -->
-            <div class="service-content" id="friendly-cup">
-                <h2>Friendly Cup Boosting</h2>
-                <div class="coming-soon">
-                    <h3>Coming Soon</h3>
-                    <p>Friendly Cup boosting service will be available soon. Stay tuned!</p>
-                </div>
-                
-<!-- Platform -->
-<div class="form-group">
-    <label>Platform</label>
-    <div class="button-group">
-        <button class="select-btn" data-option="playstation" data-service="friendly">PlayStation</button>
-        <button class="select-btn" data-option="xbox" data-service="friendly">Xbox</button>
-    </div>
-</div>
-
-                <!-- Delivery Speed -->
-                <div class="form-group">
-                    <label>
-                        Delivery Speed
-                        <span class="tooltip-container">
-                            <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">
-                Express Is 70% Faster, Mostly Within 12Hrs.
-                            </span>
-                        </span>
-                    </label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="normal" data-service="friendly">Normal</button>
-                        <button class="select-btn" data-option="express" data-service="friendly">Express</button>
-                    </div>
-                </div>
-
-                <!-- Payment Processor -->
-                <div class="form-group">
-                    <label>Payment Processor</label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="paypal" data-service="friendly">PayPal</button>
-                        <button class="select-btn" data-option="payoneer" data-service="friendly">Payoneer</button>
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="form-group">
-                    <label for="friendly-email">Email</label>
-                    <input type="email" id="friendly-email" placeholder="Where we will send a payment request.">
-                </div>
-            </div>
-
-            <!-- Squad Battle -->
-            <div class="service-content" id="squad-battle">
-                <h2>Squad Battle Boosting</h2>
-                <div class="coming-soon">
-                    <h3>Coming Soon</h3>
-                    <p>Squad Battle boosting service will be available soon. Stay tuned!</p>
-                </div>
-                
-<!-- Platform -->
-<div class="form-group">
-    <label>Platform</label>
-    <div class="button-group">
-        <button class="select-btn" data-option="playstation" data-service="squad">PlayStation</button>
-        <button class="select-btn" data-option="xbox" data-service="squad">Xbox</button>
-    </div>
-</div>
-
-                <!-- Delivery Speed -->
-                <div class="form-group">
-                    <label>
-                        Delivery Speed
-                        <span class="tooltip-container">
-                            <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">
-                Express Is 70% Faster, Mostly Within 12Hrs.
-                            </span>
-                        </span>
-                    </label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="normal" data-service="squad">Normal</button>
-                        <button class="select-btn" data-option="express" data-service="squad">Express</button>
-                    </div>
-                </div>
-
-                <!-- Payment Processor -->
-                <div class="form-group">
-                    <label>Payment Processor</label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="paypal" data-service="squad">PayPal</button>
-                        <button class="select-btn" data-option="payoneer" data-service="squad">Payoneer</button>
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="form-group">
-                    <label for="squad-email">Email</label>
-                    <input type="email" id="squad-email" placeholder="Where we will send a payment request.">
-                </div>
-            </div>
+        <div class="features">
+          <div class="feature-card">
+            <i class="fas fa-trophy"></i>
+            <h3>Expert Boosters</h3>
+            <p>
+              Professional players with proven
+              track records and elite skills to
+              help you reach any rank.
+            </p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>100% Safe & Secure</h3>
+            <p>
+              Your account security is our
+              priority. We use premium VPNs and
+              safe methods for all services.
+            </p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-clock"></i>
+            <h3>Fast Completion</h3>
+            <p>
+              Quick turnaround times with 24/7
+              availability. Most orders completed
+              within 1-2 days.
+            </p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-gear"></i>
+            <h3>Customizable Services</h3>
+            <p>
+              Tailored packages to fit your exact
+              needs, whether you need a full
+              Weekend League run or just a few
+              wins.
+            </p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-money-bill-1"></i>
+            <h3>Affordable Prices</h3>
+            <p>
+              Competitive rates with the best
+              value for top-tier FIFA boosting
+              services.
+            </p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-headset"></i>
+            <h3>24/7 Support</h3>
+            <p>
+              Round-the-clock customer support via
+              Telegram. Real humans, not bots.
+            </p>
+          </div>
         </div>
 
-        <!-- Tooltip -->
-        <div id="tooltip" class="tooltip"></div>
-
-        <style>
-        /* Button Group Styles */
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 5px;
-            margin-bottom: 20px;
-        }
-
-        .select-btn {
-            flex: 1;
-            padding: 10px 15px;
-            border: 2px solid #ddd;
-            background: white;
-            color: #333;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            position: relative;
-        }
-
-        .select-btn:hover {
-            border-color: #28a745;
-        }
-
-        .select-btn.active {
-            background: #28a745 !important;
-            color: white !important;
-            border-color: #28a745 !important;
-            box-shadow: 0 0 15px rgba(40, 167, 69, 0.8) !important;
-            font-weight: bold !important;
-            transform: scale(1.05) !important;
-            border-width: 3px !important;
-        }
-
-        /* Email Input Styles */
-        input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            margin-top: 5px;
-            transition: border-color 0.3s ease;
-        }
-
-        input[type="email"]:focus {
-            outline: none;
-            border-color: #28a745;
-          }
-        input[type="email"].error {
-            border-color: #dc3545 !important;
-            box-shadow: 0 0 10px rgba(220, 53, 69, 0.3);
-
-        }
-        </style>
-
-        <!-- Terms & Conditions Page -->
-        <div class="page-content" id="terms">
-            <div class="hero">
-                <h1>Terms & Conditions</h1>
-                <p>Please read our terms and conditions carefully before using our services</p>
+        <div class="reviews">
+          <h2>What Our Customers Say</h2>
+          <div class="reviews-grid">
+            <div class="review-card">
+              <div class="review-stars">
+                ⭐⭐⭐⭐⭐
+              </div>
+              <div class="review-text">
+                "Amazing service! Got my FUT
+                Champions rewards in just 2 days.
+                Highly recommended!"
+              </div>
+              <div class="review-author">
+                - Alex M.
+              </div>
             </div>
-            
-            <div class="feature-card">
-                <p style="margin-bottom: 2rem; color: #cccccc; font-style: italic;">
-                    By purchasing any service from QBoosting Store ("we", "our", "us"), you ("the client", "you") acknowledge and agree to the following terms:
-                </p>
-                
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #00ff88; margin-bottom: 1rem;">1. Nature of Service</h3>
-                    <p style="margin-bottom: 0.5rem;">• QBoosting Store provides digital, intangible services for in-game assistance and rank progression ("boosting").</p>
-                    <p style="margin-bottom: 0.5rem;">• We do not sell, trade, or transfer in-game currency, accounts, or items.</p>
-                    <p>• Our services are independent and are not affiliated with, endorsed, or sponsored by any game publisher or developer.</p>
-                </div>
-
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #00ff88; margin-bottom: 1rem;">2. Service Disclaimer</h3>
-                    <p style="margin-bottom: 0.5rem;">• All services are provided "as is" without warranties of any kind.</p>
-                    <p>• You understand and accept that using boosting services may carry risks under the game publisher's rules.</p>
-                </div>
-
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #00ff88; margin-bottom: 1rem;">3. Refund Policy</h3>
-                    <p style="margin-bottom: 0.5rem;">• Refunds are only possible before the service has started.</p>
-                    <p style="margin-bottom: 0.5rem;">• Once we have begun fulfilling your order, the payment becomes non-refundable.</p>
-                    <p style="margin-bottom: 0.5rem;">• If we fail to deliver the service for reasons within our control, you may be eligible for a partial or full refund based on the completion percentage.</p>
-                    <p>• Change of mind, dissatisfaction due to personal preference, or any result of in-game events outside our control will not be grounds for a refund.</p>
-                </div>
-
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #00ff88; margin-bottom: 1rem;">4. Chargeback & Payment Disputes</h3>
-                    <p style="margin-bottom: 0.5rem;">• Initiating a payment dispute or chargeback after the service has been delivered is considered fraud.</p>
-                    <p style="margin-bottom: 0.5rem;">• We keep detailed records of all orders, including proof of service completion, to submit to payment processors and banks in the event of a dispute.</p>
-                    <p>• Any fraudulent chargeback will result in a permanent ban from our services and may lead to legal action for recovery of the owed amount plus any legal fees.</p>
-                </div>
-
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #00ff88; margin-bottom: 1rem;">5. Order Requirements</h3>
-                    <p style="margin-bottom: 0.5rem;">• You must provide accurate and complete information for the service to be performed.</p>
-                    <p>• Failure to provide required details or access will result in order delays or cancellation without a refund.</p>
-                </div>
-
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #00ff88; margin-bottom: 1rem;">6. Delivery Time</h3>
-                    <p>• All delivery times provided are estimates and may vary due to factors beyond our control (e.g., game updates, server downtime).</p>
-                </div>
-
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #00ff88; margin-bottom: 1rem;">7. Acceptance of Terms</h3>
-                    <p>• By placing an order, you confirm that you have read, understood, and agreed to these Terms & Conditions in full.</p>
-                </div>
-
-                <div style="background: rgba(0, 255, 136, 0.1); border: 1px solid #00ff88; padding: 1rem; border-radius: 5px; margin-top: 2rem; text-align: center;">
-                    <p style="color: #00ff88; font-weight: bold;">
-                        For any questions regarding these terms, please contact us via Telegram: @QBoostingHelp
-                    </p>
-                </div>
+            <div class="review-card">
+              <div class="review-stars">
+                ⭐⭐⭐⭐⭐
+              </div>
+              <div class="review-text">
+                "Safe and professional. My account
+                was never at risk and the
+                communication was perfect."
+              </div>
+              <div class="review-author">
+                - Mathvans.
+              </div>
             </div>
+            <div class="review-card">
+              <div class="review-stars">
+                ⭐⭐⭐⭐⭐
+              </div>
+              <div class="review-text">
+                "Best boosting service I've used.
+                Fair prices and excellent results
+                every time."
+              </div>
+              <div class="review-author">
+                - David R.
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Trustpilot Badge - في المنتصف -->
+        <div style="text-align: center">
+          <a
+            href="https://www.trustpilot.com/review/qboosting.store"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="tp-badge"
+            aria-label="View our Trustpilot reviews on Trustpilot"
+          >
+            <span class="tp-brand">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fill="#00B67A"
+                  d="M12 2l2.9 6.1 7.1 1.1-5.1 4.8 1.2 7.0L12 17.8 5.9 21l1.2-7L2 9.2l7.1-1.1L12 2z"
+                />
+              </svg>
+              <span class="tp-word"
+                >Trustpilot</span
+              >
+            </span>
+            <span class="tp-stars">
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="24"
+                  height="24"
+                  rx="2"
+                  fill="#00B67A"
+                />
+                <path
+                  fill="#ffffff"
+                  d="M12 3.5l2.4 5.1 5.6.9-4.1 3.9 1 5.6L12 16.7 7.1 19l1-5.6-4.1-3.9 5.6-.9L12 3.5z"
+                />
+              </svg>
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="24"
+                  height="24"
+                  rx="2"
+                  fill="#00B67A"
+                />
+                <path
+                  fill="#ffffff"
+                  d="M12 3.5l2.4 5.1 5.6.9-4.1 3.9 1 5.6L12 16.7 7.1 19l1-5.6-4.1-3.9 5.6-.9L12 3.5z"
+                />
+              </svg>
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="24"
+                  height="24"
+                  rx="2"
+                  fill="#00B67A"
+                />
+                <path
+                  fill="#ffffff"
+                  d="M12 3.5l2.4 5.1 5.6.9-4.1 3.9 1 5.6L12 16.7 7.1 19l1-5.6-4.1-3.9 5.6-.9L12 3.5z"
+                />
+              </svg>
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="24"
+                  height="24"
+                  rx="2"
+                  fill="#00B67A"
+                />
+                <path
+                  fill="#ffffff"
+                  d="M12 3.5l2.4 5.1 5.6.9-4.1 3.9 1 5.6L12 16.7 7.1 19l1-5.6-4.1-3.9 5.6-.9L12 3.5z"
+                />
+              </svg>
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="24"
+                  height="24"
+                  rx="2"
+                  fill="#00B67A"
+                />
+                <path
+                  fill="#ffffff"
+                  d="M12 3.5l2.4 5.1 5.6.9-4.1 3.9 1 5.6L12 16.7 7.1 19l1-5.6-4.1-3.9 5.6-.9L12 3.5z"
+                />
+              </svg>
+            </span>
+          </a>
+        </div>
+        <!-- FAQ Section -->
+        <div style="margin: 3rem 0">
+          <h2
+            style="
+              color: #00ff88;
+              text-align: center;
+              margin-bottom: 2rem;
+            "
+          >
+            Frequently Asked Questions
+          </h2>
+
+          <div class="faq-item">
+            <div
+              class="faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <span
+                >What is QBoosting Store?</span
+              >
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                QBoosting Store provides
+                professional in-game boosting
+                services to help players reach
+                higher ranks and unlock rewards.
+                We do not sell accounts, in-game
+                currency, or items.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div
+              class="faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <span
+                >Is boosting safe for my
+                account?</span
+              >
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Yes, we only work with experienced
+                professional players who play
+                manually without using hacks,
+                cheats, or third-party software.
+                However, boosting always carries
+                some risk under the game
+                publisher's rules, so you use our
+                service at your own discretion.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div
+              class="faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <span
+                >What information do I need to
+                provide?</span
+              >
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                We only require your Sony login
+                details (email and password) and
+                any verification codes sent by
+                Sony. We never ask for your WebApp
+                details or other personal
+                information.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div
+              class="faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <span
+                >Can I log in to my account during
+                the boosting process?</span
+              >
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                No. While the booster is working
+                on your account, you must not log
+                in. If you log in during this
+                period, it may interrupt the
+                process, and we are not
+                responsible for any negative
+                effects.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div
+              class="faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <span
+                >How long does the boosting
+                take?</span
+              >
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Delivery time depends on the
+                service you order and the game
+                conditions. We will provide you
+                with an estimated completion time
+                before starting.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div
+              class="faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <span
+                >Do you use any hacks or
+                cheats?</span
+              >
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                No. All boosting is performed
+                manually by professional players
+                to ensure your account remains
+                safe.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div
+              class="faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <span
+                >What happens if you don't achieve
+                my requested rank?</span
+              >
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                We cannot guarantee an exact rank,
+                but we will give you a minimum
+                guaranteed rank before starting.
+                If we fail to achieve that
+                minimum, you will receive a full
+                refund.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div
+              class="faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <span>Do you offer refunds?</span>
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Refunds are only possible if the
+                service has not yet started. Once
+                we begin, the payment becomes
+                non-refundable unless we fail to
+                deliver the agreed minimum rank.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div
+              class="faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <span
+                >How do I know when my order is
+                completed?</span
+              >
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Once your booster finishes, you
+                will receive a notification
+                through our system. We also
+                recommend changing your account
+                password immediately after
+                completion.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div
+              class="faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <span
+                >What if I have a problem with my
+                booster?</span
+              >
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                If your booster is unresponsive or
+                you encounter any issue, contact
+                our support immediately. If a
+                booster contacts you directly
+                outside our system (e.g., via Sony
+                Messages) and you have proof,
+                you'll receive a 50% discount on
+                your next order.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services Page -->
+      <div class="page-content" id="services">
+        <div class="hero">
+          <h1>Our FIFA Boosting Services</h1>
+          <p>
+            Choose from our range of professional
+            FIFA boosting services
+          </p>
         </div>
 
-        <!-- Contact Us Page -->
-        <div class="page-content" id="contact">
-            <div class="hero">
-                <h1>Contact Us</h1>
-                <p>Get in touch with our support team</p>
-            </div>
-            
-            <div class="contact-info">
-                <div class="contact-card">
-                    <i class="fas fa-headset" style="font-size: 2.5rem; color: #00ff88; margin-bottom: 1rem;"></i>
-                    <h3>24/7 Support</h3>
-                    <p>We are 24/7 Available to help you</p>
-                    <div class="social-links" style="justify-content: center; margin-top: 1rem;">
-                        <a href="https://t.me/QBoostingEAFC" target="_blank" class="social-link" title="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="https://www.facebook.com/share/1B9PSbqSiZ/" target="_blank" class="social-link" title="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="https://x.com/QBoostingEAFC?t=rriCcGvIRVSKaaqp5NPiaA&s=09" target="_blank" class="social-link" title="Twitter/X"><i class="fa-brands fa-x"></i></a>
-                    </div>
-                </div>
-                <div class="contact-card">
-                    <i class="fas fa-clock"></i>
-                    <h3>Response Time</h3>
-                    <p>We typically respond within</p>
-                    <p><strong>10-30 minutes</strong></p>
-                </div>
-            </div>
+        <div class="services-tabs">
+          <div
+            class="tab active"
+            data-service="fut-champions"
+          >
+            FUT Champions
+          </div>
+          <div
+            class="tab"
+            data-service="division-rivals"
+          >
+            Division Rivals
+          </div>
+          <div
+            class="tab"
+            data-service="online-draft"
+          >
+            Online Draft
+          </div>
+          <div
+            class="tab disabled"
+            data-service="friendly-cup"
+          >
+            Friendly Cup
+          </div>
+          <div
+            class="tab disabled"
+            data-service="squad-battle"
+          >
+            Squad Battle
+          </div>
         </div>
+
+        <!-- FUT Champions -->
+        <div
+          class="service-content active"
+          id="fut-champions"
+        >
+          <h2>FUT Champions Boosting</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="fut-current-wins"
+                >Current Wins:</label
+              >
+              <select id="fut-current-wins">
+                <option value="">
+                  Select Current Wins
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fut-current-loses"
+                >Current Loses:</label
+              >
+              <select id="fut-current-loses">
+                <option value="">
+                  Select Current Loses
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fut-required-rank"
+                >Required Rank:</label
+              >
+              <select id="fut-required-rank">
+                <option value="">
+                  Select Required Rank
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Platform -->
+          <div class="form-group">
+            <label>Platform</label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="playstation"
+                data-service="fut"
+              >
+                PlayStation
+              </button>
+              <button
+                class="select-btn"
+                data-option="xbox"
+                data-service="fut"
+              >
+                Xbox
+              </button>
+            </div>
+          </div>
+
+          <!-- Delivery Speed -->
+          <div class="form-group">
+            <label>
+              Delivery Speed
+              <span class="tooltip-container">
+                <span class="tooltip-icon"
+                  >?</span
+                >
+                <span class="tooltip-text">
+                  Express Within 12Hrs.
+                </span>
+              </span>
+            </label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="normal"
+                data-service="fut"
+              >
+                Normal
+              </button>
+              <button
+                class="select-btn"
+                data-option="express"
+                data-service="fut"
+              >
+                Express
+              </button>
+            </div>
+          </div>
+
+          <!-- Payment Processor -->
+          <div class="form-group">
+            <label>Payment Processor</label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="paypal"
+                data-service="fut"
+              >
+                PayPal
+              </button>
+              <button
+                class="select-btn"
+                data-option="payoneer"
+                data-service="fut"
+              >
+                Payoneer
+              </button>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="fut-email">Email</label>
+            <input
+              type="email"
+              id="fut-email"
+              placeholder="Where we will send a payment request."
+            />
+          </div>
+
+          <div
+            class="price-display"
+            id="fut-price"
+            style="display: none"
+          >
+            <h3 id="fut-price-amount">$0</h3>
+            <div
+              class="currency"
+              id="fut-currency"
+            >
+              USD
+            </div>
+          </div>
+          <div
+            class="promo-section"
+            id="fut-promo-section"
+            style="display: none"
+          >
+            <label for="fut-promo-code"
+              >Promo Code</label
+            >
+            <div class="promo-input-group">
+              <input
+                type="text"
+                id="fut-promo-code"
+                placeholder="Enter promo code"
+                maxlength="20"
+              />
+              <button
+                type="button"
+                class="promo-btn"
+                onclick="applyPromoCode('fut')"
+              >
+                Apply
+              </button>
+            </div>
+            <div
+              class="promo-message"
+              id="fut-promo-message"
+            ></div>
+          </div>
+          <div
+            class="order-summary"
+            id="fut-summary"
+            style="display: none"
+          >
+            <h4>Order Summary - FUT Champions</h4>
+            <div id="fut-summary-content"></div>
+          </div>
+          <button
+            class="order-btn"
+            id="fut-order-btn"
+            disabled
+          >
+            Select all options first
+          </button>
+        </div>
+
+        <!-- Division Rivals -->
+        <div
+          class="service-content"
+          id="division-rivals"
+        >
+          <h2>Division Rivals Boosting</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="div-current"
+                >Current Division:</label
+              >
+              <select id="div-current">
+                <option value="">
+                  Select Current Division
+                </option>
+                <option value="10">
+                  Division 10
+                </option>
+                <option value="9">
+                  Division 9
+                </option>
+                <option value="8">
+                  Division 8
+                </option>
+                <option value="7">
+                  Division 7
+                </option>
+                <option value="6">
+                  Division 6
+                </option>
+                <option value="5">
+                  Division 5
+                </option>
+                <option value="4">
+                  Division 4
+                </option>
+                <option value="3">
+                  Division 3
+                </option>
+                <option value="2">
+                  Division 2
+                </option>
+                <option value="1">
+                  Division 1
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="div-required"
+                >Required Division:</label
+              >
+              <select id="div-required">
+                <option value="">
+                  Select Required Division
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Platform -->
+          <div class="form-group">
+            <label>Platform</label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="playstation"
+                data-service="div"
+              >
+                PlayStation
+              </button>
+              <button
+                class="select-btn"
+                data-option="xbox"
+                data-service="div"
+              >
+                Xbox
+              </button>
+            </div>
+          </div>
+
+          <!-- Delivery Speed -->
+          <div class="form-group">
+            <label>
+              Delivery Speed
+              <span class="tooltip-container">
+                <span class="tooltip-icon"
+                  >?</span
+                >
+                <span class="tooltip-text">
+                  Express Is Within 24Hrs.
+                </span>
+              </span>
+            </label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="normal"
+                data-service="div"
+              >
+                Normal
+              </button>
+              <button
+                class="select-btn"
+                data-option="express"
+                data-service="div"
+              >
+                Express
+              </button>
+            </div>
+          </div>
+
+          <!-- Payment Processor -->
+          <div class="form-group">
+            <label>Payment Processor</label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="paypal"
+                data-service="div"
+              >
+                PayPal
+              </button>
+              <button
+                class="select-btn"
+                data-option="payoneer"
+                data-service="div"
+              >
+                Payoneer
+              </button>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="div-email">Email</label>
+            <input
+              type="email"
+              id="div-email"
+              placeholder="Where we will send a payment request."
+            />
+          </div>
+
+          <div
+            class="price-display"
+            id="div-price"
+            style="display: none"
+          >
+            <h3 id="div-price-amount">$0</h3>
+            <div
+              class="currency"
+              id="div-currency"
+            >
+              USD
+            </div>
+          </div>
+          <div
+            class="promo-section"
+            id="div-promo-section"
+            style="display: none"
+          >
+            <label for="div-promo-code"
+              >Promo Code</label
+            >
+            <div class="promo-input-group">
+              <input
+                type="text"
+                id="div-promo-code"
+                placeholder="Enter promo code"
+                maxlength="20"
+              />
+              <button
+                type="button"
+                class="promo-btn"
+                onclick="applyPromoCode('div')"
+              >
+                Apply
+              </button>
+            </div>
+            <div
+              class="promo-message"
+              id="div-promo-message"
+            ></div>
+          </div>
+          <div
+            class="order-summary"
+            id="div-summary"
+            style="display: none"
+          >
+            <h4>
+              Order Summary - Division Rivals
+            </h4>
+            <div id="div-summary-content"></div>
+          </div>
+          <button
+            class="order-btn"
+            id="div-order-btn"
+            disabled
+          >
+            Select all options first
+          </button>
+        </div>
+
+        <!-- Online Draft -->
+        <div
+          class="service-content"
+          id="online-draft"
+        >
+          <h2>Online Draft Boosting</h2>
+          <div class="note">
+            <strong>Important:</strong> Draft must
+            be started fresh by our booster who
+            will select the squad.
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="draft-wins"
+                >Required Wins:</label
+              >
+              <select id="draft-wins">
+                <option value="">
+                  Select Required Wins
+                </option>
+                <option value="1">1 Win</option>
+                <option value="2">2 Wins</option>
+                <option value="3">3 Wins</option>
+                <option value="4">4 Wins</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Platform -->
+          <div class="form-group">
+            <label>Platform</label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="playstation"
+                data-service="draft"
+              >
+                PlayStation
+              </button>
+              <button
+                class="select-btn"
+                data-option="xbox"
+                data-service="draft"
+              >
+                Xbox
+              </button>
+            </div>
+          </div>
+
+          <!-- Delivery Speed -->
+          <div class="form-group">
+            <label>
+              Delivery Speed
+              <span class="tooltip-container">
+                <span class="tooltip-icon"
+                  >?</span
+                >
+                <span class="tooltip-text"
+                  >Express is Within 6Hrs.</span
+                >
+              </span>
+            </label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="normal"
+                data-service="draft"
+              >
+                Normal
+              </button>
+              <button
+                class="select-btn"
+                data-option="express"
+                data-service="draft"
+              >
+                Express
+              </button>
+            </div>
+          </div>
+
+          <!-- Payment Processor -->
+          <div class="form-group">
+            <label>Payment Processor</label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="paypal"
+                data-service="draft"
+              >
+                PayPal
+              </button>
+              <button
+                class="select-btn"
+                data-option="payoneer"
+                data-service="draft"
+              >
+                Payoneer
+              </button>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="draft-email">Email</label>
+            <input
+              type="email"
+              id="draft-email"
+              placeholder="Where we will send a payment request."
+            />
+          </div>
+
+          <div
+            class="price-display"
+            id="draft-price"
+            style="display: none"
+          >
+            <h3 id="draft-price-amount">$0</h3>
+            <div
+              class="currency"
+              id="draft-currency"
+            >
+              USD
+            </div>
+          </div>
+          <div
+            class="promo-section"
+            id="draft-promo-section"
+            style="display: none"
+          >
+            <label for="draft-promo-code"
+              >Promo Code</label
+            >
+            <div class="promo-input-group">
+              <input
+                type="text"
+                id="draft-promo-code"
+                placeholder="Enter promo code"
+                maxlength="20"
+              />
+              <button
+                type="button"
+                class="promo-btn"
+                onclick="applyPromoCode('draft')"
+              >
+                Apply
+              </button>
+            </div>
+            <div
+              class="promo-message"
+              id="draft-promo-message"
+            ></div>
+          </div>
+          <div
+            class="order-summary"
+            id="draft-summary"
+            style="display: none"
+          >
+            <h4>Order Summary - Online Draft</h4>
+            <div id="draft-summary-content"></div>
+          </div>
+          <button
+            class="order-btn"
+            id="draft-order-btn"
+            disabled
+          >
+            Select all options first
+          </button>
+        </div>
+
+        <!-- Friendly Cup -->
+        <div
+          class="service-content"
+          id="friendly-cup"
+        >
+          <h2>Friendly Cup Boosting</h2>
+          <div class="coming-soon">
+            <h3>Coming Soon</h3>
+            <p>
+              Friendly Cup boosting service will
+              be available soon. Stay tuned!
+            </p>
+          </div>
+
+          <!-- Platform -->
+          <div class="form-group">
+            <label>Platform</label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="playstation"
+                data-service="friendly"
+              >
+                PlayStation
+              </button>
+              <button
+                class="select-btn"
+                data-option="xbox"
+                data-service="friendly"
+              >
+                Xbox
+              </button>
+            </div>
+          </div>
+
+          <!-- Delivery Speed -->
+          <div class="form-group">
+            <label>
+              Delivery Speed
+              <span class="tooltip-container">
+                <span class="tooltip-icon"
+                  >?</span
+                >
+                <span class="tooltip-text">
+                  Express Is 70% Faster, Mostly
+                  Within 12Hrs.
+                </span>
+              </span>
+            </label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="normal"
+                data-service="friendly"
+              >
+                Normal
+              </button>
+              <button
+                class="select-btn"
+                data-option="express"
+                data-service="friendly"
+              >
+                Express
+              </button>
+            </div>
+          </div>
+
+          <!-- Payment Processor -->
+          <div class="form-group">
+            <label>Payment Processor</label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="paypal"
+                data-service="friendly"
+              >
+                PayPal
+              </button>
+              <button
+                class="select-btn"
+                data-option="payoneer"
+                data-service="friendly"
+              >
+                Payoneer
+              </button>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="friendly-email"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="friendly-email"
+              placeholder="Where we will send a payment request."
+            />
+          </div>
+        </div>
+
+        <!-- Squad Battle -->
+        <div
+          class="service-content"
+          id="squad-battle"
+        >
+          <h2>Squad Battle Boosting</h2>
+          <div class="coming-soon">
+            <h3>Coming Soon</h3>
+            <p>
+              Squad Battle boosting service will
+              be available soon. Stay tuned!
+            </p>
+          </div>
+
+          <!-- Platform -->
+          <div class="form-group">
+            <label>Platform</label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="playstation"
+                data-service="squad"
+              >
+                PlayStation
+              </button>
+              <button
+                class="select-btn"
+                data-option="xbox"
+                data-service="squad"
+              >
+                Xbox
+              </button>
+            </div>
+          </div>
+
+          <!-- Delivery Speed -->
+          <div class="form-group">
+            <label>
+              Delivery Speed
+              <span class="tooltip-container">
+                <span class="tooltip-icon"
+                  >?</span
+                >
+                <span class="tooltip-text">
+                  Express Is 70% Faster, Mostly
+                  Within 12Hrs.
+                </span>
+              </span>
+            </label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="normal"
+                data-service="squad"
+              >
+                Normal
+              </button>
+              <button
+                class="select-btn"
+                data-option="express"
+                data-service="squad"
+              >
+                Express
+              </button>
+            </div>
+          </div>
+
+          <!-- Payment Processor -->
+          <div class="form-group">
+            <label>Payment Processor</label>
+            <div class="button-group">
+              <button
+                class="select-btn"
+                data-option="paypal"
+                data-service="squad"
+              >
+                PayPal
+              </button>
+              <button
+                class="select-btn"
+                data-option="payoneer"
+                data-service="squad"
+              >
+                Payoneer
+              </button>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="squad-email">Email</label>
+            <input
+              type="email"
+              id="squad-email"
+              placeholder="Where we will send a payment request."
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Tooltip -->
+      <div id="tooltip" class="tooltip"></div>
+
+      <!-- Terms & Conditions Page -->
+      <div class="page-content" id="terms">
+        <div class="hero">
+          <h1>Terms & Conditions</h1>
+          <p>
+            Please read our terms and conditions
+            carefully before using our services
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <p
+            style="
+              margin-bottom: 2rem;
+              color: #cccccc;
+              font-style: italic;
+            "
+          >
+            By purchasing any service from
+            QBoosting Store ("we", "our", "us"),
+            you ("the client", "you") acknowledge
+            and agree to the following terms:
+          </p>
+
+          <div style="margin-bottom: 2rem">
+            <h3
+              style="
+                color: #00ff88;
+                margin-bottom: 1rem;
+              "
+            >
+              1. Nature of Service
+            </h3>
+            <p style="margin-bottom: 0.5rem">
+              • QBoosting Store provides digital,
+              intangible services for in-game
+              assistance and rank progression
+              ("boosting").
+            </p>
+            <p style="margin-bottom: 0.5rem">
+              • We do not sell, trade, or transfer
+              in-game currency, accounts, or
+              items.
+            </p>
+            <p>
+              • Our services are independent and
+              are not affiliated with, endorsed,
+              or sponsored by any game publisher
+              or developer.
+            </p>
+          </div>
+
+          <div style="margin-bottom: 2rem">
+            <h3
+              style="
+                color: #00ff88;
+                margin-bottom: 1rem;
+              "
+            >
+              2. Service Disclaimer
+            </h3>
+            <p style="margin-bottom: 0.5rem">
+              • All services are provided "as is"
+              without warranties of any kind.
+            </p>
+            <p>
+              • You understand and accept that
+              using boosting services may carry
+              risks under the game publisher's
+              rules.
+            </p>
+          </div>
+
+          <div style="margin-bottom: 2rem">
+            <h3
+              style="
+                color: #00ff88;
+                margin-bottom: 1rem;
+              "
+            >
+              3. Refund Policy
+            </h3>
+            <p style="margin-bottom: 0.5rem">
+              • Refunds are only possible before
+              the service has started.
+            </p>
+            <p style="margin-bottom: 0.5rem">
+              • Once we have begun fulfilling your
+              order, the payment becomes
+              non-refundable.
+            </p>
+            <p style="margin-bottom: 0.5rem">
+              • If we fail to deliver the service
+              for reasons within our control, you
+              may be eligible for a partial or
+              full refund based on the completion
+              percentage.
+            </p>
+            <p>
+              • Change of mind, dissatisfaction
+              due to personal preference, or any
+              result of in-game events outside our
+              control will not be grounds for a
+              refund.
+            </p>
+          </div>
+
+          <div style="margin-bottom: 2rem">
+            <h3
+              style="
+                color: #00ff88;
+                margin-bottom: 1rem;
+              "
+            >
+              4. Chargeback & Payment Disputes
+            </h3>
+            <p style="margin-bottom: 0.5rem">
+              • Initiating a payment dispute or
+              chargeback after the service has
+              been delivered is considered fraud.
+            </p>
+            <p style="margin-bottom: 0.5rem">
+              • We keep detailed records of all
+              orders, including proof of service
+              completion, to submit to payment
+              processors and banks in the event of
+              a dispute.
+            </p>
+            <p>
+              • Any fraudulent chargeback will
+              result in a permanent ban from our
+              services and may lead to legal
+              action for recovery of the owed
+              amount plus any legal fees.
+            </p>
+          </div>
+
+          <div style="margin-bottom: 2rem">
+            <h3
+              style="
+                color: #00ff88;
+                margin-bottom: 1rem;
+              "
+            >
+              5. Order Requirements
+            </h3>
+            <p style="margin-bottom: 0.5rem">
+              • You must provide accurate and
+              complete information for the service
+              to be performed.
+            </p>
+            <p>
+              • Failure to provide required
+              details or access will result in
+              order delays or cancellation without
+              a refund.
+            </p>
+          </div>
+
+          <div style="margin-bottom: 2rem">
+            <h3
+              style="
+                color: #00ff88;
+                margin-bottom: 1rem;
+              "
+            >
+              6. Delivery Time
+            </h3>
+            <p>
+              • All delivery times provided are
+              estimates and may vary due to
+              factors beyond our control (e.g.,
+              game updates, server downtime).
+            </p>
+          </div>
+
+          <div style="margin-bottom: 2rem">
+            <h3
+              style="
+                color: #00ff88;
+                margin-bottom: 1rem;
+              "
+            >
+              7. Acceptance of Terms
+            </h3>
+            <p>
+              • By placing an order, you confirm
+              that you have read, understood, and
+              agreed to these Terms & Conditions
+              in full.
+            </p>
+          </div>
+
+          <div
+            style="
+              background: rgba(0, 255, 136, 0.1);
+              border: 1px solid #00ff88;
+              padding: 1rem;
+              border-radius: 5px;
+              margin-top: 2rem;
+              text-align: center;
+            "
+          >
+            <p
+              style="
+                color: #00ff88;
+                font-weight: bold;
+              "
+            >
+              For any questions regarding these
+              terms, please contact us via
+              Telegram: @QBoostingHelp
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Us Page -->
+      <div class="page-content" id="contact">
+        <div class="hero">
+          <h1>Contact Us</h1>
+          <p>
+            Get in touch with our support team
+          </p>
+        </div>
+
+        <div class="contact-info">
+          <div class="contact-card">
+            <i
+              class="fas fa-headset"
+              style="
+                font-size: 2.5rem;
+                color: #00ff88;
+                margin-bottom: 1rem;
+              "
+            ></i>
+            <h3>24/7 Support</h3>
+            <p>
+              We are 24/7 Available to help you
+            </p>
+            <div
+              class="social-links"
+              style="
+                justify-content: center;
+                margin-top: 1rem;
+              "
+            >
+              <a
+                href="https://t.me/QBoostingEAFC"
+                target="_blank"
+                class="social-link"
+                title="Telegram"
+                ><i class="fab fa-telegram"></i
+              ></a>
+              <a
+                href="https://www.facebook.com/share/1B9PSbqSiZ/"
+                target="_blank"
+                class="social-link"
+                title="Facebook"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                href="https://x.com/QBoostingEAFC?t=rriCcGvIRVSKaaqp5NPiaA&s=09"
+                target="_blank"
+                class="social-link"
+                title="Twitter/X"
+                ><i class="fa-brands fa-x"></i
+              ></a>
+            </div>
+          </div>
+          <div class="contact-card">
+            <i class="fas fa-clock"></i>
+            <h3>Response Time</h3>
+            <p>We typically respond within</p>
+            <p><strong>10-30 minutes</strong></p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h4>Accepted Payment Methods</h4>
-                    <div class="payment-methods">
-                        <div style="display: flex; align-items: center; gap: 1rem; background: transparent; padding: 1rem 2rem; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
-                            <a href="https://www.mastercard.com" target="_blank">
-                                <img src="https://i.ibb.co/fY4XpNb8/mastercard-logo.png" alt="MasterCard" style="height: 15px;">
-                            </a>
-                            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2);"></div>
-                            <a href="https://www.paypal.com" target="_blank">
-                                <img src="https://i.ibb.co/yn9138zB/paypal-logo.png" alt="PayPal" style="height: 15px;">
-                            </a>
-                            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2);"></div>
-                            <a href="https://www.visa.com" target="_blank">
-                                <img src="https://i.ibb.co/nNRzKptd/visa-logo.png" alt="VISA" style="height: 12px;">
-                            </a>
-                            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2);"></div>
-                            <a href="https://www.payoneer.com" target="_blank">
-                                <img src="https://i.ibb.co/r2TBZcfy/Payoneerrrrr.png" alt="Payoneer" style="height: 24px;">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Security & Trust</h4>
-                    <div class="security-badges">
-                        <div class="security-badge">
-                            <i class="fas fa-shield-alt"></i>
-                            <div>
-                                <div style="font-weight: bold;">Norton Secured</div>
-                                <div style="font-size: 0.8rem; opacity: 0.8;">Protected by Norton Security</div>
-                            </div>
-                        </div>
-                        <div class="security-badge">
-                            <i class="fas fa-lock"></i>
-                            <div>
-                                <div style="font-weight: bold;">SSL Protected</div>
-                                <div style="font-size: 0.8rem; opacity: 0.8;">256-bit Encryption</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="footer-section" style="text-align: center;">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="https://t.me/QBoostingEAFC" target="_blank" class="social-link" title="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="https://www.facebook.com/share/1B9PSbqSiZ/" target="_blank" class="social-link" title="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="https://x.com/QBoostingEAFC?t=rriCcGvIRVSKaaqp5NPiaA&s=09" target="_blank" class="social-link" title="Twitter/X"><i class="fa-brands fa-x"></i></a>
-                    </div>
-                </div>
+      <div class="footer-content">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>Accepted Payment Methods</h4>
+            <div class="payment-methods">
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 1rem;
+                  background: transparent;
+                  padding: 1rem 2rem;
+                  border-radius: 10px;
+                  box-shadow: 0 4px 15px
+                    rgba(0, 0, 0, 0.3);
+                "
+              >
+                <a
+                  href="https://www.mastercard.com"
+                  target="_blank"
+                >
+                  <img
+                    src="https://i.ibb.co/fY4XpNb8/mastercard-logo.png"
+                    alt="MasterCard"
+                    style="height: 15px"
+                  />
+                </a>
+                <div
+                  style="
+                    width: 1px;
+                    height: 20px;
+                    background: rgba(
+                      255,
+                      255,
+                      255,
+                      0.2
+                    );
+                  "
+                ></div>
+                <a
+                  href="https://www.paypal.com"
+                  target="_blank"
+                >
+                  <img
+                    src="https://i.ibb.co/yn9138zB/paypal-logo.png"
+                    alt="PayPal"
+                    style="height: 15px"
+                  />
+                </a>
+                <div
+                  style="
+                    width: 1px;
+                    height: 20px;
+                    background: rgba(
+                      255,
+                      255,
+                      255,
+                      0.2
+                    );
+                  "
+                ></div>
+                <a
+                  href="https://www.visa.com"
+                  target="_blank"
+                >
+                  <img
+                    src="https://i.ibb.co/nNRzKptd/visa-logo.png"
+                    alt="VISA"
+                    style="height: 12px"
+                  />
+                </a>
+                <div
+                  style="
+                    width: 1px;
+                    height: 20px;
+                    background: rgba(
+                      255,
+                      255,
+                      255,
+                      0.2
+                    );
+                  "
+                ></div>
+                <a
+                  href="https://www.payoneer.com"
+                  target="_blank"
+                >
+                  <img
+                    src="https://i.ibb.co/r2TBZcfy/Payoneerrrrr.png"
+                    alt="Payoneer"
+                    style="height: 24px"
+                  />
+                </a>
+              </div>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 QBoosting. All rights reserved. Professional FIFA Boosting Services.</p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Security & Trust</h4>
+            <div class="security-badges">
+              <div class="security-badge">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                  <div style="font-weight: bold">
+                    Norton Secured
+                  </div>
+                  <div
+                    style="
+                      font-size: 0.8rem;
+                      opacity: 0.8;
+                    "
+                  >
+                    Protected by Norton Security
+                  </div>
+                </div>
+              </div>
+              <div class="security-badge">
+                <i class="fas fa-lock"></i>
+                <div>
+                  <div style="font-weight: bold">
+                    SSL Protected
+                  </div>
+                  <div
+                    style="
+                      font-size: 0.8rem;
+                      opacity: 0.8;
+                    "
+                  >
+                    256-bit Encryption
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <div
+            class="footer-section"
+            style="text-align: center"
+          >
+            <h4>Follow Us</h4>
+            <div class="social-links">
+              <a
+                href="https://t.me/QBoostingEAFC"
+                target="_blank"
+                class="social-link"
+                title="Telegram"
+                ><i class="fab fa-telegram"></i
+              ></a>
+              <a
+                href="https://www.facebook.com/share/1B9PSbqSiZ/"
+                target="_blank"
+                class="social-link"
+                title="Facebook"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                href="https://x.com/QBoostingEAFC?t=rriCcGvIRVSKaaqp5NPiaA&s=09"
+                target="_blank"
+                class="social-link"
+                title="Twitter/X"
+                ><i class="fa-brands fa-x"></i
+              ></a>
+            </div>
+          </div>
         </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2024 QBoosting. All rights
+            reserved. Professional FIFA Boosting
+            Services.
+          </p>
+        </div>
+      </div>
     </footer>
-
-<script>
-        let currentCurrency = 'USD';
-        let exchangeRates = { USD: 1, EUR: 0.85, GBP: 0.73 };
-
-        // Fetch live exchange rates
-        async function fetchExchangeRates() {
-            try {
-                const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-                const data = await response.json();
-                exchangeRates = {
-                    USD: 1,
-                    EUR: data.rates.EUR,
-                    GBP: data.rates.GBP
-                };
-            } catch (error) {
-                console.log('Using default exchange rates');
-            }
-        }
-
-        fetchExchangeRates();
-
-        // Currency conversion
-        function convertPrice(usdPrice) {
-            const convertedPrice = usdPrice * exchangeRates[currentCurrency];
-            const symbol = currentCurrency === 'USD' ? '$' : currentCurrency === 'EUR' ? '€' : '£';
-            return `${symbol}${Math.round(convertedPrice)}`;
-        }
-
-        // Convert USD discount to current currency
-        function convertDiscount(usdDiscount) {
-            const convertedDiscount = usdDiscount * exchangeRates[currentCurrency];
-            const symbol = currentCurrency === 'USD' ? '$' : currentCurrency === 'EUR' ? '€' : '£';
-            return `${symbol}${Math.round(convertedDiscount)}`;
-        }
-
-        // Page navigation function
-        function navigateToPage(pageName) {
-            // Hide all pages
-            document.querySelectorAll('.page-content').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Show selected page
-            const targetPage = document.getElementById(pageName);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            }
-            
-            // Update nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.dataset.page === pageName) {
-                    link.classList.add('active');
-                }
-            });
-            
-            // Close mobile menu
-            document.getElementById('navMenu').classList.remove('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-
-        // Initialize service options when page loads
-let serviceOptions = {
-    fut: { platform: 'playstation', delivery: 'normal', payment: 'paypal' },
-    div: { platform: 'playstation', delivery: 'normal', payment: 'paypal' },
-    draft: { platform: 'playstation', delivery: 'normal', payment: 'paypal' },
-    friendly: { platform: 'playstation', delivery: 'normal', payment: 'paypal' },
-    squad: { platform: 'playstation', delivery: 'normal', payment: 'paypal' }
-};
-
-        // Promo Code Functionality
-        let appliedPromos = {};
-
-        async function applyPromoCode(service) {
-            const input = document.getElementById(`${service}-promo-code`);
-            const message = document.getElementById(`${service}-promo-message`);
-            const button = input.nextElementSibling;
-            const code = input.value.trim().toUpperCase();
-            
-            if (!code) {
-                showPromoMessage(message, 'Please enter a promo code', 'error');
-                return;
-            }
-            
-            button.disabled = true;
-            button.textContent = 'Checking...';
-            showPromoMessage(message, 'Validating promo code...', 'loading');
-            
-            try {
-               const response = await fetch(`https://script.google.com/macros/s/AKfycbxNOy_OULZAOj-yLbNj8YTmO88EjTGgtmnHHf3_km3FkTOV2L7zEwLPVOUhiCPdR21s/exec?code=${encodeURIComponent(code)}&service=${service.toUpperCase()}`);
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    // حفظ البرومو كود (دائماً بالدولار من Google Sheets)
-                    appliedPromos[service] = {
-                        code: code,
-                        type: data.type,
-                        value: data.value, // هذا بالدولار دائماً
-                        discount: data.discount
-                    };
-                    
-                    // عرض الرسالة بالعملة الحالية
-                    const discountInCurrentCurrency = convertDiscount(data.value);
-                    showPromoMessage(message, `✅ Promo code applied! You saved ${discountInCurrentCurrency}`, 'success');
-                    input.disabled = true;
-                    button.textContent = 'Applied';
-                    
-                    // إعادة حساب السعر فوراً
-                    if (service === 'fut') updateFutPrice();
-                    if (service === 'div') updateDivPrice();
-                    if (service === 'draft') updateDraftPrice();
-                    
-                } else {
-                    showPromoMessage(message, data.message || 'Invalid promo code', 'error');
-                    button.disabled = false;
-                    button.textContent = 'Apply';
-                }
-                
-            } catch (error) {
-                console.error('Promo code error:', error);
-                showPromoMessage(message, 'Error validating promo code. Please try again.', 'error');
-                button.disabled = false;
-                button.textContent = 'Apply';
-            }
-        }
-
-        function showPromoMessage(messageEl, text, type) {
-            messageEl.textContent = text;
-            messageEl.className = `promo-message ${type}`;
-            messageEl.style.display = 'block';
-        }
-
-        // تطبيق الخصم (بالدولار أولاً ثم تحويل العملة)
-        function applyDiscount(originalPriceUSD, service) {
-            if (appliedPromos[service]) {
-                const promo = appliedPromos[service];
-                let discountedPriceUSD;
-                
-                if (promo.type === 'percentage') {
-                    discountedPriceUSD = Math.round(originalPriceUSD * (1 - promo.value / 100));
-                } else if (promo.type === 'fixed') {
-                    discountedPriceUSD = Math.max(0, originalPriceUSD - promo.value);
-                } else {
-                    discountedPriceUSD = originalPriceUSD;
-                }
-                
-                return discountedPriceUSD;
-            }
-            return originalPriceUSD;
-        }
-
-        // Navigation functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Navigation links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetPage = this.dataset.page;
-                    if (targetPage) {
-                        navigateToPage(targetPage);
-                    }
-                });
-            });
-
-            // Mobile menu toggle
-            document.getElementById('mobileMenuBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('navMenu').classList.toggle('active');
-            });
-
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function(e) {
-                const navMenu = document.getElementById('navMenu');
-                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-                
-                if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                    navMenu.classList.remove('active');
-                }
-            });
-
-            // Initialize services
-            initFutChampions();
-            initDivisionRivals();
-            initOnlineDraft();
-        });
-
-        // FAQ functionality
-        function toggleFaq(element) {
-            const answer = element.nextElementSibling;
-            const icon = element.querySelector('i');
-            
-            answer.classList.toggle('active');
-            
-            if (answer.classList.contains('active')) {
-                icon.classList.remove('fa-plus');
-                icon.classList.add('fa-minus');
-            } else {
-                icon.classList.remove('fa-minus');
-                icon.classList.add('fa-plus');
-            }
-        }
-
-        // Currency selector functionality
-        document.querySelectorAll('.currency-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.currency-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentCurrency = this.dataset.currency;
-                
-                // إعادة حساب كل الأسعار والبرومو عند تغيير العملة
-                updateFutPrice();
-                updateDivPrice();
-                updateDraftPrice();
-                
-                // تحديث رسائل البرومو المطبقة
-                updatePromoMessages();
-            });
-        });
-
-        // تحديث رسائل البرومو عند تغيير العملة
-        function updatePromoMessages() {
-            ['fut', 'div', 'draft'].forEach(service => {
-                if (appliedPromos[service]) {
-                    const message = document.getElementById(`${service}-promo-message`);
-                    const discountInCurrentCurrency = convertDiscount(appliedPromos[service].value);
-                    showPromoMessage(message, `✅ Promo code applied! You saved ${discountInCurrentCurrency}`, 'success');
-                }
-            });
-        }
-
-        // Service tabs functionality
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('tab') && !e.target.classList.contains('disabled')) {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.service-content').forEach(c => c.classList.remove('active'));
-                
-                e.target.classList.add('active');
-                document.getElementById(e.target.dataset.service).classList.add('active');
-            }
-        });
-
-        // Button selection functionality
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('select-btn')) {
-                const service = e.target.dataset.service;
-                const option = e.target.dataset.option;
-                const isDelivery = option === 'normal' || option === 'express';
-                const isPayment = option === 'paypal' || option === 'payoneer';
-                const isPlatform = option === 'playstation' || option === 'xbox';
-                
-                // Update button states (make clicked button green)
-                const buttonGroup = e.target.parentElement;
-                buttonGroup.querySelectorAll('.select-btn').forEach(btn => btn.classList.remove('active'));
-                e.target.classList.add('active');
-                
-                // Update service options
-                if (isPlatform) {
-    serviceOptions[service].platform = option;
-} else if (isDelivery) {
-    serviceOptions[service].delivery = option;
-} else if (isPayment) {
-    serviceOptions[service].payment = option;
-}
-                
-                // Update prices based on service
-                if (service === 'fut') updateFutPrice();
-                if (service === 'div') updateDivPrice();
-                if (service === 'draft') updateDraftPrice();
-            }
-        });
-
-        // FUT Champions Logic
-        function initFutChampions() {
-            const winsSelect = document.getElementById('fut-current-wins');
-            const losesSelect = document.getElementById('fut-current-loses');
-            const rankSelect = document.getElementById('fut-required-rank');
-
-            // Clear existing options
-            winsSelect.innerHTML = '<option value="">Select Current Wins</option>';
-            losesSelect.innerHTML = '<option value="">Select Current Loses</option>';
-
-            for (let i = 0; i <= 15; i++) {
-                winsSelect.innerHTML += `<option value="${i}">${i}</option>`;
-                losesSelect.innerHTML += `<option value="${i}">${i}</option>`;
-            }
-
-            function updateAvailableRanks() {
-                const loses = parseInt(losesSelect.value) || 0;
-                const ranks = ['Rank 1', 'Rank 2', 'Rank 3', 'Rank 4', 'Rank 5', 'Rank 6', 'Rank 7'];
-                const prices = [100, 90, 80, 70, 60, 50, 40];
-                
-                rankSelect.innerHTML = '<option value="">Select Required Rank</option>';
-                
-                for (let i = loses; i < ranks.length; i++) {
-                    const price = prices[i - loses];
-                    rankSelect.innerHTML += `<option value="${price}" data-rank="${ranks[i]}">${ranks[i]}</option>`;
-                }
-                
-                updateFutPrice();
-            }
-
-            losesSelect.addEventListener('change', updateAvailableRanks);
-            winsSelect.addEventListener('change', updateFutPrice);
-            rankSelect.addEventListener('change', updateFutPrice);
-        }
-
-        function updateFutPrice() {
-            const wins = document.getElementById('fut-current-wins').value;
-            const loses = document.getElementById('fut-current-loses').value;
-            const rankOption = document.getElementById('fut-required-rank').selectedOptions[0];
-            
-            if (wins && loses && rankOption && rankOption.value) {
-                let originalPriceUSD = parseInt(rankOption.value);
-                const rankName = rankOption.dataset.rank;
-                
-                // Add Xbox platform cost (in USD)
-               if (serviceOptions.fut && serviceOptions.fut.platform === 'xbox') {
-                 originalPriceUSD += 10;
-               }
-                
-                // Add express delivery cost (in USD)
-                if (serviceOptions.fut && serviceOptions.fut.delivery === 'express') {
-                    originalPriceUSD += 13;
-                }
-              
-                // تطبيق الخصم (بالدولار)
-                const finalPriceUSD = applyDiscount(originalPriceUSD, 'fut');
-                
-                // تحويل السعر النهائي للعملة الحالية
-                const finalPriceConverted = convertPrice(finalPriceUSD);
-                
-                // تحديث السعر الأخضر
-                document.getElementById('fut-price-amount').textContent = finalPriceConverted;
-                document.getElementById('fut-currency').textContent = currentCurrency;
-                document.getElementById('fut-price').style.display = 'block';
-                document.getElementById('fut-promo-section').style.display = 'block';
-                
-                const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? 'Express (+$13)' : 'Normal';
-                const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
-                
-                let summaryContent = `
-                    <div class="summary-item"><span>Service:</span><span>FUT Champions</span></div>
-                    <div class="summary-item"><span>Current Record:</span><span>${wins}W - ${loses}L</span></div>
-                    <div class="summary-item"><span>Target Rank:</span><span>${rankName}</span></div>
-                    <div class="summary-item"><span>Platform:</span><span>${serviceOptions.fut.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
-                    <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
-                    <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
-
-                // إضافة الـ Promo فقط لو موجود
-                if (appliedPromos.fut) {
-                    const savedAmountUSD = originalPriceUSD - finalPriceUSD;
-                    const savedAmountConverted = convertDiscount(savedAmountUSD);
-                    summaryContent += `<div class="summary-item"><span>Promo Code:</span><span style="color: #28a745;">${appliedPromos.fut.code} (-${savedAmountConverted})</span></div>`;
-                }
-
-                summaryContent += `<div class="summary-item"><span>Final Price:</span><span>${finalPriceConverted}</span></div>`;
-                
-                document.getElementById('fut-summary-content').innerHTML = summaryContent;
-                document.getElementById('fut-summary').style.display = 'block';
-                
-                const orderBtn = document.getElementById('fut-order-btn');
-                orderBtn.disabled = false;
-                orderBtn.textContent = 'Order Now';
-                orderBtn.onclick = () => orderFutChampions(wins, loses, rankName, finalPriceConverted);
-            } else {
-                document.getElementById('fut-price').style.display = 'none';
-                document.getElementById('fut-promo-section').style.display = 'none';
-                document.getElementById('fut-summary').style.display = 'none';
-                document.getElementById('fut-order-btn').disabled = true;
-                document.getElementById('fut-order-btn').textContent = 'Select all options first';
-            }
-        }
-
-        function orderFutChampions(wins, loses, rank, price) {
-            if (!validateEmail('fut')) return;
-            const email = document.getElementById('fut-email').value || 'Not provided';
-            const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? 'Express' : 'Normal';
-            const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
-            
-            let message = `🎮 QBoosting Order
-
-Service: FUT Champions
-Current Record: ${wins}W - ${loses}L
-Target Rank: ${rank}
-Platform: ${serviceOptions.fut.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
-Delivery: ${deliveryText}
-Payment Method: ${paymentText}
-Email: ${email}`;
-
-            // إضافة الـ Promo لو موجود
-            if (appliedPromos.fut) {
-                message += `\nPromo Code: ${appliedPromos.fut.code} ✅`;
-            }
-            
-            message += `\nFinal Price: ${price}
-
-Ready to start when you confirm! 🚀`;
-            
-            window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
-        }
-
-        // Division Rivals Logic
-        function initDivisionRivals() {
-            const currentSelect = document.getElementById('div-current');
-            const requiredSelect = document.getElementById('div-required');
-            
-            currentSelect.addEventListener('change', updateRequiredDivisions);
-            requiredSelect.addEventListener('change', updateDivPrice);
-        }
-
-        function updateRequiredDivisions() {
-            const current = parseInt(document.getElementById('div-current').value);
-            const requiredSelect = document.getElementById('div-required');
-            
-            requiredSelect.innerHTML = '<option value="">Select Required Division</option>';
-            
-            const divisions = [
-                { value: 9, name: 'Division 9' },
-                { value: 8, name: 'Division 8' },
-                { value: 7, name: 'Division 7' },
-                { value: 6, name: 'Division 6' },
-                { value: 5, name: 'Division 5' },
-                { value: 4, name: 'Division 4' },
-                { value: 3, name: 'Division 3' },
-                { value: 2, name: 'Division 2' },
-                { value: 1, name: 'Division 1' },
-                { value: 0, name: 'Elite Division' }
-            ];
-            
-            divisions.forEach(div => {
-                if (div.value < current) {
-                    requiredSelect.innerHTML += `<option value="${div.value}">${div.name}</option>`;
-                }
-            });
-            
-            updateDivPrice();
-        }
-
-        function updateDivPrice() {
-            const current = parseInt(document.getElementById('div-current').value);
-            const required = parseInt(document.getElementById('div-required').value);
-            
-            if (current && (required || required === 0)) {
-                const prices = {
-                    '10-9': 10, '9-8': 10, '8-7': 10, '7-6': 13,
-                    '6-5': 18, '5-4': 23, '4-3': 29, '3-2': 37,
-                    '2-1': 45, '1-0': 53
-                };
-                
-                let originalPriceUSD = 0;
-                
-                for (let i = current; i > required; i--) {
-                    const key = `${i}-${i-1}`;
-                    const stepPrice = prices[key];
-                    originalPriceUSD += stepPrice;
-                }
-                
-                 // Add Xbox platform cost (in USD)
-               if (serviceOptions.div && serviceOptions.div.platform === 'xbox') {
-                 originalPriceUSD += 10;
-               }
-
-                // Add express delivery cost (in USD)
-                if (serviceOptions.div && serviceOptions.div.delivery === 'express') {
-                    originalPriceUSD += 13;
-                }
-                
-                // تطبيق الخصم (بالدولار)
-                const finalPriceUSD = applyDiscount(originalPriceUSD, 'div');
-                
-                // تحويل السعر النهائي للعملة الحالية
-                const finalPriceConverted = convertPrice(finalPriceUSD);
-                
-                // تحديث السعر الأخضر
-                document.getElementById('div-price-amount').textContent = finalPriceConverted;
-                document.getElementById('div-currency').textContent = currentCurrency;
-                document.getElementById('div-price').style.display = 'block';
-                document.getElementById('div-promo-section').style.display = 'block';
-                
-                const currentDivName = current === 0 ? 'Elite Division' : `Division ${current}`;
-                const requiredDivName = required === 0 ? 'Elite Division' : `Division ${required}`;
-                const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? 'Express (+$13)' : 'Normal';
-                const paymentText = (serviceOptions.div && serviceOptions.div.payment) ? serviceOptions.div.payment : 'paypal';
-                
-                let summaryContent = `
-                    <div class="summary-item"><span>Service:</span><span>Division Rivals</span></div>
-                    <div class="summary-item"><span>From:</span><span>${currentDivName}</span></div>
-                    <div class="summary-item"><span>To:</span><span>${requiredDivName}</span></div>
-                    <div class="summary-item"><span>Platform:</span><span>${serviceOptions.div.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
-                    <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
-                    <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
-
-                // إضافة الـ Promo فقط لو موجود
-                if (appliedPromos.div) {
-                    const savedAmountUSD = originalPriceUSD - finalPriceUSD;
-                    const savedAmountConverted = convertDiscount(savedAmountUSD);
-                    summaryContent += `<div class="summary-item"><span>Promo Code:</span><span style="color: #28a745;">${appliedPromos.div.code} (-${savedAmountConverted})</span></div>`;
-                }
-
-                summaryContent += `<div class="summary-item"><span>Final Price:</span><span>${finalPriceConverted}</span></div>`;
-                
-                document.getElementById('div-summary-content').innerHTML = summaryContent;
-                document.getElementById('div-summary').style.display = 'block';
-                
-                const orderBtn = document.getElementById('div-order-btn');
-                orderBtn.disabled = false;
-                orderBtn.textContent = 'Order Now';
-                orderBtn.onclick = () => orderDivisionRivals(currentDivName, requiredDivName, finalPriceConverted);
-            } else {
-                document.getElementById('div-price').style.display = 'none';
-                document.getElementById('div-promo-section').style.display = 'none';
-                document.getElementById('div-summary').style.display = 'none';
-                document.getElementById('div-order-btn').disabled = true;
-                document.getElementById('div-order-btn').textContent = 'Select all options first';
-            }
-        }
-
-        function orderDivisionRivals(current, required, price) {
-            if (!validateEmail('div')) return;
-            const email = document.getElementById('div-email').value || 'Not provided';
-            const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? 'Express' : 'Normal';
-            const paymentText = (serviceOptions.div && serviceOptions.div.payment) ? serviceOptions.div.payment : 'paypal';
-            
-            let message = `🎮 QBoosting Order
-
-Service: Division Rivals
-Current Division: ${current}
-Target Division: ${required}
-Platform: ${serviceOptions.div.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
-Delivery: ${deliveryText}
-Payment Method: ${paymentText}
-Email: ${email}`;
-
-            // إضافة الـ Promo لو موجود
-            if (appliedPromos.div) {
-                message += `\nPromo Code: ${appliedPromos.div.code} ✅`;
-            }
-            
-            message += `\nFinal Price: ${price}
-
-Ready to start when you confirm! 🚀`;
-            
-            window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
-        }
-
-        // Online Draft Logic
-        function initOnlineDraft() {
-            const winsSelect = document.getElementById('draft-wins');
-            winsSelect.addEventListener('change', updateDraftPrice);
-        }
-
-        function updateDraftPrice() {
-            const wins = parseInt(document.getElementById('draft-wins').value);
-            
-            if (wins) {
-                const prices = { 1: 8, 2: 17, 3: 27, 4: 38 };
-                let originalPriceUSD = prices[wins];
-                
-               // Add Xbox platform cost (in USD)
-               if (serviceOptions.draft && serviceOptions.draft.platform === 'xbox') {
-                 originalPriceUSD += 10;
-               }
-
-                // Add express delivery cost (in USD)
-                if (serviceOptions.draft && serviceOptions.draft.delivery === 'express') {
-                    originalPriceUSD += 13;
-                }
-                
-                // تطبيق الخصم (بالدولار)
-                const finalPriceUSD = applyDiscount(originalPriceUSD, 'draft');
-                
-                // تحويل السعر النهائي للعملة الحالية
-                const finalPriceConverted = convertPrice(finalPriceUSD);
-                
-                // تحديث السعر الأخضر
-                document.getElementById('draft-price-amount').textContent = finalPriceConverted;
-                document.getElementById('draft-currency').textContent = currentCurrency;
-                document.getElementById('draft-price').style.display = 'block';
-                document.getElementById('draft-promo-section').style.display = 'block';
-                
-                const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? 'Express (+$13)' : 'Normal';
-                const paymentText = (serviceOptions.draft && serviceOptions.draft.payment) ? serviceOptions.draft.payment : 'paypal';
-                
-                let summaryContent = `
-                    <div class="summary-item"><span>Service:</span><span>Online Draft</span></div>
-                    <div class="summary-item"><span>Required Wins:</span><span>${wins} Win${wins > 1 ? 's' : ''}</span></div>
-                    <div class="summary-item"><span>Platform:</span><span>${serviceOptions.draft.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
-                    <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
-                    <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
-
-                // إضافة الـ Promo فقط لو موجود
-                if (appliedPromos.draft) {
-                    const savedAmountUSD = originalPriceUSD - finalPriceUSD;
-                    const savedAmountConverted = convertDiscount(savedAmountUSD);
-                    summaryContent += `<div class="summary-item"><span>Promo Code:</span><span style="color: #28a745;">${appliedPromos.draft.code} (-${savedAmountConverted})</span></div>`;
-                }
-
-                summaryContent += `<div class="summary-item"><span>Final Price:</span><span>${finalPriceConverted}</span></div>`;
-                
-                document.getElementById('draft-summary-content').innerHTML = summaryContent;
-                document.getElementById('draft-summary').style.display = 'block';
-                
-                const orderBtn = document.getElementById('draft-order-btn');
-                orderBtn.disabled = false;
-                orderBtn.textContent = 'Order Now';
-                orderBtn.onclick = () => orderOnlineDraft(wins, finalPriceConverted);
-            } else {
-                document.getElementById('draft-price').style.display = 'none';
-                document.getElementById('draft-promo-section').style.display = 'none';
-                document.getElementById('draft-summary').style.display = 'none';
-                document.getElementById('draft-order-btn').disabled = true;
-                document.getElementById('draft-order-btn').textContent = 'Select all options first';
-            }
-        }
-
-        function orderOnlineDraft(wins, price) {
-            if (!validateEmail('draft')) return;
-            const email = document.getElementById('draft-email').value || 'Not provided';
-            const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? 'Express' : 'Normal';
-            const paymentText = (serviceOptions.draft && serviceOptions.draft.payment) ? serviceOptions.draft.payment : 'paypal';
-            
-            let message = `🎮 QBoosting Order
-
-Service: Online Draft
-Required Wins: ${wins} Win${wins > 1 ? 's' : ''}
-Platform: ${serviceOptions.draft.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
-Delivery: ${deliveryText}
-Payment Method: ${paymentText}
-Email: ${email}`;
-
-            // إضافة الـ Promo لو موجود
-            if (appliedPromos.draft) {
-                message += `\nPromo Code: ${appliedPromos.draft.code} ✅`;
-            }
-            
-            message += `\nFinal Price: ${price}
-
-⚠️ Important: Draft must be started fresh by our booster who will select the squad.
-
-Ready to start when you confirm! 🚀`;
-            
-            window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
-        }
-        
-        function validateEmail(service) {
-    const emailInput = document.getElementById(`${service}-email`);
-    const email = emailInput.value.trim();
-    
-    if (!email) {
-        emailInput.classList.add('error');
-        emailInput.focus();
-        return false;
-    }
-    
-    emailInput.classList.remove('error');
-    return true;
-}
-
-// Remove error styling when user starts typing
-document.querySelectorAll('input[type="email"]').forEach(input => {
-    input.addEventListener('input', function() {
-        this.classList.remove('error');
-    });
-});
-</script>
-<script>
-document.querySelectorAll('.tooltip-container').forEach(function(el){
-  el.addEventListener('click', function(e){
-    e.stopPropagation();
-    document.querySelectorAll('.tooltip-container').forEach(t => t.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
-document.addEventListener('click', function(){
-  document.querySelectorAll('.tooltip-container').forEach(t => t.classList.remove('active'));
-});
-</script>
-</body>
+    <script src="./js/main.js"></script>
+  </body>
 </html>
