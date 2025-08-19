@@ -1131,8 +1131,9 @@
                 <div class="tab active" data-service="fut-champions">FUT Champions</div>
                 <div class="tab" data-service="division-rivals">Division Rivals</div>
                 <div class="tab" data-service="online-draft">Online Draft</div>
-                <div class="tab disabled" data-service="friendly-cup">Friendly Cup</div>
-                <div class="tab disabled" data-service="squad-battle">Squad Battle</div>
+                <div class="tab" data-service="friendly-cup">Friendly Cup</div>
+                <div class="tab" data-service="squad-battle">Squad Battle</div>
+                <div class="tab" data-service="evolution">Evolution</div>
             </div>
 
             <!-- FUT Champions -->
@@ -1387,10 +1388,21 @@
             <!-- Friendly Cup -->
             <div class="service-content" id="friendly-cup">
                 <h2>Friendly Cup Boosting</h2>
-                <div class="coming-soon">
-                    <h3>Coming Soon</h3>
-                    <p>Friendly Cup boosting service will be available soon. Stay tuned!</p>
-                </div>
+                <div class="form-grid">
+    <div class="form-group">
+        <label for="friendly-cup-type">Cup:</label>
+        <select id="friendly-cup-type">
+            <option value="">Select Cup Type</option>
+            <option value="co-op">Co-op Cup</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="friendly-reward">Reward:</label>
+        <select id="friendly-reward">
+            <option value="">Select Cup Type First</option>
+        </select>
+    </div>
+</div>
                 
 <!-- Platform -->
 <div class="form-group">
@@ -1432,59 +1444,191 @@
                     <label for="friendly-email">Email</label>
                     <input type="email" id="friendly-email" placeholder="Where we will send a payment request.">
                 </div>
+                <div class="price-display" id="friendly-price" style="display: none;">
+    <h3 id="friendly-price-amount">$0</h3>
+    <div class="currency" id="friendly-currency">USD</div>
+</div>
+
+<div class="promo-section" id="friendly-promo-section" style="display: none;">
+    <label for="friendly-promo-code">Promo Code</label>
+    <div class="promo-input-group">
+        <input type="text" id="friendly-promo-code" placeholder="Enter promo code" maxlength="20">
+        <button type="button" class="promo-btn" onclick="applyPromoCode('friendly')">Apply</button>
+    </div>
+    <div class="promo-message" id="friendly-promo-message"></div>
+</div>
+
+<div class="order-summary" id="friendly-summary" style="display: none;">
+    <h4>Order Summary - Friendly Cup</h4>
+    <div id="friendly-summary-content"></div>
+</div>
+<button class="order-btn" id="friendly-order-btn" disabled>Select all options first</button>
             </div>
 
             <!-- Squad Battle -->
-            <div class="service-content" id="squad-battle">
-                <h2>Squad Battle Boosting</h2>
-                <div class="coming-soon">
-                    <h3>Coming Soon</h3>
-                    <p>Squad Battle boosting service will be available soon. Stay tuned!</p>
-                </div>
-                
-<!-- Platform -->
-<div class="form-group">
-    <label>Platform</label>
-    <div class="button-group">
-        <button class="select-btn" data-option="playstation" data-service="squad">PlayStation</button>
-        <button class="select-btn" data-option="xbox" data-service="squad">Xbox</button>
+<div class="service-content" id="squad-battle">
+    <h2>Squad Battle Boosting</h2>
+    <div class="note">
+        <strong>Important:</strong> Squad Battle matches must be started fresh by our booster.
     </div>
-</div>
-
-                <!-- Delivery Speed -->
-                <div class="form-group">
-                    <label>
-                        Delivery Speed
-                        <span class="tooltip-container">
-                            <span class="tooltip-icon">?</span>
-                            <span class="tooltip-text">
-                Express Is 70% Faster, Mostly Within 12Hrs.
-                            </span>
-                        </span>
-                    </label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="normal" data-service="squad">Normal</button>
-                        <button class="select-btn" data-option="express" data-service="squad">Express</button>
-                    </div>
-                </div>
-
-                <!-- Payment Processor -->
-                <div class="form-group">
-                    <label>Payment Processor</label>
-                    <div class="button-group">
-                        <button class="select-btn" data-option="paypal" data-service="squad">PayPal</button>
-                        <button class="select-btn" data-option="payoneer" data-service="squad">Payoneer</button>
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="form-group">
-                    <label for="squad-email">Email</label>
-                    <input type="email" id="squad-email" placeholder="Where we will send a payment request.">
-                </div>
-            </div>
+    
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="squad-rank">Rank:</label>
+            <select id="squad-rank">
+                <option value="">Select Rank</option>
+                <option value="70" data-name="Elite 1">Elite 1</option>
+                <option value="50" data-name="Elite 2">Elite 2</option>
+                <option value="30" data-name="Elite 3">Elite 3</option>
+            </select>
         </div>
+    </div>
+    
+    <!-- Platform -->
+    <div class="form-group">
+        <label>Platform</label>
+        <div class="button-group">
+            <button class="select-btn" data-option="playstation" data-service="squad">PlayStation</button>
+            <button class="select-btn" data-option="xbox" data-service="squad">Xbox</button>
+        </div>
+    </div>
 
+    <!-- Delivery Speed -->
+    <div class="form-group">
+        <label>
+            Delivery Speed
+            <span class="tooltip-container">
+                <span class="tooltip-icon">?</span>
+                <span class="tooltip-text">
+                    Express Is 70% Faster, Mostly Within 12Hrs.
+                </span>
+            </span>
+        </label>
+        <div class="button-group">
+            <button class="select-btn" data-option="normal" data-service="squad">Normal</button>
+            <button class="select-btn" data-option="express" data-service="squad">Express</button>
+        </div>
+    </div>
+
+    <!-- Payment Processor -->
+    <div class="form-group">
+        <label>Payment Processor</label>
+        <div class="button-group">
+            <button class="select-btn" data-option="paypal" data-service="squad">PayPal</button>
+            <button class="select-btn" data-option="payoneer" data-service="squad">Payoneer</button>
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+        <label for="squad-email">Email</label>
+        <input type="email" id="squad-email" placeholder="Where we will send a payment request.">
+    </div>
+
+    <!-- Price Display -->
+    <div class="price-display" id="squad-price" style="display: none;">
+        <h3 id="squad-price-amount">$0</h3>
+        <div class="currency" id="squad-currency">USD</div>
+    </div>
+
+    <!-- Promo Section -->
+    <div class="promo-section" id="squad-promo-section" style="display: none;">
+        <label for="squad-promo-code">Promo Code</label>
+        <div class="promo-input-group">
+            <input type="text" id="squad-promo-code" placeholder="Enter promo code" maxlength="20">
+            <button type="button" class="promo-btn" onclick="applyPromoCode('squad')">Apply</button>
+        </div>
+        <div class="promo-message" id="squad-promo-message"></div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary" id="squad-summary" style="display: none;">
+        <h4>Order Summary - Squad Battle</h4>
+        <div id="squad-summary-content"></div>
+    </div>
+    
+    <button class="order-btn" id="squad-order-btn" disabled>Select all options first</button>
+</div>
+<!-- Evolution -->
+<div class="service-content" id="evolution">
+    <h2>Evolution Boosting</h2>
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="evo-number">Number of EVOs:</label>
+            <select id="evo-number">
+                <option value="">Select Number of EVOs</option>
+                <option value="13">1x Evolution</option>
+                <option value="25">2x Evolution</option>
+                <option value="36">3x Evolution</option>
+                <option value="46">4x Evolution</option>
+                <option value="55">5x Evolution</option>
+                <option value="65">6x Evolution</option>
+                <option value="75">7x Evolution</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Platform -->
+    <div class="form-group">
+        <label>Platform</label>
+        <div class="button-group">
+            <button class="select-btn" data-option="playstation" data-service="evo">PlayStation</button>
+            <button class="select-btn" data-option="xbox" data-service="evo">Xbox</button>
+        </div>
+    </div>
+
+    <!-- Delivery Speed -->
+    <div class="form-group">
+        <label>
+            Delivery Speed
+            <span class="tooltip-container">
+                <span class="tooltip-icon">?</span>
+                <span class="tooltip-text">
+            Express Is 70% Faster, Mostly Within 12Hrs.
+                </span>
+            </span>
+        </label>
+        <div class="button-group">
+            <button class="select-btn" data-option="normal" data-service="evo">Normal</button>
+            <button class="select-btn" data-option="express" data-service="evo">Express</button>
+        </div>
+    </div>
+
+    <!-- Payment Processor -->
+    <div class="form-group">
+        <label>Payment Processor</label>
+        <div class="button-group">
+            <button class="select-btn" data-option="paypal" data-service="evo">PayPal</button>
+            <button class="select-btn" data-option="payoneer" data-service="evo">Payoneer</button>
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+        <label for="evo-email">Email</label>
+        <input type="email" id="evo-email" placeholder="Where we will send a payment request.">
+    </div>
+
+    <div class="price-display" id="evo-price" style="display: none;">
+        <h3 id="evo-price-amount">$0</h3>
+        <div class="currency" id="evo-currency">USD</div>
+    </div>
+    
+    <div class="promo-section" id="evo-promo-section" style="display: none;">
+        <label for="evo-promo-code">Promo Code</label>
+        <div class="promo-input-group">
+            <input type="text" id="evo-promo-code" placeholder="Enter promo code" maxlength="20">
+            <button type="button" class="promo-btn" onclick="applyPromoCode('evo')">Apply</button>
+        </div>
+        <div class="promo-message" id="evo-promo-message"></div>
+    </div>
+    
+    <div class="order-summary" id="evo-summary" style="display: none;">
+        <h4>Order Summary - Evolution</h4>
+        <div id="evo-summary-content"></div>
+    </div>
+    <button class="order-btn" id="evo-order-btn" disabled>Select all options first</button>
+</div>
         <!-- Tooltip -->
         <div id="tooltip" class="tooltip"></div>
 
@@ -1698,7 +1842,7 @@
                     <p>We are 24/7 Available to help you</p>
                     <div class="social-links" style="justify-content: center; margin-top: 1rem;">
                         <a href="https://t.me/QBoostingEAFC" target="_blank" class="social-link" title="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="https://www.facebook.com/share/1B9PSbqSiZ/" target="_blank" class="social-link" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.facebook.com/share/1JPqbx6Lwv/" target="_blank" class="social-link" title="Facebook"><i class="fab fa-facebook"></i></a>
                         <a href="https://x.com/QBoostingEAFC?t=rriCcGvIRVSKaaqp5NPiaA&s=09" target="_blank" class="social-link" title="Twitter/X"><i class="fa-brands fa-x"></i></a>
                     </div>
                 </div>
@@ -1762,14 +1906,14 @@
                     <h4>Follow Us</h4>
                     <div class="social-links">
                         <a href="https://t.me/QBoostingEAFC" target="_blank" class="social-link" title="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="https://www.facebook.com/share/1B9PSbqSiZ/" target="_blank" class="social-link" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.facebook.com/share/1JPqbx6Lwv/" target="_blank" class="social-link" title="Facebook"><i class="fab fa-facebook"></i></a>
                         <a href="https://x.com/QBoostingEAFC?t=rriCcGvIRVSKaaqp5NPiaA&s=09" target="_blank" class="social-link" title="Twitter/X"><i class="fa-brands fa-x"></i></a>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 QBoosting. All rights reserved. Professional FIFA Boosting Services.</p>
+                <p>&copy; 2024 Qboosting. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1844,7 +1988,8 @@ let serviceOptions = {
     draft: { platform: 'playstation', delivery: 'normal', payment: 'paypal' },
     friendly: { platform: 'playstation', delivery: 'normal', payment: 'paypal' },
     squad: { platform: 'playstation', delivery: 'normal', payment: 'paypal' },
-    sub: { platform: 'playstation', payment: 'paypal' }  //
+    sub: { platform: 'playstation', payment: 'paypal' },
+    evo: { platform: 'playstation', delivery: 'normal', payment: 'paypal' }//
 };
 
         // Promo Code Functionality
@@ -1889,6 +2034,9 @@ if (data.success) {
         if (service === 'fut') updateFutPrice();
         if (service === 'div') updateDivPrice();
         if (service === 'draft') updateDraftPrice();
+        if (service === 'friendly') updateFriendlyPrice();
+        if (service === 'squad') updateSquadPrice();
+        if (service === 'evo') updateEvoPrice();
         if (service === 'sub') updateSubPrice();
         
         // عرض الرسالة بعد إعادة حساب السعر لحساب الخصم الصحيح
@@ -1968,6 +2116,43 @@ if (data.success) {
                     const finalPriceUSD = applyDiscount(originalPriceUSD, 'draft');
                     actualDiscountUSD = originalPriceUSD - finalPriceUSD;
                 }
+            } else if (service === 'friendly') {
+    const cupType = document.getElementById('friendly-cup-type').value;
+    const rewardOption = document.getElementById('friendly-reward').selectedOptions[0];
+    
+    if (cupType && rewardOption && rewardOption.value) {
+        let originalPriceUSD = parseInt(rewardOption.value);
+        
+        if (serviceOptions.friendly?.platform === 'xbox') originalPriceUSD += 10;
+        if (serviceOptions.friendly?.delivery === 'express') originalPriceUSD += 13;
+        
+        const finalPriceUSD = applyDiscount(originalPriceUSD, 'friendly');
+        actualDiscountUSD = originalPriceUSD - finalPriceUSD;
+    }
+            } else if (service === 'squad') {
+    const rankOption = document.getElementById('squad-rank').selectedOptions[0];
+
+    if (rankOption && rankOption.value) {
+        let originalPriceUSD = parseInt(rankOption.value);
+        
+        if (serviceOptions.squad?.platform === 'xbox') originalPriceUSD += 10;
+        if (serviceOptions.squad?.delivery === 'express') originalPriceUSD += 13;
+        
+        const finalPriceUSD = applyDiscount(originalPriceUSD, 'squad');
+        actualDiscountUSD = originalPriceUSD - finalPriceUSD;
+    }
+            } else if (service === 'evo') {
+    const evoNumberOption = document.getElementById('evo-number').selectedOptions[0];
+    
+    if (evoNumberOption && evoNumberOption.value) {
+        let originalPriceUSD = parseInt(evoNumberOption.value);
+        
+        if (serviceOptions.evo?.platform === 'xbox') originalPriceUSD += 10;
+        if (serviceOptions.evo?.delivery === 'express') originalPriceUSD += 13;
+        
+        const finalPriceUSD = applyDiscount(originalPriceUSD, 'evo');
+        actualDiscountUSD = originalPriceUSD - finalPriceUSD;
+    }
             } else if (service === 'sub') {
                 const rankOption = document.getElementById('sub-rank-div').selectedOptions[0];
                 
@@ -2045,6 +2230,9 @@ function applyDiscount(originalPriceUSD, service) {
             initFutChampions();
             initDivisionRivals();
             initOnlineDraft();
+            initFriendlyCup();
+            initSquadBattle();
+            initEvolution();
             initSubscription();
         });
 
@@ -2075,6 +2263,9 @@ function applyDiscount(originalPriceUSD, service) {
                 updateFutPrice();
                 updateDivPrice();
                 updateDraftPrice();
+                updateFriendlyPrice();
+                updateSquadPrice();
+                updateEvoPrice();
                 updateSubPrice();
                 
                 // تحديث رسائل البرومو المطبقة
@@ -2084,7 +2275,7 @@ function applyDiscount(originalPriceUSD, service) {
 
         // تحديث رسائل البرومو عند تغيير العملة
 function updatePromoMessages() {
-    ['fut', 'div', 'draft', 'sub'].forEach(service => {
+    ['fut', 'div', 'draft', 'friendly', 'squad', 'evo', 'sub'].forEach(service => {
         if (appliedPromos[service]) {
             updatePromoSuccessMessage(service);
         }
@@ -2129,6 +2320,9 @@ function updatePromoMessages() {
                 if (service === 'fut') updateFutPrice();
                 if (service === 'div') updateDivPrice();
                 if (service === 'draft') updateDraftPrice();
+                if (service === 'friendly') updateFriendlyPrice();
+                if (service === 'squad') updateSquadPrice();
+                if (service === 'evo') updateEvoPrice();
                 if (service === 'sub') updateSubPrice();
             }
         });
@@ -2505,6 +2699,323 @@ Ready to start when you confirm! 🚀`;
             
             window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
         }
+        
+        // Friendly Cup Logic
+function initFriendlyCup() {
+    const cupTypeSelect = document.getElementById('friendly-cup-type');
+    const rewardSelect = document.getElementById('friendly-reward');
+    
+    cupTypeSelect.addEventListener('change', updateRewardOptions);
+    rewardSelect.addEventListener('change', updateFriendlyPrice);
+}
+
+function updateRewardOptions() {
+    const cupType = document.getElementById('friendly-cup-type').value;
+    const rewardSelect = document.getElementById('friendly-reward');
+    
+    rewardSelect.innerHTML = '<option value="">Select Cup Type First</option>';
+    
+    if (cupType === 'co-op') {
+        rewardSelect.innerHTML = `
+            <option value="">Select Reward</option>
+            <option value="60" data-name="97 Rui Costa">97 Rui Costa</option>
+        `;
+    }
+    
+    updateFriendlyPrice();
+}
+
+function updateFriendlyPrice() {
+    const cupType = document.getElementById('friendly-cup-type').value;
+    const rewardOption = document.getElementById('friendly-reward').selectedOptions[0];
+    
+    if (cupType && rewardOption && rewardOption.value) {
+        let originalPriceUSD = parseInt(rewardOption.value);
+        const rewardName = rewardOption.dataset.name;
+        
+        // Add Xbox platform cost
+        if (serviceOptions.friendly && serviceOptions.friendly.platform === 'xbox') {
+            originalPriceUSD += 10;
+        }
+        
+        // Add express delivery cost  
+        if (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') {
+            originalPriceUSD += 13;
+        }
+        
+        // Apply discount
+        const finalPriceUSD = applyDiscount(originalPriceUSD, 'friendly');
+        const finalPriceConverted = convertPrice(finalPriceUSD);
+        
+        // Update displays...
+        document.getElementById('friendly-price-amount').textContent = finalPriceConverted;
+        document.getElementById('friendly-currency').textContent = currentCurrency;
+        document.getElementById('friendly-price').style.display = 'block';
+        document.getElementById('friendly-promo-section').style.display = 'block';
+        
+        // Create summary...
+        const deliveryText = (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') ? 'Express (+$13)' : 'Normal';
+        const paymentText = (serviceOptions.friendly && serviceOptions.friendly.payment) ? serviceOptions.friendly.payment : 'paypal';
+        
+        let summaryContent = `
+            <div class="summary-item"><span>Service:</span><span>Friendly Cup</span></div>
+            <div class="summary-item"><span>Cup Type:</span><span>Co-op Cup</span></div>
+            <div class="summary-item"><span>Reward:</span><span>${rewardName}</span></div>
+            <div class="summary-item"><span>Platform:</span><span>${serviceOptions.friendly.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
+            <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
+            <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
+
+        // Add promo if applied
+        if (appliedPromos.friendly) {
+            const savedAmountUSD = originalPriceUSD - finalPriceUSD;
+            const savedAmountConverted = convertDiscount(savedAmountUSD);
+            summaryContent += `<div class="summary-item"><span>Promo Code:</span><span style="color: #28a745;">${appliedPromos.friendly.code} (-${savedAmountConverted})</span></div>`;
+        }
+
+        summaryContent += `<div class="summary-item"><span>Final Price:</span><span>${finalPriceConverted}</span></div>`;
+        
+        document.getElementById('friendly-summary-content').innerHTML = summaryContent;
+        document.getElementById('friendly-summary').style.display = 'block';
+        
+        const orderBtn = document.getElementById('friendly-order-btn');
+        orderBtn.disabled = false;
+        orderBtn.textContent = 'Order Now';
+        orderBtn.onclick = () => orderFriendlyCup(rewardName, finalPriceConverted);
+    } else {
+        // Hide everything if incomplete
+        document.getElementById('friendly-price').style.display = 'none';
+        document.getElementById('friendly-promo-section').style.display = 'none';
+        document.getElementById('friendly-summary').style.display = 'none';
+        document.getElementById('friendly-order-btn').disabled = true;
+        document.getElementById('friendly-order-btn').textContent = 'Select all options first';
+    }
+}
+
+function orderFriendlyCup(reward, price) {
+    if (!validateEmail('friendly')) return;
+    
+    const email = document.getElementById('friendly-email').value;
+    const deliveryText = (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') ? 'Express' : 'Normal';
+    const paymentText = (serviceOptions.friendly && serviceOptions.friendly.payment) ? serviceOptions.friendly.payment : 'paypal';
+    
+    let message = `🎮 QBoosting Order
+
+Service: Friendly Cup
+Cup Type: Co-op Cup  
+Reward: ${reward}
+Platform: ${serviceOptions.friendly.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
+Delivery: ${deliveryText}
+Payment Method: ${paymentText}
+Email: ${email}`;
+
+    // Add promo if applied
+    if (appliedPromos.friendly) {
+        message += `\nPromo Code: ${appliedPromos.friendly.code} ✅`;
+    }
+    
+    message += `\nFinal Price: ${price}
+
+Ready to start when you confirm! 🚀`;
+    
+    window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+}
+
+// Squad Battle Logic
+function initSquadBattle() {
+    const rankSelect = document.getElementById('squad-rank');
+    rankSelect.addEventListener('change', updateSquadPrice);
+}
+
+function updateSquadPrice() {
+    const rankOption = document.getElementById('squad-rank').selectedOptions[0];
+    
+    if (rankOption && rankOption.value) {
+        let originalPriceUSD = parseInt(rankOption.value);
+        const rankName = rankOption.dataset.name;
+        
+        // Add Xbox platform cost
+        if (serviceOptions.squad && serviceOptions.squad.platform === 'xbox') {
+            originalPriceUSD += 10;
+        }
+        
+        // Add express delivery cost
+        if (serviceOptions.squad && serviceOptions.squad.delivery === 'express') {
+            originalPriceUSD += 13;
+        }
+        
+        // Apply discount
+        const finalPriceUSD = applyDiscount(originalPriceUSD, 'squad');
+        
+        // Convert to current currency
+        const finalPriceConverted = convertPrice(finalPriceUSD);
+        
+        // Update price display
+        document.getElementById('squad-price-amount').textContent = finalPriceConverted;
+        document.getElementById('squad-currency').textContent = currentCurrency;
+        document.getElementById('squad-price').style.display = 'block';
+        document.getElementById('squad-promo-section').style.display = 'block';
+        
+        const deliveryText = (serviceOptions.squad && serviceOptions.squad.delivery === 'express') ? 'Express (+$13)' : 'Normal';
+        const paymentText = (serviceOptions.squad && serviceOptions.squad.payment) ? serviceOptions.squad.payment : 'paypal';
+        
+        let summaryContent = `
+            <div class="summary-item"><span>Service:</span><span>Squad Battle</span></div>
+            <div class="summary-item"><span>Target Rank:</span><span>${rankName}</span></div>
+            <div class="summary-item"><span>Platform:</span><span>${serviceOptions.squad.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
+            <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
+            <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
+
+        // Add promo if applied
+        if (appliedPromos.squad) {
+            const savedAmountUSD = originalPriceUSD - finalPriceUSD;
+            const savedAmountConverted = convertDiscount(savedAmountUSD);
+            summaryContent += `<div class="summary-item"><span>Promo Code:</span><span style="color: #28a745;">${appliedPromos.squad.code} (-${savedAmountConverted})</span></div>`;
+        }
+
+        summaryContent += `<div class="summary-item"><span>Final Price:</span><span>${finalPriceConverted}</span></div>`;
+        
+        document.getElementById('squad-summary-content').innerHTML = summaryContent;
+        document.getElementById('squad-summary').style.display = 'block';
+        
+        const orderBtn = document.getElementById('squad-order-btn');
+        orderBtn.disabled = false;
+        orderBtn.textContent = 'Order Now';
+        orderBtn.onclick = () => orderSquadBattle(rankName, finalPriceConverted);
+    } else {
+        document.getElementById('squad-price').style.display = 'none';
+        document.getElementById('squad-promo-section').style.display = 'none';
+        document.getElementById('squad-summary').style.display = 'none';
+        document.getElementById('squad-order-btn').disabled = true;
+        document.getElementById('squad-order-btn').textContent = 'Select all options first';
+    }
+}
+
+function orderSquadBattle(rank, price) {
+    if (!validateEmail('squad')) return;
+    
+    const email = document.getElementById('squad-email').value;
+    const deliveryText = (serviceOptions.squad && serviceOptions.squad.delivery === 'express') ? 'Express' : 'Normal';
+    const paymentText = (serviceOptions.squad && serviceOptions.squad.payment) ? serviceOptions.squad.payment : 'paypal';
+    
+    let message = `🎮 QBoosting Order
+
+Service: Squad Battle
+Target Rank: ${rank}
+Platform: ${serviceOptions.squad.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
+Delivery: ${deliveryText}
+Payment Method: ${paymentText}
+Email: ${email}`;
+
+    // Add promo if applied
+    if (appliedPromos.squad) {
+        message += `\nPromo Code: ${appliedPromos.squad.code} ✅`;
+    }
+    
+    message += `\nFinal Price: ${price}
+
+⚠️ Important: Squad Battle matches must be started fresh by our booster.
+
+Ready to start when you confirm! 🚀`;
+    
+    window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+}
+ 
+ // Evolution Logic
+function initEvolution() {
+    const evoNumberSelect = document.getElementById('evo-number');
+    evoNumberSelect.addEventListener('change', updateEvoPrice);
+}
+
+function updateEvoPrice() {
+    const evoNumberOption = document.getElementById('evo-number').selectedOptions[0];
+    
+    if (evoNumberOption && evoNumberOption.value) {
+        let originalPriceUSD = parseInt(evoNumberOption.value);
+        const evoText = evoNumberOption.textContent;
+        
+        // Add Xbox platform cost (in USD)
+        if (serviceOptions.evo && serviceOptions.evo.platform === 'xbox') {
+            originalPriceUSD += 10;
+        }
+
+        // Add express delivery cost (in USD)
+        if (serviceOptions.evo && serviceOptions.evo.delivery === 'express') {
+            originalPriceUSD += 13;
+        }
+        
+        // Apply discount
+        const finalPriceUSD = applyDiscount(originalPriceUSD, 'evo');
+        
+        // Convert to current currency
+        const finalPriceConverted = convertPrice(finalPriceUSD);
+        
+        // Update price display
+        document.getElementById('evo-price-amount').textContent = finalPriceConverted;
+        document.getElementById('evo-currency').textContent = currentCurrency;
+        document.getElementById('evo-price').style.display = 'block';
+        document.getElementById('evo-promo-section').style.display = 'block';
+        
+        const deliveryText = (serviceOptions.evo && serviceOptions.evo.delivery === 'express') ? 'Express (+$13)' : 'Normal';
+        const paymentText = (serviceOptions.evo && serviceOptions.evo.payment) ? serviceOptions.evo.payment : 'paypal';
+        
+        let summaryContent = `
+            <div class="summary-item"><span>Service:</span><span>Evolution</span></div>
+            <div class="summary-item"><span>Number of EVOs:</span><span>${evoText}</span></div>
+            <div class="summary-item"><span>Platform:</span><span>${serviceOptions.evo.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
+            <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
+            <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
+
+        // Add promo if applied
+        if (appliedPromos.evo) {
+            const savedAmountUSD = originalPriceUSD - finalPriceUSD;
+            const savedAmountConverted = convertDiscount(savedAmountUSD);
+            summaryContent += `<div class="summary-item"><span>Promo Code:</span><span style="color: #28a745;">${appliedPromos.evo.code} (-${savedAmountConverted})</span></div>`;
+        }
+
+        summaryContent += `<div class="summary-item"><span>Final Price:</span><span>${finalPriceConverted}</span></div>`;
+        
+        document.getElementById('evo-summary-content').innerHTML = summaryContent;
+        document.getElementById('evo-summary').style.display = 'block';
+        
+        const orderBtn = document.getElementById('evo-order-btn');
+        orderBtn.disabled = false;
+        orderBtn.textContent = 'Order Now';
+        orderBtn.onclick = () => orderEvolution(evoText, finalPriceConverted);
+    } else {
+        document.getElementById('evo-price').style.display = 'none';
+        document.getElementById('evo-promo-section').style.display = 'none';
+        document.getElementById('evo-summary').style.display = 'none';
+        document.getElementById('evo-order-btn').disabled = true;
+        document.getElementById('evo-order-btn').textContent = 'Select all options first';
+    }
+}
+
+function orderEvolution(evoText, price) {
+    if (!validateEmail('evo')) return;
+    const email = document.getElementById('evo-email').value || 'Not provided';
+    const deliveryText = (serviceOptions.evo && serviceOptions.evo.delivery === 'express') ? 'Express' : 'Normal';
+    const paymentText = (serviceOptions.evo && serviceOptions.evo.payment) ? serviceOptions.evo.payment : 'paypal';
+    
+    let message = `🎮 QBoosting Order
+
+Service: Evolution
+Number of EVOs: ${evoText}
+Platform: ${serviceOptions.evo.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
+Delivery: ${deliveryText}
+Payment Method: ${paymentText}
+Email: ${email}`;
+
+    // Add promo if applied
+    if (appliedPromos.evo) {
+        message += `\nPromo Code: ${appliedPromos.evo.code} ✅`;
+    }
+    
+    message += `\nFinal Price: ${price}
+
+Ready to start when you confirm! 🚀`;
+    
+    window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+}
         
 // Subscription Logic
 function initSubscription() {
