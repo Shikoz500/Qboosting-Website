@@ -1,0 +1,55 @@
+/* Button Group Styles */
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.select-btn {
+  flex: 1;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  position: relative;
+}
+
+.select-btn:hover {
+  border-color: #28a745;
+}
+
+.select-btn.active {
+  background: #28a745 !important;
+  color: white !important;
+  border-color: #28a745 !important;
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.8) !important;
+  font-weight: bold !important;
+  transform: scale(1.05) !important;
+  border-width: 3px !important;
+}
+
+/* Email Input Styles */
+input[type='email'] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 5px;
+  transition: border-color 0.3s ease;
+}
+
+input[type='email']:focus {
+  outline: none;
+  border-color: #28a745;
+}
+
+input[type='email'].error {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 10px rgba(220, 53, 69, 0.3);
+}

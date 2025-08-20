@@ -1,0 +1,83 @@
+/* Promo Code Section Styles */
+.promo-section {
+  margin: 15px 0;
+}
+
+.promo-section label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #00ff88;
+}
+
+.promo-input-group {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.promo-input-group input {
+  width: 100%;
+  padding: 10px 80px 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  text-transform: uppercase;
+  box-sizing: border-box;
+}
+
+.promo-input-group input:focus {
+  outline: none;
+  border-color: #28a745;
+}
+
+.promo-btn {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 6px 15px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  transition: background 0.3s ease;
+}
+
+.promo-btn:hover {
+  background: #218838;
+}
+
+.promo-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+.promo-message {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  display: none;
+}
+
+.promo-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.promo-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.promo-message.loading {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
