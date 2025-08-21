@@ -2,12 +2,13 @@
 <html lang="en">
   <head>
     <script>
-  const password = "egyptno1"; // غير الباسورد هنا
+  const password = "egyptno1"; // الباسورد الصح
   const userInput = prompt("Enter password to access the site:");
 
   if (userInput !== password) {
-    document.body.innerHTML = "<h2 style='text-align:center; margin-top:50px;'>❌ Access Denied</h2>";
-    throw new Error("Access Denied"); // يوقف تحميل باقي الصفحة
+    document.write("<h2 style='text-align:center; margin-top:50px;'>❌ Access Denied</h2>");
+    // نوقف أي تحميل لباقي الصفحة
+    window.stop();
   }
     </script>
     <!-- Google tag (gtag.js) -->
