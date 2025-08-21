@@ -5,15 +5,9 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
-    sans-serif;
-  background: #0a0a0a;
-  color: #ffffff;
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
+  font-family: 'Rajdhani', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* rest of your existing styles */
 }
-
 /* FIFA-inspired Background */
 body::before {
   content: '';
