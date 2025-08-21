@@ -5,8 +5,13 @@
 }
 
 body {
-  font-family: 'Rajdhani', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* rest of your existing styles */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
+    sans-serif;
+  background: #0a0a0a;
+  color: #ffffff;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }
 /* FIFA-inspired Background */
 body::before {
@@ -771,29 +776,4 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-}
-/* Force text colors to white */
-body, p, h1, h2, h3, h4, h5, h6, span, div, .hero p, .feature-card p, .contact-card p, .faq-answer p {
-  color: #ffffff !important;
-}
-
-/* Specific fixes for problem areas */
-.hero p {
-  color: #cccccc !important;
-}
-
-.feature-card p, .feature-card div {
-  color: #ffffff !important;
-}
-
-.contact-card p, .contact-card h3 {
-  color: #ffffff !important;
-}
-
-.faq-answer {
-  color: #ffffff !important;
-}
-
-.faq-answer p {
-  color: #ffffff !important;
 }
