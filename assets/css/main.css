@@ -780,3 +780,10 @@ body::after {
     justify-content: center;
   }
 }
+body {
+  background-image: url('https://i.ibb.co/MDJgp044/FC26-Rev-Stadium-Clubs-16x9.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
