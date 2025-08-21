@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+  const password = "egyptno1"; // غير الباسورد هنا
+  const userInput = prompt("Enter password to access the site:");
+
+  if (userInput !== password) {
+    document.body.innerHTML = "<h2 style='text-align:center; margin-top:50px;'>❌ Access Denied</h2>";
+    throw new Error("Access Denied"); // يوقف تحميل باقي الصفحة
+  }
+    </script>
     <!-- Google tag (gtag.js) -->
     <script
       async
