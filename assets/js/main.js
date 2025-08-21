@@ -44,6 +44,15 @@ function navigateToPage(pageName) {
     const targetPage = document.getElementById(pageName);
     if (targetPage) {
         targetPage.classList.add('active');
+        
+        // Special handling for subscription page
+        if (pageName === 'subscription') {
+            // Make sure the subscription service content is visible
+            const subscriptionContent = targetPage.querySelector('.service-content');
+            if (subscriptionContent) {
+                subscriptionContent.classList.add('active');
+            }
+        }
     }
 
     // Update nav links
