@@ -51,6 +51,27 @@ function navigateToPage(pageName) {
             const subscriptionContent = targetPage.querySelector('.service-content');
             if (subscriptionContent) {
                 subscriptionContent.classList.add('active');
+                subscriptionContent.style.display = 'block';
+            }
+        }
+        
+        // Special handling for services page
+        if (pageName === 'services') {
+            // Ensure the currently active tab's content is visible
+            const activeTab = document.querySelector('.tab.active');
+            if (activeTab) {
+                const activeServiceContent = document.getElementById(activeTab.dataset.service);
+                if (activeServiceContent) {
+                    activeServiceContent.classList.add('active');
+                }
+            } else {
+                // If no tab is active, activate the first one (FUT Champions)
+                const firstTab = document.querySelector('.tab[data-service="fut-champions"]');
+                const futContent = document.getElementById('fut-champions');
+                if (firstTab && futContent) {
+                    firstTab.classList.add('active');
+                    futContent.classList.add('active');
+                }
             }
         }
     }
