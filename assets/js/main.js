@@ -1,4 +1,3 @@
-
 let currentCurrency = 'USD';
 let exchangeRates = { USD: 1, EUR: 0.85, GBP: 0.73 };
 
@@ -31,6 +30,22 @@ function convertDiscount(usdDiscount) {
     const convertedDiscount = usdDiscount * exchangeRates[currentCurrency];
     const symbol = currentCurrency === 'USD' ? '$' : currentCurrency === 'EUR' ? '€' : '£';
     return `${symbol}${Math.round(convertedDiscount)}`;
+}
+
+// Helper functions to get costs in current currency
+function getXboxCostText() {
+    const xboxCostConverted = convertPrice(10);
+    return `Xbox (+${xboxCostConverted})`;
+}
+
+function getExpressCostText() {
+    const expressCostConverted = convertPrice(13);
+    return `Express (+${expressCostConverted})`;
+}
+
+function getXboxSubCostText() {
+    const xboxSubCostConverted = convertPrice(30);
+    return `Xbox (+${xboxSubCostConverted})`;
 }
 
 // Page navigation function
@@ -99,7 +114,7 @@ let serviceOptions = {
     friendly: { platform: 'playstation', delivery: 'normal', payment: 'paypal' },
     squad: { platform: 'playstation', delivery: 'normal', payment: 'paypal' },
     sub: { platform: 'playstation', payment: 'paypal' },
-    evo: { platform: 'playstation', delivery: 'normal', payment: 'paypal' }//
+    evo: { platform: 'playstation', delivery: 'normal', payment: 'paypal' }
 };
 
 // Promo Code Functionality
@@ -307,6 +322,7 @@ function applyDiscount(originalPriceUSD, service) {
     }
     return originalPriceUSD;
 }
+
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function () {
     // Navigation links
@@ -503,14 +519,15 @@ function updateFutPrice() {
         document.getElementById('fut-price').style.display = 'block';
         document.getElementById('fut-promo-section').style.display = 'block';
 
-        const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? 'Express (+$13)' : 'Normal';
+        const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
+        const platformText = (serviceOptions.fut && serviceOptions.fut.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
 
         let summaryContent = `
                     <div class="summary-item"><span>Service:</span><span>FUT Champions</span></div>
                     <div class="summary-item"><span>Current Record:</span><span>${wins}W - ${loses}L</span></div>
                     <div class="summary-item"><span>Target Rank:</span><span>${rankName}</span></div>
-                    <div class="summary-item"><span>Platform:</span><span>${serviceOptions.fut.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
+                    <div class="summary-item"><span>Platform:</span><span>${platformText}</span></div>
                     <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
                     <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
 
@@ -542,15 +559,16 @@ function updateFutPrice() {
 function orderFutChampions(wins, loses, rank, price) {
     if (!validateEmail('fut')) return;
     const email = document.getElementById('fut-email').value || 'Not provided';
-    const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? 'Express' : 'Normal';
+    const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
+    const platformText = (serviceOptions.fut && serviceOptions.fut.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
     let message = `🎮 QBoosting Order
 
 Service: FUT Champions
 Current Record: ${wins}W - ${loses}L
 Target Rank: ${rank}
-Platform: ${serviceOptions.fut.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
+Platform: ${platformText}
 Delivery: ${deliveryText}
 Payment Method: ${paymentText}
 Email: ${email}`;
@@ -647,14 +665,15 @@ function updateDivPrice() {
 
         const currentDivName = current === 0 ? 'Elite Division' : `Division ${current}`;
         const requiredDivName = required === 0 ? 'Elite Division' : `Division ${required}`;
-        const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? 'Express (+$13)' : 'Normal';
+        const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.div && serviceOptions.div.payment) ? serviceOptions.div.payment : 'paypal';
+        const platformText = (serviceOptions.div && serviceOptions.div.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
 
         let summaryContent = `
                     <div class="summary-item"><span>Service:</span><span>Division Rivals</span></div>
                     <div class="summary-item"><span>From:</span><span>${currentDivName}</span></div>
                     <div class="summary-item"><span>To:</span><span>${requiredDivName}</span></div>
-                    <div class="summary-item"><span>Platform:</span><span>${serviceOptions.div.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
+                    <div class="summary-item"><span>Platform:</span><span>${platformText}</span></div>
                     <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
                     <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
 
@@ -686,15 +705,16 @@ function updateDivPrice() {
 function orderDivisionRivals(current, required, price) {
     if (!validateEmail('div')) return;
     const email = document.getElementById('div-email').value || 'Not provided';
-    const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? 'Express' : 'Normal';
+    const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.div && serviceOptions.div.payment) ? serviceOptions.div.payment : 'paypal';
+    const platformText = (serviceOptions.div && serviceOptions.div.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
     let message = `🎮 QBoosting Order
 
 Service: Division Rivals
 Current Division: ${current}
 Target Division: ${required}
-Platform: ${serviceOptions.div.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
+Platform: ${platformText}
 Delivery: ${deliveryText}
 Payment Method: ${paymentText}
 Email: ${email}`;
@@ -746,13 +766,14 @@ function updateDraftPrice() {
         document.getElementById('draft-price').style.display = 'block';
         document.getElementById('draft-promo-section').style.display = 'block';
 
-        const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? 'Express (+$13)' : 'Normal';
+        const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.draft && serviceOptions.draft.payment) ? serviceOptions.draft.payment : 'paypal';
+        const platformText = (serviceOptions.draft && serviceOptions.draft.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
 
         let summaryContent = `
                     <div class="summary-item"><span>Service:</span><span>Online Draft</span></div>
                     <div class="summary-item"><span>Required Wins:</span><span>${wins} Win${wins > 1 ? 's' : ''}</span></div>
-                    <div class="summary-item"><span>Platform:</span><span>${serviceOptions.draft.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
+                    <div class="summary-item"><span>Platform:</span><span>${platformText}</span></div>
                     <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
                     <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
 
@@ -784,14 +805,15 @@ function updateDraftPrice() {
 function orderOnlineDraft(wins, price) {
     if (!validateEmail('draft')) return;
     const email = document.getElementById('draft-email').value || 'Not provided';
-    const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? 'Express' : 'Normal';
+    const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.draft && serviceOptions.draft.payment) ? serviceOptions.draft.payment : 'paypal';
+    const platformText = (serviceOptions.draft && serviceOptions.draft.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
     let message = `🎮 QBoosting Order
 
 Service: Online Draft
 Required Wins: ${wins} Win${wins > 1 ? 's' : ''}
-Platform: ${serviceOptions.draft.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
+Platform: ${platformText}
 Delivery: ${deliveryText}
 Payment Method: ${paymentText}
 Email: ${email}`;
@@ -864,14 +886,15 @@ function updateFriendlyPrice() {
         document.getElementById('friendly-promo-section').style.display = 'block';
 
         // Create summary...
-        const deliveryText = (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') ? 'Express (+$13)' : 'Normal';
+        const deliveryText = (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.friendly && serviceOptions.friendly.payment) ? serviceOptions.friendly.payment : 'paypal';
+        const platformText = (serviceOptions.friendly && serviceOptions.friendly.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
 
         let summaryContent = `
             <div class="summary-item"><span>Service:</span><span>Friendly Cup</span></div>
             <div class="summary-item"><span>Cup Type:</span><span>Co-op Cup</span></div>
             <div class="summary-item"><span>Reward:</span><span>${rewardName}</span></div>
-            <div class="summary-item"><span>Platform:</span><span>${serviceOptions.friendly.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
+            <div class="summary-item"><span>Platform:</span><span>${platformText}</span></div>
             <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
             <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
 
@@ -905,15 +928,16 @@ function orderFriendlyCup(reward, price) {
     if (!validateEmail('friendly')) return;
 
     const email = document.getElementById('friendly-email').value;
-    const deliveryText = (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') ? 'Express' : 'Normal';
+    const deliveryText = (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.friendly && serviceOptions.friendly.payment) ? serviceOptions.friendly.payment : 'paypal';
+    const platformText = (serviceOptions.friendly && serviceOptions.friendly.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
     let message = `🎮 QBoosting Order
 
 Service: Friendly Cup
 Cup Type: Co-op Cup  
 Reward: ${reward}
-Platform: ${serviceOptions.friendly.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
+Platform: ${platformText}
 Delivery: ${deliveryText}
 Payment Method: ${paymentText}
 Email: ${email}`;
@@ -965,13 +989,14 @@ function updateSquadPrice() {
         document.getElementById('squad-price').style.display = 'block';
         document.getElementById('squad-promo-section').style.display = 'block';
 
-        const deliveryText = (serviceOptions.squad && serviceOptions.squad.delivery === 'express') ? 'Express (+$13)' : 'Normal';
+        const deliveryText = (serviceOptions.squad && serviceOptions.squad.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.squad && serviceOptions.squad.payment) ? serviceOptions.squad.payment : 'paypal';
+        const platformText = (serviceOptions.squad && serviceOptions.squad.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
 
         let summaryContent = `
             <div class="summary-item"><span>Service:</span><span>Squad Battle</span></div>
             <div class="summary-item"><span>Target Rank:</span><span>${rankName}</span></div>
-            <div class="summary-item"><span>Platform:</span><span>${serviceOptions.squad.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
+            <div class="summary-item"><span>Platform:</span><span>${platformText}</span></div>
             <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
             <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
 
@@ -1004,14 +1029,15 @@ function orderSquadBattle(rank, price) {
     if (!validateEmail('squad')) return;
 
     const email = document.getElementById('squad-email').value;
-    const deliveryText = (serviceOptions.squad && serviceOptions.squad.delivery === 'express') ? 'Express' : 'Normal';
+    const deliveryText = (serviceOptions.squad && serviceOptions.squad.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.squad && serviceOptions.squad.payment) ? serviceOptions.squad.payment : 'paypal';
+    const platformText = (serviceOptions.squad && serviceOptions.squad.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
     let message = `🎮 QBoosting Order
 
 Service: Squad Battle
 Target Rank: ${rank}
-Platform: ${serviceOptions.squad.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
+Platform: ${platformText}
 Delivery: ${deliveryText}
 Payment Method: ${paymentText}
 Email: ${email}`;
@@ -1065,13 +1091,14 @@ function updateEvoPrice() {
         document.getElementById('evo-price').style.display = 'block';
         document.getElementById('evo-promo-section').style.display = 'block';
 
-        const deliveryText = (serviceOptions.evo && serviceOptions.evo.delivery === 'express') ? 'Express (+$13)' : 'Normal';
+        const deliveryText = (serviceOptions.evo && serviceOptions.evo.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.evo && serviceOptions.evo.payment) ? serviceOptions.evo.payment : 'paypal';
+        const platformText = (serviceOptions.evo && serviceOptions.evo.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
 
         let summaryContent = `
             <div class="summary-item"><span>Service:</span><span>Evolution</span></div>
             <div class="summary-item"><span>Number of EVOs:</span><span>${evoText}</span></div>
-            <div class="summary-item"><span>Platform:</span><span>${serviceOptions.evo.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}</span></div>
+            <div class="summary-item"><span>Platform:</span><span>${platformText}</span></div>
             <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
             <div class="summary-item"><span>Payment:</span><span>${paymentText}</span></div>`;
 
@@ -1103,14 +1130,15 @@ function updateEvoPrice() {
 function orderEvolution(evoText, price) {
     if (!validateEmail('evo')) return;
     const email = document.getElementById('evo-email').value || 'Not provided';
-    const deliveryText = (serviceOptions.evo && serviceOptions.evo.delivery === 'express') ? 'Express' : 'Normal';
+    const deliveryText = (serviceOptions.evo && serviceOptions.evo.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.evo && serviceOptions.evo.payment) ? serviceOptions.evo.payment : 'paypal';
+    const platformText = (serviceOptions.evo && serviceOptions.evo.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
     let message = `🎮 QBoosting Order
 
 Service: Evolution
 Number of EVOs: ${evoText}
-Platform: ${serviceOptions.evo.platform === 'xbox' ? 'Xbox (+$10)' : 'PlayStation'}
+Platform: ${platformText}
 Delivery: ${deliveryText}
 Payment Method: ${paymentText}
 Email: ${email}`;
@@ -1207,7 +1235,7 @@ function updateSubPrice() {
             'rivals-3': 'Rivals Weekly Rewards 3 Month'
         };
 
-        const platformText = (serviceOptions.sub && serviceOptions.sub.platform === 'xbox') ? 'Xbox (+$30)' : 'PlayStation';
+        const platformText = (serviceOptions.sub && serviceOptions.sub.platform === 'xbox') ? getXboxSubCostText() : 'PlayStation';
         const paymentText = (serviceOptions.sub && serviceOptions.sub.payment) ? serviceOptions.sub.payment : 'paypal';
 
         let summaryContent = `
@@ -1246,7 +1274,7 @@ function orderSubscription(serviceType, rankName, price) {
     if (!validateEmail('sub')) return;
 
     const email = document.getElementById('sub-email').value;
-    const platformText = (serviceOptions.sub && serviceOptions.sub.platform === 'xbox') ? 'Xbox (+$30)' : 'PlayStation';
+    const platformText = (serviceOptions.sub && serviceOptions.sub.platform === 'xbox') ? `Xbox (+${convertPrice(30)})` : 'PlayStation';
     const paymentText = (serviceOptions.sub && serviceOptions.sub.payment) ? serviceOptions.sub.payment : 'paypal';
 
     let message = `🎮 QBoosting Subscription Order
