@@ -1,6 +1,51 @@
 let currentCurrency = 'USD';
 let exchangeRates = { USD: 1, EUR: 0.85, GBP: 0.73 };
 
+// Order number tracking
+let orderCounter = parseInt(localStorage.getItem('qboosting-order-counter') || '100');
+
+// Function to get next order number (fallback)
+function getLocalOrderNumber() {
+    orderCounter++;
+    localStorage.setItem('qboosting-order-counter', orderCounter.toString());
+    return orderCounter;
+}
+
+// Main function to get order number (with Google Apps Script)
+async function getNextOrderNumber() {
+    try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbzSnS76SnDykGZwXv99nehSwqJT_e4WQT_TpOVOtdYze-TkrMIWhtF0aBsvxhziw4Gm/exec?action=generateOrder');
+        const data = await response.json();
+        
+        if (data.success) {
+            return data.orderNumber;
+        } else {
+            throw new Error(data.error);
+        }
+    } catch (error) {
+        console.error('Failed to get order number from server:', error);
+        // Fallback to local counter
+        return getLocalOrderNumber();
+    }
+}
+
+// Optional: Log order to server for tracking
+async function logOrderToServer(orderNumber, service, email, price) {
+    try {
+        const params = new URLSearchParams({
+            action: 'logOrder',
+            orderNumber: orderNumber,
+            service: service,
+            email: email,
+            price: price
+        });
+        
+        await fetch(`https://script.google.com/macros/s/AKfycbzSnS76SnDykGZwXv99nehSwqJT_e4WQT_TpOVOtdYze-TkrMIWhtF0aBsvxhziw4Gm/exec?${params}`);
+    } catch (error) {
+        console.error('Failed to log order:', error);
+    }
+}
+
 // Fetch live exchange rates
 async function fetchExchangeRates() {
     try {
@@ -556,14 +601,18 @@ function updateFutPrice() {
     }
 }
 
-function orderFutChampions(wins, loses, rank, price) {
+async function orderFutChampions(wins, loses, rank, price) {
     if (!validateEmail('fut')) return;
+    const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('fut-email').value || 'Not provided';
     const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
     const platformText = (serviceOptions.fut && serviceOptions.fut.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-    let message = `🎮 QBoosting Order
+        // Optional: Log to server
+    logOrderToServer(orderNumber, 'FUT Champions', email, price);
+
+    let message = `🎮 QBoosting Order #${orderNumber}
 
 Service: FUT Champions
 Current Record: ${wins}W - ${loses}L
@@ -702,14 +751,18 @@ function updateDivPrice() {
     }
 }
 
-function orderDivisionRivals(current, required, price) {
+async function orderDivisionRivals(current, required, price) {
     if (!validateEmail('div')) return;
+    const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('div-email').value || 'Not provided';
     const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.div && serviceOptions.div.payment) ? serviceOptions.div.payment : 'paypal';
     const platformText = (serviceOptions.div && serviceOptions.div.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-    let message = `🎮 QBoosting Order
+    // Optional: Log to server
+    logOrderToServer(orderNumber, 'Division Rivals', email, price);
+
+    let message = `🎮 QBoosting Order #${orderNumber}
 
 Service: Division Rivals
 Current Division: ${current}
@@ -802,14 +855,18 @@ function updateDraftPrice() {
     }
 }
 
-function orderOnlineDraft(wins, price) {
+async function orderOnlineDraft(wins, price) {
     if (!validateEmail('draft')) return;
+    const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('draft-email').value || 'Not provided';
     const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.draft && serviceOptions.draft.payment) ? serviceOptions.draft.payment : 'paypal';
     const platformText = (serviceOptions.draft && serviceOptions.draft.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-    let message = `🎮 QBoosting Order
+    // Optional: Log to server
+    logOrderToServer(orderNumber, 'Online Draft', email, price);
+
+    let message = `🎮 QBoosting Order #${orderNumber}
 
 Service: Online Draft
 Required Wins: ${wins} Win${wins > 1 ? 's' : ''}
@@ -924,15 +981,19 @@ function updateFriendlyPrice() {
     }
 }
 
-function orderFriendlyCup(reward, price) {
+async function orderFriendlyCup(reward, price) {
     if (!validateEmail('friendly')) return;
 
+    const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('friendly-email').value;
     const deliveryText = (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.friendly && serviceOptions.friendly.payment) ? serviceOptions.friendly.payment : 'paypal';
     const platformText = (serviceOptions.friendly && serviceOptions.friendly.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-    let message = `🎮 QBoosting Order
+    // Optional: Log to server
+    logOrderToServer(orderNumber, 'Friendly Cup', email, price);
+
+    let message = `🎮 QBoosting Order #${orderNumber}
 
 Service: Friendly Cup
 Cup Type: Co-op Cup  
@@ -1025,15 +1086,18 @@ function updateSquadPrice() {
     }
 }
 
-function orderSquadBattle(rank, price) {
+async function orderSquadBattle(rank, price) {
     if (!validateEmail('squad')) return;
-
+    const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('squad-email').value;
     const deliveryText = (serviceOptions.squad && serviceOptions.squad.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.squad && serviceOptions.squad.payment) ? serviceOptions.squad.payment : 'paypal';
     const platformText = (serviceOptions.squad && serviceOptions.squad.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-    let message = `🎮 QBoosting Order
+    // Optional: Log to server
+    logOrderToServer(orderNumber, 'Squad Battle', email, price);
+
+    let message = `🎮 QBoosting Order #${orderNumber}
 
 Service: Squad Battle
 Target Rank: ${rank}
@@ -1127,14 +1191,18 @@ function updateEvoPrice() {
     }
 }
 
-function orderEvolution(evoText, price) {
+async function orderEvolution(evoText, price) {
     if (!validateEmail('evo')) return;
+    const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('evo-email').value || 'Not provided';
     const deliveryText = (serviceOptions.evo && serviceOptions.evo.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.evo && serviceOptions.evo.payment) ? serviceOptions.evo.payment : 'paypal';
     const platformText = (serviceOptions.evo && serviceOptions.evo.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-    let message = `🎮 QBoosting Order
+    // Optional: Log to server
+    logOrderToServer(orderNumber, 'Evolution', email, price);
+
+    let message = `🎮 QBoosting Order #${orderNumber}
 
 Service: Evolution
 Number of EVOs: ${evoText}
@@ -1270,14 +1338,18 @@ function updateSubPrice() {
     }
 }
 
-function orderSubscription(serviceType, rankName, price) {
+async function orderSubscription(serviceType, rankName, price) {
     if (!validateEmail('sub')) return;
 
+    const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('sub-email').value;
     const platformText = (serviceOptions.sub && serviceOptions.sub.platform === 'xbox') ? `Xbox (+${convertPrice(30)})` : 'PlayStation';
     const paymentText = (serviceOptions.sub && serviceOptions.sub.payment) ? serviceOptions.sub.payment : 'paypal';
 
-    let message = `🎮 QBoosting Subscription Order
+     // Optional: Log to server
+    logOrderToServer(orderNumber, 'Subscription', email, price);
+
+    let message = `🎮 QBoosting Subscription Order #${orderNumber}
 
 Service: ${serviceType}
 Rank/Division: ${rankName}
