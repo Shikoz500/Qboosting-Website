@@ -990,7 +990,7 @@ async function orderFriendlyCup(reward, price) {
     const paymentText = (serviceOptions.friendly && serviceOptions.friendly.payment) ? serviceOptions.friendly.payment : 'paypal';
     const platformText = (serviceOptions.friendly && serviceOptions.friendly.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-    // Optional: Log to server
+    // Optional: Log to goole sheet
     logOrderToServer(orderNumber, 'Friendly Cup', email, price);
 
     let message = `🎮 QBoosting Order #${orderNumber}
