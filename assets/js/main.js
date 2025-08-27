@@ -1,62 +1,16 @@
 let currentCurrency = 'USD';
 let exchangeRates = { USD: 1, EUR: 0.85, GBP: 0.73 };
 
-// Order number tracking
-let orderCounter = parseInt(localStorage.getItem('qboosting-order-counter') || '100');
-let preGeneratedOrderNumbers = [];
-
 let processingOrder = false;
 
-// Function to get next order number (fallback)
-function getLocalOrderNumber() {
-    orderCounter++;
-    localStorage.setItem('qboosting-order-counter', orderCounter.toString());
-    return orderCounter;
+// Generate 5-digit random order number (10000-99999) - Option 3: Pure Random
+function generateClientOrderNumber() {
+    return Math.floor(Math.random() * 90000) + 10000; // 10000-99999
 }
 
-// Pre-generate order numbers for faster response
-async function preGenerateOrderNumbers() {
-    try {
-        // Increase to 10 order numbers for better coverage
-        for (let i = 0; i < 10; i++) {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbxXfEVKZBbEl62yLA0xsNr0MCSbR1u2oJzFaUa4sAblTZ7p5iKdIglUUn3hvPPwXak/exec?action=generateOrder');
-            const data = await response.json();
-            if (data.success) {
-                preGeneratedOrderNumbers.push(data.orderNumber);
-            }
-        }
-    } catch (error) {
-        console.log('Could not pre-generate order numbers');
-    }
-}
-
-// Modified getNextOrderNumber function
-async function getNextOrderNumber() {
-    // Use pre-generated number if available
-    if (preGeneratedOrderNumbers.length > 0) {
-        const orderNumber = preGeneratedOrderNumbers.shift();
-        
-        // Replenish the pool earlier when it gets to 5 instead of 2
-        if (preGeneratedOrderNumbers.length < 5) {
-            preGenerateOrderNumbers(); // Don't await this
-        }
-        
-        return orderNumber;
-    }
-    
-    // Fallback to original method
-    try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbxXfEVKZBbEl62yLA0xsNr0MCSbR1u2oJzFaUa4sAblTZ7p5iKdIglUUn3hvPPwXak/exec?action=generateOrder');
-        const data = await response.json();
-        
-        if (data.success) {
-            return data.orderNumber;
-        }
-    } catch (error) {
-        console.error('Failed to get order number:', error);
-    }
-    
-    return getLocalOrderNumber();
+// Fast client-side order number generation - no server dependency!
+function getNextOrderNumber() {
+    return generateClientOrderNumber();
 }
 
 // Optional: Log order to server for tracking
@@ -70,7 +24,7 @@ async function logOrderToServer(orderNumber, service, email, price) {
             price: price
         });
         
-        await fetch(`https://script.google.com/macros/s/AKfycbxXfEVKZBbEl62yLA0xsNr0MCSbR1u2oJzFaUa4sAblTZ7p5iKdIglUUn3hvPPwXak/exec?${params}`);
+        await fetch(`https://script.google.com/macros/s/AKfycbzGtu0JUHhHrqHg3vmMNsD-N5MZnSrZY8Frz6mure8I9eaIcQgqXsBxYH73dVd-fybE/exec/exec?${params}`);
     } catch (error) {
         console.error('Failed to log order:', error);
     }
@@ -435,9 +389,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initSquadBattle();
     initEvolution();
     initSubscription();
-    
-    // Pre-generate order numbers for faster response
-    preGenerateOrderNumbers();
 
     // Add this to your DOMContentLoaded event listener
 document.addEventListener('visibilitychange', function() {
@@ -459,11 +410,6 @@ document.addEventListener('visibilitychange', function() {
                 
                 orderButtons.forEach(item => resetOrderButton(item.btn, item.text));
             }, 1000); // 1 second after they return to the tab
-        }
-        
-        // Keep your existing pregenerate logic
-        if (!document.hidden && preGeneratedOrderNumbers.length < 5) {
-            preGenerateOrderNumbers();
         }
     });
 });
@@ -691,13 +637,13 @@ async function orderFutChampions(wins, loses, rank, price) {
         return;
     }
     
-    const orderNumber = await getNextOrderNumber();
+    const orderNumber = getNextOrderNumber(); // Now instant - no await needed!
     const email = document.getElementById('fut-email').value || 'Not provided';
     const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
     const platformText = (serviceOptions.fut && serviceOptions.fut.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-    // Optional: Log to server
+    // Log to server in background (non-blocking)
     logOrderToServer(orderNumber, 'FUT Champions', email, price);
 
     let message = `🎮 QBoosting Order #${orderNumber}
@@ -866,7 +812,7 @@ if (processingOrder) return;
         return;
     }
     
-    const orderNumber = await getNextOrderNumber();
+    const orderNumber = getNextOrderNumber();
     const email = document.getElementById('div-email').value || 'Not provided';
     const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.div && serviceOptions.div.payment) ? serviceOptions.div.payment : 'paypal';
@@ -995,7 +941,7 @@ if (processingOrder) return;
         return;
     }
     
-    const orderNumber = await getNextOrderNumber();
+    const orderNumber = getNextOrderNumber();
     const email = document.getElementById('draft-email').value || 'Not provided';
     const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.draft && serviceOptions.draft.payment) ? serviceOptions.draft.payment : 'paypal';
@@ -1145,7 +1091,7 @@ if (processingOrder) return;
         return;
     }
     
-    const orderNumber = await getNextOrderNumber();
+    const orderNumber = getNextOrderNumber();
     const email = document.getElementById('friendly-email').value;
     const deliveryText = (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.friendly && serviceOptions.friendly.payment) ? serviceOptions.friendly.payment : 'paypal';
@@ -1273,7 +1219,7 @@ if (processingOrder) return;
         return;
     }
     
-    const orderNumber = await getNextOrderNumber();
+    const orderNumber = getNextOrderNumber();
     const email = document.getElementById('squad-email').value;
     const deliveryText = (serviceOptions.squad && serviceOptions.squad.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.squad && serviceOptions.squad.payment) ? serviceOptions.squad.payment : 'paypal';
@@ -1403,7 +1349,7 @@ if (processingOrder) return;
         return;
     }
     
-    const orderNumber = await getNextOrderNumber();
+    const orderNumber = getNextOrderNumber();
     const email = document.getElementById('evo-email').value || 'Not provided';
     const deliveryText = (serviceOptions.evo && serviceOptions.evo.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.evo && serviceOptions.evo.payment) ? serviceOptions.evo.payment : 'paypal';
@@ -1575,7 +1521,7 @@ if (processingOrder) return;
         return;
     }
     
-    const orderNumber = await getNextOrderNumber();
+    const orderNumber = getNextOrderNumber();
     const email = document.getElementById('sub-email').value;
     const platformText = (serviceOptions.sub && serviceOptions.sub.platform === 'xbox') ? `Xbox (+${convertPrice(30)})` : 'PlayStation';
     const paymentText = (serviceOptions.sub && serviceOptions.sub.payment) ? serviceOptions.sub.payment : 'paypal';
