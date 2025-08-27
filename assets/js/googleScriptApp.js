@@ -19,13 +19,16 @@ function generateOrderNumber() {
     try {
         const sheet = SpreadsheetApp.openById('176lOkYH7Z1qyYzkrEu3lK3E0o3cvjD5De1viaYFNrGs').getSheetByName('Orders');
 
-        // Get the last row with data
-        const lastRow = sheet.getLastRow();
+        // Get all data to find the highest order number
+        const data = sheet.getDataRange().getValues();
         let nextOrderNumber = 101; // Starting number
 
-        if (lastRow > 1) { // If there are existing orders
-            const lastOrderNumber = sheet.getRange(lastRow, 1).getValue();
-            nextOrderNumber = parseInt(lastOrderNumber) + 1;
+        // Find the highest existing order number (more reliable than lastRow)
+        for (let i = 1; i < data.length; i++) {
+            const orderNum = parseInt(data[i][0]);
+            if (!isNaN(orderNum) && orderNum >= nextOrderNumber) {
+                nextOrderNumber = orderNum + 1;
+            }
         }
 
         // Reserve this number by adding a placeholder row
@@ -50,7 +53,8 @@ function logOrder(params) {
         // Find the reserved row and update it
         const data = sheet.getDataRange().getValues();
         for (let i = 1; i < data.length; i++) {
-            if (data[i][0] == params.orderNumber && data[i][2] === 'Reserved') {
+            // Check both the service column and status column for "Reserved" and "Pending"
+            if (data[i][0] == params.orderNumber && data[i][2] === 'Reserved' && data[i][5] === 'Pending') {
                 sheet.getRange(i + 1, 1, 1, 6).setValues([[
                     params.orderNumber,
                     new Date(),
@@ -59,11 +63,15 @@ function logOrder(params) {
                     params.price,
                     'Confirmed'
                 ]]);
-                break;
+                return { success: true, message: 'Order confirmed successfully' };
             }
         }
 
-        return { success: true };
+        // If no reserved row found, this means the order number wasn't pre-generated
+        return { 
+            success: false, 
+            error: `Reserved order #${params.orderNumber} not found or already used` 
+        };
     } catch (error) {
         return { success: false, error: error.toString() };
     }
