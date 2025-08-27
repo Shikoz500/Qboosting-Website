@@ -17,8 +17,10 @@ function getLocalOrderNumber() {
 // Pre-generate order numbers for faster response
 async function preGenerateOrderNumbers() {
     try {
-        // Increase to 10 order numbers for better coverage
-        for (let i = 0; i < 10; i++) {
+        // Only generate what we need to maintain a small pool (reduced from 10 to 3)
+        const needed = Math.max(0, 3 - preGeneratedOrderNumbers.length);
+        
+        for (let i = 0; i < needed; i++) {
             const response = await fetch('https://script.google.com/macros/s/AKfycbzSnS76SnDykGZwXv99nehSwqJT_e4WQT_TpOVOtdYze-TkrMIWhtF0aBsvxhziw4Gm/exec?action=generateOrder');
             const data = await response.json();
             if (data.success) {
@@ -36,8 +38,8 @@ async function getNextOrderNumber() {
     if (preGeneratedOrderNumbers.length > 0) {
         const orderNumber = preGeneratedOrderNumbers.shift();
         
-        // Replenish the pool earlier when it gets to 5 instead of 2
-        if (preGeneratedOrderNumbers.length < 5) {
+        // Replenish the pool when it gets to 1 (reduced from 5)
+        if (preGeneratedOrderNumbers.length < 1) {
             preGenerateOrderNumbers(); // Don't await this
         }
         
@@ -462,7 +464,7 @@ document.addEventListener('visibilitychange', function() {
         }
         
         // Keep your existing pregenerate logic
-        if (!document.hidden && preGeneratedOrderNumbers.length < 5) {
+        if (!document.hidden && preGeneratedOrderNumbers.length < 1) {
             preGenerateOrderNumbers();
         }
     });
