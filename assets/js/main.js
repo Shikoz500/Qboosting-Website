@@ -3,6 +3,9 @@ let exchangeRates = { USD: 1, EUR: 0.85, GBP: 0.73 };
 
 // Order number tracking
 let orderCounter = parseInt(localStorage.getItem('qboosting-order-counter') || '100');
+let preGeneratedOrderNumbers = [];
+
+let processingOrder = false;
 
 // Function to get next order number (fallback)
 function getLocalOrderNumber() {
@@ -11,22 +14,49 @@ function getLocalOrderNumber() {
     return orderCounter;
 }
 
-// Main function to get order number (with Google Apps Script)
+// Pre-generate order numbers for faster response
+async function preGenerateOrderNumbers() {
+    try {
+        // Increase to 10 order numbers for better coverage
+        for (let i = 0; i < 10; i++) {
+            const response = await fetch('https://script.google.com/macros/s/AKfycbzSnS76SnDykGZwXv99nehSwqJT_e4WQT_TpOVOtdYze-TkrMIWhtF0aBsvxhziw4Gm/exec?action=generateOrder');
+            const data = await response.json();
+            if (data.success) {
+                preGeneratedOrderNumbers.push(data.orderNumber);
+            }
+        }
+    } catch (error) {
+        console.log('Could not pre-generate order numbers');
+    }
+}
+
+// Modified getNextOrderNumber function
 async function getNextOrderNumber() {
+    // Use pre-generated number if available
+    if (preGeneratedOrderNumbers.length > 0) {
+        const orderNumber = preGeneratedOrderNumbers.shift();
+        
+        // Replenish the pool earlier when it gets to 5 instead of 2
+        if (preGeneratedOrderNumbers.length < 5) {
+            preGenerateOrderNumbers(); // Don't await this
+        }
+        
+        return orderNumber;
+    }
+    
+    // Fallback to original method
     try {
         const response = await fetch('https://script.google.com/macros/s/AKfycbzSnS76SnDykGZwXv99nehSwqJT_e4WQT_TpOVOtdYze-TkrMIWhtF0aBsvxhziw4Gm/exec?action=generateOrder');
         const data = await response.json();
         
         if (data.success) {
             return data.orderNumber;
-        } else {
-            throw new Error(data.error);
         }
     } catch (error) {
-        console.error('Failed to get order number from server:', error);
-        // Fallback to local counter
-        return getLocalOrderNumber();
+        console.error('Failed to get order number:', error);
     }
+    
+    return getLocalOrderNumber();
 }
 
 // Optional: Log order to server for tracking
@@ -405,8 +435,46 @@ document.addEventListener('DOMContentLoaded', function () {
     initSquadBattle();
     initEvolution();
     initSubscription();
+    
+    // Pre-generate order numbers for faster response
+    preGenerateOrderNumbers();
+
+    // Add this to your DOMContentLoaded event listener
+document.addEventListener('visibilitychange', function() {
+        if (!document.hidden && processingOrder) {
+            // User came back to the tab, reset processing state
+            setTimeout(() => {
+                processingOrder = false;
+                
+                // Reset all order buttons
+                const orderButtons = [
+                    { btn: document.getElementById('fut-order-btn'), text: 'Order Now' },
+                    { btn: document.getElementById('div-order-btn'), text: 'Order Now' },
+                    { btn: document.getElementById('draft-order-btn'), text: 'Order Now' },
+                    { btn: document.getElementById('friendly-order-btn'), text: 'Order Now' },
+                    { btn: document.getElementById('squad-order-btn'), text: 'Order Now' },
+                    { btn: document.getElementById('evo-order-btn'), text: 'Order Now' },
+                    { btn: document.getElementById('sub-order-btn'), text: 'Order Now' }
+                ];
+                
+                orderButtons.forEach(item => resetOrderButton(item.btn, item.text));
+            }, 1000); // 1 second after they return to the tab
+        }
+        
+        // Keep your existing pregenerate logic
+        if (!document.hidden && preGeneratedOrderNumbers.length < 5) {
+            preGenerateOrderNumbers();
+        }
+    });
 });
 
+function resetOrderButton(button, originalText) {
+    if (button) {
+        button.disabled = false;
+        button.textContent = originalText;
+        button.style.opacity = '1';
+    }
+}
 // FAQ functionality
 function toggleFaq(element) {
     const answer = element.nextElementSibling;
@@ -602,14 +670,34 @@ function updateFutPrice() {
 }
 
 async function orderFutChampions(wins, loses, rank, price) {
-    if (!validateEmail('fut')) return;
+    if (processingOrder) return;
+    
+    // IMMEDIATELY disable button and show feedback
+    const orderBtn = document.getElementById('fut-order-btn');
+    if (orderBtn.disabled) return; // Prevent duplicate clicks
+    
+    orderBtn.disabled = true;
+    orderBtn.textContent = 'Processing...';
+    orderBtn.style.opacity = '0.6'; // Visual feedback
+    
+    processingOrder = true;
+    
+    if (!validateEmail('fut')) {
+        // Reset button and processing state if validation fails
+        orderBtn.disabled = false;
+        orderBtn.textContent = 'Order Now';
+        orderBtn.style.opacity = '1';
+        processingOrder = false;
+        return;
+    }
+    
     const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('fut-email').value || 'Not provided';
     const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
     const platformText = (serviceOptions.fut && serviceOptions.fut.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-        // Optional: Log to server
+    // Optional: Log to server
     logOrderToServer(orderNumber, 'FUT Champions', email, price);
 
     let message = `🎮 QBoosting Order #${orderNumber}
@@ -632,6 +720,11 @@ Email: ${email}`;
 Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+
+        setTimeout(() => {
+    processingOrder = false;
+    resetOrderButton(orderBtn, 'Order Now');
+}, 3000); // Changed from 2000 to 3000 (3 seconds max)
 }
 
 // Division Rivals Logic
@@ -752,7 +845,27 @@ function updateDivPrice() {
 }
 
 async function orderDivisionRivals(current, required, price) {
-    if (!validateEmail('div')) return;
+if (processingOrder) return;
+    
+    // IMMEDIATELY disable button and show feedback
+    const orderBtn = document.getElementById('div-order-btn');
+    if (orderBtn.disabled) return; // Prevent duplicate clicks
+    
+    orderBtn.disabled = true;
+    orderBtn.textContent = 'Processing...';
+    orderBtn.style.opacity = '0.6'; // Visual feedback
+    
+    processingOrder = true;
+    
+    if (!validateEmail('div')) {
+        // Reset button and processing state if validation fails
+        orderBtn.disabled = false;
+        orderBtn.textContent = 'Order Now';
+        orderBtn.style.opacity = '1';
+        processingOrder = false;
+        return;
+    }
+    
     const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('div-email').value || 'Not provided';
     const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
@@ -782,6 +895,11 @@ Email: ${email}`;
 Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+    
+    setTimeout(() => {
+    processingOrder = false;
+    resetOrderButton(orderBtn, 'Order Now');
+}, 3000); // Changed from 2000 to 3000 (3 seconds max)
 }
 
 // Online Draft Logic
@@ -856,7 +974,27 @@ function updateDraftPrice() {
 }
 
 async function orderOnlineDraft(wins, price) {
-    if (!validateEmail('draft')) return;
+if (processingOrder) return;
+    
+    // IMMEDIATELY disable button and show feedback
+    const orderBtn = document.getElementById('draft-order-btn');
+    if (orderBtn.disabled) return; // Prevent duplicate clicks
+    
+    orderBtn.disabled = true;
+    orderBtn.textContent = 'Processing...';
+    orderBtn.style.opacity = '0.6'; // Visual feedback
+    
+    processingOrder = true;
+    
+    if (!validateEmail('draft')) {
+        // Reset button and processing state if validation fails
+        orderBtn.disabled = false;
+        orderBtn.textContent = 'Order Now';
+        orderBtn.style.opacity = '1';
+        processingOrder = false;
+        return;
+    }
+    
     const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('draft-email').value || 'Not provided';
     const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
@@ -887,6 +1025,10 @@ Email: ${email}`;
 Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+    setTimeout(() => {
+    processingOrder = false;
+    resetOrderButton(orderBtn, 'Order Now');
+}, 3000); // Changed from 2000 to 3000 (3 seconds max)
 }
 
 // Friendly Cup Logic
@@ -982,15 +1124,34 @@ function updateFriendlyPrice() {
 }
 
 async function orderFriendlyCup(reward, price) {
-    if (!validateEmail('friendly')) return;
-
+if (processingOrder) return;
+    
+    // IMMEDIATELY disable button and show feedback
+    const orderBtn = document.getElementById('friendly-order-btn');
+    if (orderBtn.disabled) return; // Prevent duplicate clicks
+    
+    orderBtn.disabled = true;
+    orderBtn.textContent = 'Processing...';
+    orderBtn.style.opacity = '0.6'; // Visual feedback
+    
+    processingOrder = true;
+    
+    if (!validateEmail('friendly')) {
+        // Reset button and processing state if validation fails
+        orderBtn.disabled = false;
+        orderBtn.textContent = 'Order Now';
+        orderBtn.style.opacity = '1';
+        processingOrder = false;
+        return;
+    }
+    
     const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('friendly-email').value;
     const deliveryText = (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
     const paymentText = (serviceOptions.friendly && serviceOptions.friendly.payment) ? serviceOptions.friendly.payment : 'paypal';
     const platformText = (serviceOptions.friendly && serviceOptions.friendly.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-    // Optional: Log to goole sheet
+    // Optional: Log to google sheet
     logOrderToServer(orderNumber, 'Friendly Cup', email, price);
 
     let message = `🎮 QBoosting Order #${orderNumber}
@@ -1013,6 +1174,10 @@ Email: ${email}`;
 Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+   setTimeout(() => {
+    processingOrder = false;
+    resetOrderButton(orderBtn, 'Order Now');
+}, 3000); // Changed from 2000 to 3000 (3 seconds max)
 }
 
 // Squad Battle Logic
@@ -1087,7 +1252,27 @@ function updateSquadPrice() {
 }
 
 async function orderSquadBattle(rank, price) {
-    if (!validateEmail('squad')) return;
+if (processingOrder) return;
+    
+    // IMMEDIATELY disable button and show feedback
+    const orderBtn = document.getElementById('squad-order-btn');
+    if (orderBtn.disabled) return; // Prevent duplicate clicks
+    
+    orderBtn.disabled = true;
+    orderBtn.textContent = 'Processing...';
+    orderBtn.style.opacity = '0.6'; // Visual feedback
+    
+    processingOrder = true;
+    
+    if (!validateEmail('squad')) {
+        // Reset button and processing state if validation fails
+        orderBtn.disabled = false;
+        orderBtn.textContent = 'Order Now';
+        orderBtn.style.opacity = '1';
+        processingOrder = false;
+        return;
+    }
+    
     const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('squad-email').value;
     const deliveryText = (serviceOptions.squad && serviceOptions.squad.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
@@ -1118,6 +1303,11 @@ Email: ${email}`;
 Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+    
+    setTimeout(() => {
+    processingOrder = false;
+    resetOrderButton(orderBtn, 'Order Now');
+}, 3000); // Changed from 2000 to 3000 (3 seconds max)
 }
 
 // Evolution Logic
@@ -1192,7 +1382,27 @@ function updateEvoPrice() {
 }
 
 async function orderEvolution(evoText, price) {
-    if (!validateEmail('evo')) return;
+if (processingOrder) return;
+    
+    // IMMEDIATELY disable button and show feedback
+    const orderBtn = document.getElementById('evo-order-btn');
+    if (orderBtn.disabled) return; // Prevent duplicate clicks
+    
+    orderBtn.disabled = true;
+    orderBtn.textContent = 'Processing...';
+    orderBtn.style.opacity = '0.6'; // Visual feedback
+    
+    processingOrder = true;
+    
+    if (!validateEmail('evo')) {
+        // Reset button and processing state if validation fails
+        orderBtn.disabled = false;
+        orderBtn.textContent = 'Order Now';
+        orderBtn.style.opacity = '1';
+        processingOrder = false;
+        return;
+    }
+    
     const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('evo-email').value || 'Not provided';
     const deliveryText = (serviceOptions.evo && serviceOptions.evo.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
@@ -1221,6 +1431,11 @@ Email: ${email}`;
 Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+    
+   setTimeout(() => {
+    processingOrder = false;
+    resetOrderButton(orderBtn, 'Order Now');
+}, 3000); // Changed from 2000 to 3000 (3 seconds max)
 }
 
 // Subscription Logic
@@ -1339,8 +1554,27 @@ function updateSubPrice() {
 }
 
 async function orderSubscription(serviceType, rankName, price) {
-    if (!validateEmail('sub')) return;
-
+if (processingOrder) return;
+    
+    // IMMEDIATELY disable button and show feedback
+    const orderBtn = document.getElementById('sub-order-btn');
+    if (orderBtn.disabled) return; // Prevent duplicate clicks
+    
+    orderBtn.disabled = true;
+    orderBtn.textContent = 'Processing...';
+    orderBtn.style.opacity = '0.6'; // Visual feedback
+    
+    processingOrder = true;
+    
+    if (!validateEmail('sub')) {
+        // Reset button and processing state if validation fails
+        orderBtn.disabled = false;
+        orderBtn.textContent = 'Order Now';
+        orderBtn.style.opacity = '1';
+        processingOrder = false;
+        return;
+    }
+    
     const orderNumber = await getNextOrderNumber();
     const email = document.getElementById('sub-email').value;
     const platformText = (serviceOptions.sub && serviceOptions.sub.platform === 'xbox') ? `Xbox (+${convertPrice(30)})` : 'PlayStation';
@@ -1367,6 +1601,11 @@ Email: ${email}`;
 Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+    
+    setTimeout(() => {
+    processingOrder = false;
+    resetOrderButton(orderBtn, 'Order Now');
+}, 3000); // Changed from 2000 to 3000 (3 seconds max)
 }
 
 function validateEmail(service) {
