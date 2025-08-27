@@ -19,7 +19,7 @@ async function preGenerateOrderNumbers() {
     try {
         // Increase to 10 order numbers for better coverage
         for (let i = 0; i < 10; i++) {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbzSnS76SnDykGZwXv99nehSwqJT_e4WQT_TpOVOtdYze-TkrMIWhtF0aBsvxhziw4Gm/exec?action=generateOrder');
+            const response = await fetch('https://script.google.com/macros/s/AKfycbxXfEVKZBbEl62yLA0xsNr0MCSbR1u2oJzFaUa4sAblTZ7p5iKdIglUUn3hvPPwXak/exec?action=generateOrder');
             const data = await response.json();
             if (data.success) {
                 preGeneratedOrderNumbers.push(data.orderNumber);
@@ -46,7 +46,7 @@ async function getNextOrderNumber() {
     
     // Fallback to original method
     try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbzSnS76SnDykGZwXv99nehSwqJT_e4WQT_TpOVOtdYze-TkrMIWhtF0aBsvxhziw4Gm/exec?action=generateOrder');
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxXfEVKZBbEl62yLA0xsNr0MCSbR1u2oJzFaUa4sAblTZ7p5iKdIglUUn3hvPPwXak/exec?action=generateOrder');
         const data = await response.json();
         
         if (data.success) {
@@ -70,7 +70,7 @@ async function logOrderToServer(orderNumber, service, email, price) {
             price: price
         });
         
-        await fetch(`https://script.google.com/macros/s/AKfycbzSnS76SnDykGZwXv99nehSwqJT_e4WQT_TpOVOtdYze-TkrMIWhtF0aBsvxhziw4Gm/exec?${params}`);
+        await fetch(`https://script.google.com/macros/s/AKfycbxXfEVKZBbEl62yLA0xsNr0MCSbR1u2oJzFaUa4sAblTZ7p5iKdIglUUn3hvPPwXak/exec?${params}`);
     } catch (error) {
         console.error('Failed to log order:', error);
     }
