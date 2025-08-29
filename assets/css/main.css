@@ -749,10 +749,66 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
   .services-tabs {
-    flex-direction: column;
-    align-items: center;
-  }
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+}
 
+.services-tabs .tab {
+  display: none; /* Hide all tabs by default on mobile */
+  width: 90%;
+  margin: 0.5rem 0;
+}
+
+.services-tabs .tab.active {
+  display: block; /* Show only active tab */
+  position: relative;
+}
+
+.services-tabs .tab.active::after {
+  content: '▼';
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #00ff88;
+}
+
+.services-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background: rgba(26, 26, 58, 0.95);
+  border: 1px solid #00ff88;
+  border-radius: 10px;
+  z-index: 1000;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.services-dropdown.show {
+  display: block;
+}
+
+.services-dropdown .tab {
+  display: block !important;
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.services-dropdown .tab:last-child {
+  border-bottom: none;
+  border-radius: 0 0 10px 10px;
+}
+
+.services-dropdown .tab:first-child {
+  border-radius: 10px 10px 0 0;
+}
   .form-grid {
     grid-template-columns: 1fr;
   }
@@ -765,6 +821,14 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     justify-content: center;
   }
 }
+
+/* Prevent dropdown from going off-screen */
+@media (max-width: 480px) {
+  .services-dropdown {
+    width: 95%;
+  }
+}
+
 body {
   background-image: url('https://shikoz500.github.io/Qboosting-Website/images/background.png');
   background-size: cover;
