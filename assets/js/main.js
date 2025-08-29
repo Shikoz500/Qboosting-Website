@@ -465,6 +465,24 @@ function initMobileServicesDropdown() {
   }
 }
 
+// Window resize handler
+function handleResize() {
+  const dropdown = document.getElementById('servicesDropdown');
+  
+  if (window.innerWidth > 768) {
+    // Desktop: show all tabs, hide dropdown
+    document.querySelectorAll('.services-tabs .tab').forEach(tab => {
+      tab.style.display = 'flex';
+    });
+    if (dropdown) {
+      dropdown.classList.remove('show');
+    }
+  } else {
+    // Mobile: reinitialize dropdown
+    initMobileServicesDropdown();
+  }
+}
+
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function () {
     // Navigation links
