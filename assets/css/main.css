@@ -781,67 +781,88 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.8rem;
   }
 
+@media (max-width: 768px) {
   .services-tabs {
-  position: relative;
-  flex-direction: column;
-  align-items: center;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .services-tabs .tab {
+    display: none; /* Hide all tabs by default on mobile */
+    width: 90%;
+    margin: 0.5rem 0;
+  }
+
+  .services-tabs .tab.active {
+    display: flex !important; /* Force show active tab */
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .services-tabs .tab.active::after {
+    content: '▼';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #00ff88;
+    transition: transform 0.3s ease;
+  }
+
+  .services-tabs .tab.active.dropdown-open::after {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  .services-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background: rgba(26, 26, 58, 0.95);
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .services-dropdown.show {
+    display: block;
+  }
+
+  .services-dropdown .tab {
+    display: flex !important;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .services-dropdown .tab:last-child {
+    border-bottom: none;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .services-dropdown .tab:first-child {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .services-dropdown .tab:hover {
+    background: rgba(0, 255, 136, 0.3);
+    transform: none;
+  }
 }
 
-.services-tabs .tab {
-  display: none; /* Hide all tabs by default on mobile */
-  width: 90%;
-  margin: 0.5rem 0;
-}
-
-.services-tabs .tab.active {
-  display: block; /* Show only active tab */
-  position: relative;
-}
-
-.services-tabs .tab.active::after {
-  content: '▼';
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 12px;
-  color: #00ff88;
-}
-
-.services-dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  background: rgba(26, 26, 58, 0.95);
-  border: 1px solid #00ff88;
-  border-radius: 10px;
-  z-index: 1000;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-}
-
-.services-dropdown.show {
-  display: block;
-}
-
-.services-dropdown .tab {
-  display: block !important;
-  width: 100%;
-  margin: 0;
-  border-radius: 0;
-  border-bottom: 1px solid rgba(0, 255, 136, 0.2);
-}
-
-.services-dropdown .tab:last-child {
-  border-bottom: none;
-  border-radius: 0 0 10px 10px;
-}
-
-.services-dropdown .tab:first-child {
-  border-radius: 10px 10px 0 0;
-}
+  }
   .form-grid {
     grid-template-columns: 1fr;
   }
