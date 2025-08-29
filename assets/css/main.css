@@ -492,6 +492,39 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   box-shadow: none;
 }
 
+/* Order button states */
+.order-btn.processing {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.order-btn.success {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+  animation: successPulse 0.3s ease;
+  /* Button stays in success state to prevent duplicate orders */
+  cursor: not-allowed;
+}
+
+.order-btn.error {
+  background: linear-gradient(45deg, #dc3545, #c82333);
+  box-shadow: 0 5px 20px rgba(220, 53, 69, 0.4);
+  animation: errorShake 0.3s ease;
+}
+
+@keyframes successPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
 .note {
   background: rgba(255, 193, 7, 0.1);
   border: 1px solid #ffc107;

@@ -3,6 +3,20 @@ let exchangeRates = { USD: 1, EUR: 0.85, GBP: 0.73 };
 
 let processingOrder = false;
 
+// Debouncing utility to prevent multiple rapid clicks
+function debounce(func, delay) {
+    let timeoutId;
+    return function (...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// Create debounced order handler with 200ms delay
+function createDebouncedOrderHandler(orderFunction) {
+    return debounce(orderFunction, 200);
+}
+
 // Generate 5-digit random order number (10000-99999) - Option 3: Pure Random
 function generateClientOrderNumber() {
     return Math.floor(Math.random() * 90000) + 10000; // 10000-99999
@@ -492,11 +506,83 @@ document.addEventListener('visibilitychange', function() {
     });
 });
 
+// Enhanced button state management
+function setButtonState(button, state, text) {
+    if (!button) return;
+    
+    // Remove all state classes
+    button.classList.remove('processing', 'success', 'error');
+    
+    switch (state) {
+        case 'processing':
+            button.disabled = true;
+            button.textContent = text || 'Processing...';
+            button.classList.add('processing');
+            break;
+            
+        case 'success':
+            button.disabled = true;
+            button.textContent = text || 'Order Created! ✅';
+            button.classList.add('success');
+            break;
+            
+        case 'error':
+            button.disabled = false;
+            button.textContent = text || 'Try Again';
+            button.classList.add('error');
+            break;
+            
+        case 'default':
+        default:
+            button.disabled = false;
+            button.textContent = text || 'Order Now';
+            button.style.opacity = '1';
+            break;
+    }
+}
+
+// Legacy function for backward compatibility
 function resetOrderButton(button, originalText) {
-    if (button) {
-        button.disabled = false;
-        button.textContent = originalText;
-        button.style.opacity = '1';
+    setButtonState(button, 'default', originalText);
+}
+
+// Generic order processing function with enhanced feedback
+async function processOrder(buttonId, serviceName, validateFn, messageBuilder) {
+    if (processingOrder) return;
+    
+    const orderBtn = document.getElementById(buttonId);
+    if (orderBtn.disabled) return;
+    
+    setButtonState(orderBtn, 'processing');
+    processingOrder = true;
+    
+    try {
+        if (!validateFn()) {
+            setButtonState(orderBtn, 'error', 'Please enter email');
+            processingOrder = false;
+            setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
+            return;
+        }
+        
+        const orderNumber = getNextOrderNumber();
+        const message = messageBuilder(orderNumber);
+        
+        // Log to server in background
+        const email = document.getElementById(buttonId.replace('-order-btn', '-email')).value || 'Not provided';
+        const price = orderBtn.closest('.service-content').querySelector('.price-display h3').textContent;
+        logOrderToServer(orderNumber, serviceName, email, price);
+
+        window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+        
+        // Show success state and keep it to prevent multiple orders
+        setButtonState(orderBtn, 'success');
+        processingOrder = false; // Allow other services to work
+        
+    } catch (error) {
+        console.error('Order error:', error);
+        setButtonState(orderBtn, 'error');
+        processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
     }
 }
 // FAQ functionality
@@ -683,7 +769,7 @@ function updateFutPrice() {
         const orderBtn = document.getElementById('fut-order-btn');
         orderBtn.disabled = false;
         orderBtn.textContent = 'Order Now';
-        orderBtn.onclick = () => orderFutChampions(wins, loses, rankName, finalPriceConverted);
+        orderBtn.onclick = createDebouncedOrderHandler(() => orderFutChampions(wins, loses, rankName, finalPriceConverted));
     } else {
         document.getElementById('fut-price').style.display = 'none';
         document.getElementById('fut-promo-section').style.display = 'none';
@@ -696,35 +782,31 @@ function updateFutPrice() {
 async function orderFutChampions(wins, loses, rank, price) {
     if (processingOrder) return;
     
-    // IMMEDIATELY disable button and show feedback
     const orderBtn = document.getElementById('fut-order-btn');
     if (orderBtn.disabled) return; // Prevent duplicate clicks
     
-    orderBtn.disabled = true;
-    orderBtn.textContent = 'Processing...';
-    orderBtn.style.opacity = '0.6'; // Visual feedback
-    
+    // Set processing state
+    setButtonState(orderBtn, 'processing');
     processingOrder = true;
     
-    if (!validateEmail('fut')) {
-        // Reset button and processing state if validation fails
-        orderBtn.disabled = false;
-        orderBtn.textContent = 'Order Now';
-        orderBtn.style.opacity = '1';
-        processingOrder = false;
-        return;
-    }
-    
-    const orderNumber = getNextOrderNumber(); // Now instant - no await needed!
-    const email = document.getElementById('fut-email').value || 'Not provided';
-    const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
-    const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
-    const platformText = (serviceOptions.fut && serviceOptions.fut.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
+    try {
+        if (!validateEmail('fut')) {
+            setButtonState(orderBtn, 'error', 'Please enter email');
+            processingOrder = false;
+            setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
+            return;
+        }
+        
+        const orderNumber = getNextOrderNumber();
+        const email = document.getElementById('fut-email').value || 'Not provided';
+        const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? `Express (+${convertPrice(13)})` : 'Normal';
+        const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
+        const platformText = (serviceOptions.fut && serviceOptions.fut.platform === 'xbox') ? `Xbox (+${convertPrice(10)})` : 'PlayStation';
 
-    // Log to server in background (non-blocking)
-    logOrderToServer(orderNumber, 'FUT Champions', email, price);
+        // Log to server in background (non-blocking)
+        logOrderToServer(orderNumber, 'FUT Champions', email, price);
 
-    let message = `🎮 QBoosting Order #${orderNumber}
+        let message = `🎮 QBoosting Order #${orderNumber}
 
 Service: FUT Champions
 Current Record: ${wins}W - ${loses}L
@@ -734,21 +816,26 @@ Delivery: ${deliveryText}
 Payment Method: ${paymentText}
 Email: ${email}`;
 
-    // إضافة الـ Promo لو موجود
-    if (appliedPromos.fut) {
-        message += `\nPromo Code: ${appliedPromos.fut.code} ✅`;
-    }
+        if (appliedPromos.fut) {
+            message += `\nPromo Code: ${appliedPromos.fut.code} ✅`;
+        }
 
-    message += `\nFinal Price: ${price}
+        message += `\nFinal Price: ${price}
 
 Ready to start when you confirm! 🚀`;
 
-    window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
-
-        setTimeout(() => {
-    processingOrder = false;
-    resetOrderButton(orderBtn, 'Order Now');
-}, 3000); // Changed from 2000 to 3000 (3 seconds max)
+        window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
+        
+        // Show success state and keep it to prevent multiple orders
+        setButtonState(orderBtn, 'success');
+        processingOrder = false; // Allow other services to work
+        
+    } catch (error) {
+        console.error('Order error:', error);
+        setButtonState(orderBtn, 'error');
+        processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
+    }
 }
 
 // Division Rivals Logic
@@ -858,7 +945,7 @@ function updateDivPrice() {
         const orderBtn = document.getElementById('div-order-btn');
         orderBtn.disabled = false;
         orderBtn.textContent = 'Order Now';
-        orderBtn.onclick = () => orderDivisionRivals(currentDivName, requiredDivName, finalPriceConverted);
+        orderBtn.onclick = createDebouncedOrderHandler(() => orderDivisionRivals(currentDivName, requiredDivName, finalPriceConverted));
     } else {
         document.getElementById('div-price').style.display = 'none';
         document.getElementById('div-promo-section').style.display = 'none';
@@ -987,7 +1074,7 @@ function updateDraftPrice() {
         const orderBtn = document.getElementById('draft-order-btn');
         orderBtn.disabled = false;
         orderBtn.textContent = 'Order Now';
-        orderBtn.onclick = () => orderOnlineDraft(wins, finalPriceConverted);
+        orderBtn.onclick = createDebouncedOrderHandler(() => orderOnlineDraft(wins, finalPriceConverted));
     } else {
         document.getElementById('draft-price').style.display = 'none';
         document.getElementById('draft-promo-section').style.display = 'none';
@@ -1136,7 +1223,7 @@ function updateFriendlyPrice() {
         const orderBtn = document.getElementById('friendly-order-btn');
         orderBtn.disabled = false;
         orderBtn.textContent = 'Order Now';
-        orderBtn.onclick = () => orderFriendlyCup(rewardName, finalPriceConverted);
+        orderBtn.onclick = createDebouncedOrderHandler(() => orderFriendlyCup(rewardName, finalPriceConverted));
     } else {
         // Hide everything if incomplete
         document.getElementById('friendly-price').style.display = 'none';
@@ -1265,7 +1352,7 @@ function updateSquadPrice() {
         const orderBtn = document.getElementById('squad-order-btn');
         orderBtn.disabled = false;
         orderBtn.textContent = 'Order Now';
-        orderBtn.onclick = () => orderSquadBattle(rankName, finalPriceConverted);
+        orderBtn.onclick = createDebouncedOrderHandler(() => orderSquadBattle(rankName, finalPriceConverted));
     } else {
         document.getElementById('squad-price').style.display = 'none';
         document.getElementById('squad-promo-section').style.display = 'none';
@@ -1395,7 +1482,7 @@ function updateEvoPrice() {
         const orderBtn = document.getElementById('evo-order-btn');
         orderBtn.disabled = false;
         orderBtn.textContent = 'Order Now';
-        orderBtn.onclick = () => orderEvolution(evoText, finalPriceConverted);
+        orderBtn.onclick = createDebouncedOrderHandler(() => orderEvolution(evoText, finalPriceConverted));
     } else {
         document.getElementById('evo-price').style.display = 'none';
         document.getElementById('evo-promo-section').style.display = 'none';
@@ -1567,7 +1654,7 @@ function updateSubPrice() {
         const orderBtn = document.getElementById('sub-order-btn');
         orderBtn.disabled = false;
         orderBtn.textContent = 'Order Now';
-        orderBtn.onclick = () => orderSubscription(serviceNames[serviceType], rankName, finalPriceConverted);
+        orderBtn.onclick = createDebouncedOrderHandler(() => orderSubscription(serviceNames[serviceType], rankName, finalPriceConverted));
     } else {
         document.getElementById('sub-price').style.display = 'none';
         document.getElementById('sub-promo-section').style.display = 'none';
