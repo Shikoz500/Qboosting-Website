@@ -366,6 +366,94 @@ function applyDiscount(originalPriceUSD, service) {
     return originalPriceUSD;
 }
 
+// Mobile services dropdown functionality
+function initMobileServicesDropdown() {
+  const servicesTabsContainer = document.querySelector('.services-tabs');
+  const dropdown = document.getElementById('servicesDropdown');
+  
+  // Add null check for dropdown element
+  if (!dropdown) {
+    console.log('Dropdown container not found - make sure to add it to HTML');
+    return;
+  }
+  
+  if (window.innerWidth <= 768) {
+    // Create dropdown items from inactive tabs
+    function updateDropdown() {
+      const allTabs = servicesTabsContainer.querySelectorAll('.tab');
+      
+      dropdown.innerHTML = '';
+      
+      allTabs.forEach(tab => {
+        if (!tab.classList.contains('active') && !tab.classList.contains('disabled')) {
+          const dropdownItem = tab.cloneNode(true);
+          dropdownItem.classList.remove('active');
+          dropdown.appendChild(dropdownItem);
+        }
+      });
+    }
+    
+    // Handle active tab click to show dropdown
+    servicesTabsContainer.addEventListener('click', function(e) {
+      if (e.target.classList.contains('tab') && e.target.classList.contains('active')) {
+        updateDropdown();
+        dropdown.classList.toggle('show');
+        e.stopPropagation();
+      }
+    });
+    
+    // Handle dropdown item selection
+    dropdown.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent event bubbling
+      
+      if (e.target.classList.contains('tab')) {
+        // Remove active from current tab
+        servicesTabsContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.service-content').forEach(c => c.classList.remove('active'));
+        
+        // Find and activate the corresponding main tab
+        const targetService = e.target.dataset.service;
+        const mainTab = servicesTabsContainer.querySelector(`[data-service="${targetService}"]`);
+        if (mainTab) {
+          mainTab.classList.add('active');
+          document.getElementById(targetService).classList.add('active');
+        }
+        
+        // Hide dropdown
+        dropdown.classList.remove('show');
+      }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!servicesTabsContainer.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('show');
+      }
+    });
+    
+    // Initial dropdown setup
+    updateDropdown();
+  }
+}
+
+// Window resize handler
+function handleResize() {
+  const dropdown = document.getElementById('servicesDropdown');
+  
+  if (window.innerWidth > 768) {
+    // Desktop: show all tabs, hide dropdown
+    document.querySelectorAll('.services-tabs .tab').forEach(tab => {
+      tab.style.display = 'flex';
+    });
+    if (dropdown) {
+      dropdown.classList.remove('show');
+    }
+  } else {
+    // Mobile: reinitialize dropdown
+    initMobileServicesDropdown();
+  }
+}
+
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function () {
     // Navigation links
@@ -404,81 +492,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initEvolution();
     initSubscription();
     initMobileServicesDropdown();
-
-    // Mobile services dropdown functionality
-function initMobileServicesDropdown() {
-  const servicesTabsContainer = document.querySelector('.services-tabs');
-  const dropdown = document.getElementById('servicesDropdown');
-  
-  if (window.innerWidth <= 768) {
-    // Create dropdown items from inactive tabs
-    function updateDropdown() {
-      const allTabs = servicesTabsContainer.querySelectorAll('.tab');
-      const activeTab = servicesTabsContainer.querySelector('.tab.active');
-      
-      dropdown.innerHTML = '';
-      
-      allTabs.forEach(tab => {
-        if (!tab.classList.contains('active') && !tab.classList.contains('disabled')) {
-          const dropdownItem = tab.cloneNode(true);
-          dropdownItem.classList.remove('active');
-          dropdown.appendChild(dropdownItem);
-        }
-      });
-    }
-    
-    // Handle active tab click to show dropdown
-    servicesTabsContainer.addEventListener('click', function(e) {
-      if (e.target.classList.contains('tab') && e.target.classList.contains('active')) {
-        updateDropdown();
-        dropdown.classList.toggle('show');
-        e.stopPropagation();
-      }
-    });
-    
-    // Handle dropdown item selection
-    dropdown.addEventListener('click', function(e) {
-      if (e.target.classList.contains('tab')) {
-        // Remove active from current tab
-        servicesTabsContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.service-content').forEach(c => c.classList.remove('active'));
-        
-        // Find and activate the corresponding main tab
-        const targetService = e.target.dataset.service;
-        const mainTab = servicesTabsContainer.querySelector(`[data-service="${targetService}"]`);
-        if (mainTab) {
-          mainTab.classList.add('active');
-          document.getElementById(targetService).classList.add('active');
-        }
-        
-        // Hide dropdown
-        dropdown.classList.remove('show');
-      }
-    });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function() {
-      dropdown.classList.remove('show');
-    });
-    
-    // Initial dropdown setup
-    updateDropdown();
-  }
-}
-
-// Window resize handler to reinitialize on screen size changes
-function handleResize() {
-  if (window.innerWidth > 768) {
-    // Desktop: show all tabs, hide dropdown
-    document.querySelectorAll('.services-tabs .tab').forEach(tab => {
-      tab.style.display = 'flex';
-    });
-    document.getElementById('servicesDropdown').classList.remove('show');
-  } else {
-    // Mobile: reinitialize dropdown
-    initMobileServicesDropdown();
-  }
-}
 
 window.addEventListener('resize', handleResize);
 
