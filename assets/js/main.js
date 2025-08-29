@@ -376,12 +376,19 @@ function initMobileServicesDropdown() {
     console.log('Dropdown container not found - make sure to add it to HTML');
     return;
   }
+
+  if (!servicesTabsContainer) {
+    console.log('Services tabs container not found');
+    return;
+  }
   
+  // Only initialize on mobile
   if (window.innerWidth <= 768) {
+    console.log('Initializing mobile dropdown'); // Debug log
+    
     // Create dropdown items from inactive tabs
     function updateDropdown() {
       const allTabs = servicesTabsContainer.querySelectorAll('.tab');
-      
       dropdown.innerHTML = '';
       
       allTabs.forEach(tab => {
@@ -391,24 +398,35 @@ function initMobileServicesDropdown() {
           dropdown.appendChild(dropdownItem);
         }
       });
+      console.log('Dropdown updated with', dropdown.children.length, 'items'); // Debug log
     }
     
+    // Remove existing event listeners to prevent duplicates
+    servicesTabsContainer.removeEventListener('click', handleTabClick);
+    dropdown.removeEventListener('click', handleDropdownClick);
+    
     // Handle active tab click to show dropdown
-    servicesTabsContainer.addEventListener('click', function(e) {
+    function handleTabClick(e) {
       if (e.target.classList.contains('tab') && e.target.classList.contains('active')) {
+        console.log('Active tab clicked'); // Debug log
         updateDropdown();
         dropdown.classList.toggle('show');
+        e.target.classList.toggle('dropdown-open');
         e.stopPropagation();
       }
-    });
+    }
     
     // Handle dropdown item selection
-    dropdown.addEventListener('click', function(e) {
-      e.stopPropagation(); // Prevent event bubbling
+    function handleDropdownClick(e) {
+      e.stopPropagation();
       
       if (e.target.classList.contains('tab')) {
+        console.log('Dropdown item clicked:', e.target.textContent); // Debug log
+        
         // Remove active from current tab
-        servicesTabsContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        servicesTabsContainer.querySelectorAll('.tab').forEach(t => {
+          t.classList.remove('active', 'dropdown-open');
+        });
         document.querySelectorAll('.service-content').forEach(c => c.classList.remove('active'));
         
         // Find and activate the corresponding main tab
@@ -416,41 +434,34 @@ function initMobileServicesDropdown() {
         const mainTab = servicesTabsContainer.querySelector(`[data-service="${targetService}"]`);
         if (mainTab) {
           mainTab.classList.add('active');
-          document.getElementById(targetService).classList.add('active');
+          const serviceContent = document.getElementById(targetService);
+          if (serviceContent) {
+            serviceContent.classList.add('active');
+          }
         }
         
         // Hide dropdown
         dropdown.classList.remove('show');
       }
-    });
+    }
+    
+    // Add event listeners
+    servicesTabsContainer.addEventListener('click', handleTabClick);
+    dropdown.addEventListener('click', handleDropdownClick);
     
     // Close dropdown when clicking outside
     document.addEventListener('click', function(e) {
       if (!servicesTabsContainer.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.classList.remove('show');
+        servicesTabsContainer.querySelectorAll('.tab.active').forEach(tab => {
+          tab.classList.remove('dropdown-open');
+        });
       }
     });
     
     // Initial dropdown setup
     updateDropdown();
-  }
-}
-
-// Window resize handler
-function handleResize() {
-  const dropdown = document.getElementById('servicesDropdown');
-  
-  if (window.innerWidth > 768) {
-    // Desktop: show all tabs, hide dropdown
-    document.querySelectorAll('.services-tabs .tab').forEach(tab => {
-      tab.style.display = 'flex';
-    });
-    if (dropdown) {
-      dropdown.classList.remove('show');
-    }
-  } else {
-    // Mobile: reinitialize dropdown
-    initMobileServicesDropdown();
+    console.log('Mobile dropdown initialized'); // Debug log
   }
 }
 
