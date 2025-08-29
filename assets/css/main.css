@@ -780,7 +780,7 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   .logo-text h1 {
     font-size: 1.8rem;
   }
-
+}
 @media (max-width: 768px) {
   .services-tabs {
     position: relative;
