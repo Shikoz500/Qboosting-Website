@@ -44,6 +44,20 @@ async function logOrderToServer(orderNumber, service, email, price) {
     }
 }
 
+// Header Compact
+function updateBodyClass(page) {
+  document.body.className = ''; // Clear existing classes
+  if (page !== 'home') {
+    document.body.classList.add('compact-header');
+  }
+}
+
+// Call this when switching pages
+function navigateToPage(page) {
+  // Your existing navigation code...
+  updateBodyClass(page);
+}
+
 // Fetch live exchange rates
 async function fetchExchangeRates() {
     try {
