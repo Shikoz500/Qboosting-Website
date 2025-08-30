@@ -781,7 +781,7 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.8rem;
   }
 }
-    border-bottom: none;
+    border-bottom: none;{
     border-radius: 0 0 10px 10px;
   }
 
@@ -793,7 +793,6 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: rgba(0, 255, 136, 0.3);
     transform: none;
   }
-}
 
   }
   .form-grid {
