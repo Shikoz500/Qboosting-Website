@@ -568,7 +568,6 @@ document.addEventListener('visibilitychange', function() {
             }, 1000); // 1 second after they return to the tab
         }
     });
-});
 
 // Enhanced button state management
 function setButtonState(button, state, text) {
