@@ -781,7 +781,50 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.8rem;
   }
 }
+    border-bottom: none;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .services-dropdown .tab:first-child {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .services-dropdown .tab:hover {
+    background: rgba(0, 255, 136, 0.3);
+    transform: none;
+  }
+}
+
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .payment-methods {
+    justify-content: center;
+  }
+}
 @media (max-width: 768px) {
+  /* Compact header for specific pages on mobile */
+  .header.compact .header-content {
+    min-height: 60px; /* Reduced from 80px */
+    padding: 0.5rem 1rem; /* Reduced padding */
+  }
+  
+  .header.compact .logo-section .logo-text {
+    display: none; /* Hide the "We Grind You Shine" text */
+  }
+  
+  .header.compact .logo-icon {
+    width: 35px; /* Smaller logo */
+    height: 35px;
+    font-size: 1.2rem;
+  }
+
   .services-tabs {
     position: relative;
     flex-direction: column;
@@ -860,9 +903,7 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: rgba(0, 255, 136, 0.3);
     transform: none;
   }
-}
 
-  }
   .form-grid {
     grid-template-columns: 1fr;
   }
