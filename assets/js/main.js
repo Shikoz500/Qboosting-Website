@@ -147,8 +147,6 @@ function navigateToPage(pageName) {
 
     // Scroll to top
     window.scrollTo(0, 0);
-
-    updateHeaderForPage(pageName);
 }
 
 // Initialize service options when page loads
@@ -367,17 +365,7 @@ function applyDiscount(originalPriceUSD, service) {
     }
     return originalPriceUSD;
 }
-// Add this function to handle compact header for specific pages
-function updateHeaderForPage(pageName) {
-    const header = document.querySelector('.header');
-    const compactPages = ['services', 'subscription', 'terms', 'contact'];
-    
-    if (compactPages.includes(pageName) && window.innerWidth <= 768) {
-        header.classList.add('compact');
-    } else {
-        header.classList.remove('compact');
-    }
-}
+
 // Mobile services dropdown functionality
 function initMobileServicesDropdown() {
   const servicesTabsContainer = document.querySelector('.services-tabs');
@@ -493,14 +481,7 @@ function handleResize() {
     // Mobile: reinitialize dropdown
     initMobileServicesDropdown();
   }
-    // Update header based on current page
-    const activePage = document.querySelector('.page-content.active');
-    if (activePage) {
-        updateHeaderForPage(activePage.id);
-    }
 }
-
-window.addEventListener('resize', handleResize);
 
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function () {
@@ -511,7 +492,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const targetPage = this.dataset.page;
             if (targetPage) {
                 navigateToPage(targetPage);
-            
             }
         });
     });
@@ -541,8 +521,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initEvolution();
     initSubscription();
     initMobileServicesDropdown();
-    updateHeaderForPage('home'); // Initialize header state
-});
 
 window.addEventListener('resize', handleResize);
 
@@ -568,6 +546,7 @@ document.addEventListener('visibilitychange', function() {
             }, 1000); // 1 second after they return to the tab
         }
     });
+});
 
 // Enhanced button state management
 function setButtonState(button, state, text) {
