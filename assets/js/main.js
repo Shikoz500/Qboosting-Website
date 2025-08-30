@@ -1004,18 +1004,16 @@ if (processingOrder) return;
     const orderBtn = document.getElementById('div-order-btn');
     if (orderBtn.disabled) return; // Prevent duplicate clicks
     
-    orderBtn.disabled = true;
-    orderBtn.textContent = 'Processing...';
-    orderBtn.style.opacity = '0.6'; // Visual feedback
+    setButtonState(orderBtn, 'processing');
     
     processingOrder = true;
     
+try {
     if (!validateEmail('div')) {
         // Reset button and processing state if validation fails
-        orderBtn.disabled = false;
-        orderBtn.textContent = 'Order Now';
-        orderBtn.style.opacity = '1';
+        setButtonState(orderBtn, 'error', 'Please enter email');
         processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
         return;
     }
     
@@ -1049,11 +1047,19 @@ Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
     
-    setTimeout(() => {
-    processingOrder = false;
-    resetOrderButton(orderBtn, 'Order Now');
-}, 3000); // Changed from 2000 to 3000 (3 seconds max)
+    // Show success state and keep it to prevent multiple orders
+        
+        setButtonState(orderBtn, 'success');
+        processingOrder = false; // Allow other services to work
+
+        } catch (error) {
+        console.error('Order error:', error);
+        setButtonState(orderBtn, 'error');
+        processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
+    }
 }
+
 
 // Online Draft Logic
 function initOnlineDraft() {
@@ -1133,18 +1139,15 @@ if (processingOrder) return;
     const orderBtn = document.getElementById('draft-order-btn');
     if (orderBtn.disabled) return; // Prevent duplicate clicks
     
-    orderBtn.disabled = true;
-    orderBtn.textContent = 'Processing...';
-    orderBtn.style.opacity = '0.6'; // Visual feedback
+    setButtonState(orderBtn, 'processing');
     
     processingOrder = true;
-    
+try {
     if (!validateEmail('draft')) {
         // Reset button and processing state if validation fails
-        orderBtn.disabled = false;
-        orderBtn.textContent = 'Order Now';
-        orderBtn.style.opacity = '1';
+        setButtonState(orderBtn, 'error', 'Please enter email');
         processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
         return;
     }
     
@@ -1178,10 +1181,16 @@ Email: ${email}`;
 Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
-    setTimeout(() => {
-    processingOrder = false;
-    resetOrderButton(orderBtn, 'Order Now');
-}, 3000); // Changed from 2000 to 3000 (3 seconds max)
+// Show success state and keep it to prevent multiple orders
+        setButtonState(orderBtn, 'success');
+        processingOrder = false; // Allow other services to work
+
+    } catch (error) {
+        console.error('Order error:', error);
+        setButtonState(orderBtn, 'error');
+        processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
+    }
 }
 
 // Friendly Cup Logic
@@ -1283,18 +1292,15 @@ if (processingOrder) return;
     const orderBtn = document.getElementById('friendly-order-btn');
     if (orderBtn.disabled) return; // Prevent duplicate clicks
     
-    orderBtn.disabled = true;
-    orderBtn.textContent = 'Processing...';
-    orderBtn.style.opacity = '0.6'; // Visual feedback
+    setButtonState(orderBtn, 'processing');
     
     processingOrder = true;
-    
+try {
     if (!validateEmail('friendly')) {
         // Reset button and processing state if validation fails
-        orderBtn.disabled = false;
-        orderBtn.textContent = 'Order Now';
-        orderBtn.style.opacity = '1';
+        setButtonState(orderBtn, 'error', 'Please enter email');
         processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
         return;
     }
     
@@ -1327,10 +1333,16 @@ Email: ${email}`;
 Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
-   setTimeout(() => {
-    processingOrder = false;
-    resetOrderButton(orderBtn, 'Order Now');
-}, 3000); // Changed from 2000 to 3000 (3 seconds max)
+   // Show success state and keep it to prevent multiple orders
+        setButtonState(orderBtn, 'success');
+        processingOrder = false; // Allow other services to work
+        
+    } catch (error) {
+        console.error('Order error:', error);
+        setButtonState(orderBtn, 'error');
+        processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
+    }
 }
 
 // Squad Battle Logic
@@ -1411,18 +1423,15 @@ if (processingOrder) return;
     const orderBtn = document.getElementById('squad-order-btn');
     if (orderBtn.disabled) return; // Prevent duplicate clicks
     
-    orderBtn.disabled = true;
-    orderBtn.textContent = 'Processing...';
-    orderBtn.style.opacity = '0.6'; // Visual feedback
+    setButtonState(orderBtn, 'processing');
     
     processingOrder = true;
-    
+try {
     if (!validateEmail('squad')) {
         // Reset button and processing state if validation fails
-        orderBtn.disabled = false;
-        orderBtn.textContent = 'Order Now';
-        orderBtn.style.opacity = '1';
+        setButtonState(orderBtn, 'error', 'Please enter email');
         processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
         return;
     }
     
@@ -1457,10 +1466,16 @@ Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
     
-    setTimeout(() => {
-    processingOrder = false;
-    resetOrderButton(orderBtn, 'Order Now');
-}, 3000); // Changed from 2000 to 3000 (3 seconds max)
+   // Show success state and keep it to prevent multiple orders
+        setButtonState(orderBtn, 'success');
+        processingOrder = false; // Allow other services to work
+        
+    } catch (error) {
+        console.error('Order error:', error);
+        setButtonState(orderBtn, 'error');
+        processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
+    } 
 }
 
 // Evolution Logic
@@ -1541,18 +1556,15 @@ if (processingOrder) return;
     const orderBtn = document.getElementById('evo-order-btn');
     if (orderBtn.disabled) return; // Prevent duplicate clicks
     
-    orderBtn.disabled = true;
-    orderBtn.textContent = 'Processing...';
-    orderBtn.style.opacity = '0.6'; // Visual feedback
+    setButtonState(orderBtn, 'processing');
     
     processingOrder = true;
-    
+try {
     if (!validateEmail('evo')) {
         // Reset button and processing state if validation fails
-        orderBtn.disabled = false;
-        orderBtn.textContent = 'Order Now';
-        orderBtn.style.opacity = '1';
+        setButtonState(orderBtn, 'error', 'Please enter email');
         processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
         return;
     }
     
@@ -1585,10 +1597,16 @@ Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
     
-   setTimeout(() => {
-    processingOrder = false;
-    resetOrderButton(orderBtn, 'Order Now');
-}, 3000); // Changed from 2000 to 3000 (3 seconds max)
+  // Show success state and keep it to prevent multiple orders
+        setButtonState(orderBtn, 'success');
+        processingOrder = false; // Allow other services to work
+        
+    } catch (error) {
+        console.error('Order error:', error);
+        setButtonState(orderBtn, 'error');
+        processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
+    } 
 }
 
 // Subscription Logic
@@ -1713,18 +1731,15 @@ if (processingOrder) return;
     const orderBtn = document.getElementById('sub-order-btn');
     if (orderBtn.disabled) return; // Prevent duplicate clicks
     
-    orderBtn.disabled = true;
-    orderBtn.textContent = 'Processing...';
-    orderBtn.style.opacity = '0.6'; // Visual feedback
+    setButtonState(orderBtn, 'processing');
     
     processingOrder = true;
-    
+try {
     if (!validateEmail('sub')) {
         // Reset button and processing state if validation fails
-        orderBtn.disabled = false;
-        orderBtn.textContent = 'Order Now';
-        orderBtn.style.opacity = '1';
+        setButtonState(orderBtn, 'error', 'Please enter email');
         processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
         return;
     }
     
@@ -1755,10 +1770,16 @@ Ready to start when you confirm! 🚀`;
 
     window.open(`https://t.me/QBoostingHelp?text=${encodeURIComponent(message)}`, '_blank');
     
-    setTimeout(() => {
-    processingOrder = false;
-    resetOrderButton(orderBtn, 'Order Now');
-}, 3000); // Changed from 2000 to 3000 (3 seconds max)
+    // Show success state and keep it to prevent multiple orders
+        setButtonState(orderBtn, 'success');
+        processingOrder = false; // Allow other services to work
+        
+    } catch (error) {
+        console.error('Order error:', error);
+        setButtonState(orderBtn, 'error');
+        processingOrder = false;
+        setTimeout(() => setButtonState(orderBtn, 'default'), 2000);
+    }
 }
 
 function validateEmail(service) {
