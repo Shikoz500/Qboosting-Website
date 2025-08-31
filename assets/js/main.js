@@ -750,7 +750,7 @@ function initFutChampions() {
     function updateAvailableRanks() {
         const loses = parseInt(losesSelect.value) || 0;
         const ranks = ['Rank 1', 'Rank 2', 'Rank 3', 'Rank 4', 'Rank 5', 'Rank 6', 'Rank 7'];
-        const prices = [100, 90, 80, 70, 60, 50, 40];
+        const prices = [115, 95, 80, 70, 60, 50, 40];
 
         rankSelect.innerHTML = '<option value="">Select Required Rank</option>';
 

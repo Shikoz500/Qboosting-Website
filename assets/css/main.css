@@ -351,6 +351,8 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 2rem 0;
   gap: 1rem;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 9999; 
 }
 
 .tab {
@@ -816,6 +818,7 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     position: relative;
     flex-direction: column;
     align-items: center;
+    z-index: 9999;
   }
 
   .services-tabs .tab {
@@ -847,20 +850,27 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
   .services-dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    background: rgba(26, 26, 58, 0.95);
-    border: 1px solid #00ff88;
-    border-radius: 10px;
-    z-index: 1000;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    max-height: 300px;
-    overflow-y: auto;
-  }
+  display: none;
+  position: fixed;  /* CHANGE FROM absolute TO fixed */
+  top: auto;        /* CHANGE FROM 100% TO auto */
+  bottom: auto;     /* ADD THIS */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px; /* ADD THIS */
+  background: rgba(26, 26, 58, 0.95);
+  border: 1px solid #00ff88;
+  border-radius: 10px;
+  z-index: 999999;  /* INCREASE THIS */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.services-dropdown.show {
+  display: block;
+  top: 200px;  /* Position it below the header */
+}
 
   .services-dropdown.show {
     display: block;
@@ -909,6 +919,7 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 @media (max-width: 480px) {
   .services-dropdown {
     width: 95%;
+    top: 180px;
   }
 }
 
