@@ -473,6 +473,20 @@ function initMobileServicesDropdown() {
       }
     });
     
+    // Close dropdown when scrolling
+    window.addEventListener('scroll', function() {
+  const dropdown = document.getElementById('servicesDropdown');
+    if (dropdown && dropdown.classList.contains('show')) {
+    dropdown.classList.remove('show');
+    const servicesTabsContainer = document.querySelector('.services-tabs');
+    if (servicesTabsContainer) {
+      servicesTabsContainer.querySelectorAll('.tab.active').forEach(tab => {
+        tab.classList.remove('dropdown-open');
+      });
+    }
+  }
+});
+
     // Initial dropdown setup
     updateDropdown();
     console.log('Mobile dropdown initialized'); // Debug log
