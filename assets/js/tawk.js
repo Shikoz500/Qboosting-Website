@@ -1,4 +1,23 @@
 var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+
+// Hide widget on mobile devices using Tawk's official API
+if (window.innerWidth <= 768) {
+    Tawk_API.customStyle = {
+        visibility : {
+            desktop : {
+                position : 'br',
+                xOffset : 20,
+                yOffset : 20
+            },
+            mobile : {
+                position : 'br',
+                xOffset : '-9999px',
+                yOffset : '-9999px'
+            }
+        }
+    };
+}
+
 (function () {
     var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
     s1.async = true;

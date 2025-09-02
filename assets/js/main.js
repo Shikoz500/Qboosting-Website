@@ -105,6 +105,26 @@ function getXboxSubCostText() {
     return `Xbox (+${xboxSubCostConverted})`;
 }
 
+// Update mobile tab bar active state
+function updateMobileTabBar(currentPage) {
+  document.querySelectorAll('.mobile-tab-bar .tab-item').forEach(tab => {
+    tab.classList.remove('active');
+    if (tab.dataset.page === currentPage) {
+      tab.classList.add('active');
+    }
+  });
+}
+
+// Update mobile menu items active state
+function updateMobileMenuItems(currentPage) {
+  document.querySelectorAll('.mobile-menu-item').forEach(item => {
+    item.classList.remove('active');
+    if (item.dataset.page === currentPage) {
+      item.classList.add('active');
+    }
+  });
+}
+
 // Page navigation function
 function navigateToPage(pageName) {
     // Hide all pages
@@ -156,8 +176,21 @@ function navigateToPage(pageName) {
         }
     });
 
+    // Update mobile tab bar and menu
+    updateMobileTabBar(pageName);
+    updateMobileMenuItems(pageName);
+
     // Close mobile menu
-    document.getElementById('navMenu').classList.remove('active');
+    const navMenu = document.getElementById('navMenu');
+    if (navMenu) {
+        navMenu.classList.remove('active');
+    }
+
+    // Close mobile menu overlay
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.classList.remove('show');
+    }
 
     // Scroll to top
     window.scrollTo(0, 0);
@@ -511,6 +544,90 @@ function handleResize() {
   }
 }
 
+// Mobile Tab Bar functionality
+function initMobileTabBar() {
+  // Tab navigation
+  document.querySelectorAll('.mobile-tab-bar .tab-item[data-page]').forEach(tabItem => {
+    tabItem.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetPage = this.dataset.page;
+      if (targetPage) {
+        navigateToPage(targetPage);
+        updateMobileTabBar(targetPage);
+      }
+    });
+  });
+
+  // Mobile menu toggle
+  document.querySelector('.mobile-menu-toggle').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector('.mobile-menu-overlay').classList.add('show');
+  });
+
+  // Mobile chat toggle
+  document.querySelectorAll('.mobile-chat-toggle').forEach(chatBtn => {
+    chatBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openTawkChat();
+      // Close menu overlay
+      document.querySelector('.mobile-menu-overlay').classList.remove('show');
+    });
+  });
+
+  // Mobile menu items
+  document.querySelectorAll('.mobile-menu-item:not(.mobile-chat-toggle)').forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetPage = this.dataset.page;
+      if (targetPage) {
+        navigateToPage(targetPage);
+        updateMobileTabBar(targetPage);
+        updateMobileMenuItems(targetPage);
+      }
+      // Close menu overlay
+      document.querySelector('.mobile-menu-overlay').classList.remove('show');
+    });
+  });
+
+  // Close mobile menu
+  document.querySelector('.mobile-menu-close').addEventListener('click', function() {
+    document.querySelector('.mobile-menu-overlay').classList.remove('show');
+  });
+
+  // Close menu overlay when clicking outside
+  document.querySelector('.mobile-menu-overlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('show');
+    }
+  });
+
+  // Set initial active states
+  updateMobileTabBar('home');
+  updateMobileMenuItems('home');
+}
+
+// Function to open Tawk chat programmatically
+function openTawkChat() {
+  // Wait for Tawk to be loaded and available
+  if (typeof Tawk_API !== 'undefined' && Tawk_API.maximize) {
+    // If Tawk is already loaded, maximize the chat
+    Tawk_API.maximize();
+  } else {
+    // If Tawk is not loaded yet, wait for it
+    var checkTawk = setInterval(function() {
+      if (typeof Tawk_API !== 'undefined' && Tawk_API.maximize) {
+        Tawk_API.maximize();
+        clearInterval(checkTawk);
+      }
+    }, 100);
+    
+    // Clear interval after 10 seconds to avoid infinite checking
+    setTimeout(function() {
+      clearInterval(checkTawk);
+    }, 10000);
+  }
+}
+
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function () {
     // Navigation links
@@ -524,21 +641,27 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Mobile menu toggle
-    document.getElementById('mobileMenuBtn').addEventListener('click', function (e) {
-        e.preventDefault();
-        document.getElementById('navMenu').classList.toggle('active');
-    });
+    // Mobile menu toggle (original hamburger button)
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+    }
 
     // Close mobile menu when clicking outside
     document.addEventListener('click', function (e) {
         const navMenu = document.getElementById('navMenu');
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 
-        if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        if (navMenu && mobileMenuBtn && !navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
             navMenu.classList.remove('active');
         }
     });
+
+    // Mobile Tab Bar Navigation
+    initMobileTabBar();
 
     // Initialize services
     initFutChampions();
