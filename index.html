@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Content Security Policy -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:; frame-src https: *.tawk.to; connect-src 'self' https: wss: *.tawk.to; script-src 'self' https: 'unsafe-inline' 'unsafe-eval' *.tawk.to;">
 
 <!-- X-Frame-Options -->
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
@@ -2464,6 +2464,10 @@
 
     <!-- Bottom Tab Bar for Mobile Only -->
     <nav class="mobile-tab-bar">
+      <button class="tab-item" data-page="home">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </button>
       <button class="tab-item" data-page="services">
         <i class="fas fa-gamepad"></i>
         <span>Services</span>
@@ -2488,18 +2492,6 @@
           </button>
         </div>
         <div class="mobile-menu-items">
-          <a href="#" class="mobile-menu-item" data-page="home">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-          </a>
-          <a href="#" class="mobile-menu-item" data-page="services">
-            <i class="fas fa-gamepad"></i>
-            <span>Services</span>
-          </a>
-          <a href="#" class="mobile-menu-item" data-page="subscription">
-            <i class="fas fa-crown"></i>
-            <span>Subscription</span>
-          </a>
           <a href="#" class="mobile-menu-item mobile-chat-toggle">
             <i class="fas fa-comments"></i>
             <span>Live Chat</span>
