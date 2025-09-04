@@ -796,7 +796,7 @@ font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
   .mobile-menu-btn {
-    display: block;
+    display: none; /* Hide header burger menu on mobile since we have tab bar */
     position: static; /* Remove absolute positioning */
   }
 
@@ -952,8 +952,10 @@ body {
   backdrop-filter: blur(15px);
   border-top: 2px solid #00ff88;
   padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
-  z-index: 100;
+  z-index: 300; /* Higher than menu overlay */
   box-shadow: 0 -4px 20px rgba(0, 255, 136, 0.2);
+  visibility: visible !important;
+  display: flex !important;
 }
 
 .mobile-tab-bar .tab-item {
@@ -998,10 +1000,13 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 70px; /* Leave space for tab bar */
   background: rgba(0, 0, 0, 0.8);
   z-index: 200;
   backdrop-filter: blur(10px);
+  overflow-y: auto; /* Allow overlay to scroll */
+  overscroll-behavior: contain; /* Prevent scroll chaining to body */
+  touch-action: pan-y; /* Only allow vertical touch scrolling within overlay */
 }
 
 .mobile-menu-overlay.show {
@@ -1018,6 +1023,8 @@ body {
   max-height: 70vh;
   border: 2px solid #00ff88;
   border-bottom: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .mobile-menu-header {
@@ -1090,6 +1097,14 @@ body {
   body {
     padding-bottom: 70px;
   }
+}
+
+/* Hide mobile tab bar on desktop */
+@media (min-width: 769px) {
+  .mobile-tab-bar {
+    display: none !important;
+  }
+}
   
   /* Adjust container padding on mobile */
   .container {
