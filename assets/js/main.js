@@ -190,6 +190,7 @@ function navigateToPage(pageName) {
     const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
     if (mobileMenuOverlay) {
         mobileMenuOverlay.classList.remove('show');
+        unlockScroll();
     }
 
     // Scroll to top
@@ -544,6 +545,15 @@ function handleResize() {
   }
 }
 
+// Simple scroll lock - just prevent body scroll, let overlay handle its own scrolling
+function lockScroll() {
+  document.body.style.overflow = 'hidden';
+}
+
+function unlockScroll() {
+  document.body.style.overflow = '';
+}
+
 // Mobile Tab Bar functionality
 function initMobileTabBar() {
   // Tab navigation
@@ -562,6 +572,7 @@ function initMobileTabBar() {
   document.querySelector('.mobile-menu-toggle').addEventListener('click', function(e) {
     e.preventDefault();
     document.querySelector('.mobile-menu-overlay').classList.add('show');
+    lockScroll();
   });
 
   // Mobile chat toggle
@@ -586,18 +597,21 @@ function initMobileTabBar() {
       }
       // Close menu overlay
       document.querySelector('.mobile-menu-overlay').classList.remove('show');
+      unlockScroll();
     });
   });
 
   // Close mobile menu
   document.querySelector('.mobile-menu-close').addEventListener('click', function() {
     document.querySelector('.mobile-menu-overlay').classList.remove('show');
+    unlockScroll();
   });
 
   // Close menu overlay when clicking outside
   document.querySelector('.mobile-menu-overlay').addEventListener('click', function(e) {
     if (e.target === this) {
       this.classList.remove('show');
+      unlockScroll();
     }
   });
 
