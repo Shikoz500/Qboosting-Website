@@ -901,7 +901,7 @@ function initFutChampions() {
     function updateAvailableRanks() {
         const loses = parseInt(losesSelect.value) || 0;
         const ranks = ['Rank 1', 'Rank 2', 'Rank 3', 'Rank 4', 'Rank 5', 'Rank 6', 'Rank 7'];
-        const prices = [115, 95, 80, 70, 60, 50, 40];
+        const prices = [95, 80, 70, 60, 50, 45, 35];
 
         rankSelect.innerHTML = '<option value="">Select Required Rank</option>';
 
@@ -1373,10 +1373,10 @@ function updateRewardOptions() {
 
     rewardSelect.innerHTML = '<option value="">Select Cup Type First</option>';
 
-    if (cupType === 'co-op') {
+    if (cupType === 'silver') {
         rewardSelect.innerHTML = `
             <option value="">Select Reward</option>
-            <option value="60" data-name="97 Rui Costa">97 Rui Costa</option>
+            <option value="50" data-name="100K Pack + more">100K Pack + more</option>
         `;
     }
 
@@ -1418,7 +1418,7 @@ function updateFriendlyPrice() {
 
         let summaryContent = `
             <div class="summary-item"><span>Service:</span><span>Friendly Cup</span></div>
-            <div class="summary-item"><span>Cup Type:</span><span>Co-op Cup</span></div>
+            <div class="summary-item"><span>Cup Type:</span><span>Silver Superstars Cup</span></div>
             <div class="summary-item"><span>Reward:</span><span>${rewardName}</span></div>
             <div class="summary-item"><span>Platform:</span><span>${platformText}</span></div>
             <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
@@ -1481,7 +1481,7 @@ try {
     let message = `🎮 QBoosting Order #${orderNumber}
 
 Service: Friendly Cup
-Cup Type: Co-op Cup  
+Cup Type: Silver Superstars Cup  
 Reward: ${reward}
 Platform: ${platformText}
 Delivery: ${deliveryText}
