@@ -901,7 +901,7 @@ function initFutChampions() {
     function updateAvailableRanks() {
         const loses = parseInt(losesSelect.value) || 0;
         const ranks = ['Rank 1', 'Rank 2', 'Rank 3', 'Rank 4', 'Rank 5', 'Rank 6', 'Rank 7'];
-        const prices = [95, 80, 70, 60, 50, 45, 35];
+        const prices = [85, 70, 60, 50, 40, 35, 30];
 
         rankSelect.innerHTML = '<option value="">Select Required Rank</option>';
 
@@ -1378,6 +1378,21 @@ function updateRewardOptions() {
             <option value="">Select Reward</option>
             <option value="50" data-name="100K Pack + more">100K Pack + more</option>
         `;
+        } else if (cupType === 'gauntlet') {
+        rewardSelect.innerHTML = `
+            <option value="">Select Reward</option>
+            <option value="35" data-name="Kudos">Kudos</option>
+        `;
+    } else if (cupType === 'cornerstones') {
+        rewardSelect.innerHTML = `
+            <option value="">Select Reward</option>
+            <option value="15" data-name="Packs">Packs</option>
+        `;
+    } else if (cupType === 'excellence') {
+        rewardSelect.innerHTML = `
+            <option value="">Select Reward</option>
+            <option value="20" data-name="PlayerName">PlayerName</option>
+        `;
     }
 
     updateFriendlyPrice();
@@ -1416,9 +1431,18 @@ function updateFriendlyPrice() {
         const paymentText = (serviceOptions.friendly && serviceOptions.friendly.payment) ? serviceOptions.friendly.payment : 'paypal';
         const platformText = (serviceOptions.friendly && serviceOptions.friendly.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
 
+        // Get cup type display name
+        const cupTypeNames = {
+            'silver': 'Silver Superstars League',
+            'gauntlet': 'Gauntlet Cup',
+            'cornerstones': 'Cornerstones Exhibition Cup',
+            'excellence': 'Excellence Exhibition Cup'
+        };
+        const cupTypeName = cupTypeNames[cupType] || cupType;
+
         let summaryContent = `
             <div class="summary-item"><span>Service:</span><span>Friendly Cup</span></div>
-            <div class="summary-item"><span>Cup Type:</span><span>Silver Superstars Cup</span></div>
+            <div class="summary-item"><span>Cup Type:</span><span>${cupTypeName}</span></div>
             <div class="summary-item"><span>Reward:</span><span>${rewardName}</span></div>
             <div class="summary-item"><span>Platform:</span><span>${platformText}</span></div>
             <div class="summary-item"><span>Delivery:</span><span>${deliveryText}</span></div>
@@ -1439,7 +1463,7 @@ function updateFriendlyPrice() {
         const orderBtn = document.getElementById('friendly-order-btn');
         orderBtn.disabled = false;
         orderBtn.textContent = 'Order Now';
-        orderBtn.onclick = createDebouncedOrderHandler(() => orderFriendlyCup(rewardName, finalPriceConverted));
+        orderBtn.onclick = createDebouncedOrderHandler(() => orderFriendlyCup(cupTypeName, rewardName, finalPriceConverted));
     } else {
         // Hide everything if incomplete
         document.getElementById('friendly-price').style.display = 'none';
@@ -1450,7 +1474,7 @@ function updateFriendlyPrice() {
     }
 }
 
-async function orderFriendlyCup(reward, price) {
+async function orderFriendlyCup(cupTypeName, reward, price) {
 if (processingOrder) return;
     
     // IMMEDIATELY disable button and show feedback
@@ -1481,7 +1505,7 @@ try {
     let message = `🎮 QBoosting Order #${orderNumber}
 
 Service: Friendly Cup
-Cup Type: Silver Superstars Cup  
+Cup Type: ${cupTypeName}
 Reward: ${reward}
 Platform: ${platformText}
 Delivery: ${deliveryText}
@@ -1792,10 +1816,10 @@ function updateRankDivOptions() {
     if (serviceType === 'fut-1' || serviceType === 'fut-3') {
         // FUT Champions ranks
         const ranks = [
-            { value: 'rank1', name: 'Rank 1', price: serviceType === 'fut-1' ? 350 : 950 },
-            { value: 'rank2', name: 'Rank 2', price: serviceType === 'fut-1' ? 320 : 860 },
-            { value: 'rank3', name: 'Rank 3', price: serviceType === 'fut-1' ? 290 : 780 },
-            { value: 'rank4', name: 'Rank 4', price: serviceType === 'fut-1' ? 250 : 670 }
+            { value: 'rank1', name: 'Rank 1', price: serviceType === 'fut-1' ? 320 : 900 },
+            { value: 'rank2', name: 'Rank 2', price: serviceType === 'fut-1' ? 260 : 710 },
+            { value: 'rank3', name: 'Rank 3', price: serviceType === 'fut-1' ? 210 : 580 },
+            { value: 'rank4', name: 'Rank 4', price: serviceType === 'fut-1' ? 180 : 495 }
         ];
 
         ranks.forEach(rank => {
@@ -1804,13 +1828,13 @@ function updateRankDivOptions() {
     } else if (serviceType === 'rivals-1' || serviceType === 'rivals-3') {
         // Rivals divisions
         const divisions = [
-            { value: 'elite', name: 'Elite', price: serviceType === 'rivals-1' ? 220 : 600 },
-            { value: 'div1', name: 'Division 1', price: serviceType === 'rivals-1' ? 200 : 540 },
-            { value: 'div2', name: 'Division 2', price: serviceType === 'rivals-1' ? 180 : 490 },
-            { value: 'div3', name: 'Division 3', price: serviceType === 'rivals-1' ? 160 : 430 },
-            { value: 'div4', name: 'Division 4', price: serviceType === 'rivals-1' ? 140 : 380 },
-            { value: 'div5', name: 'Division 5', price: serviceType === 'rivals-1' ? 120 : 325 },
-            { value: 'div6', name: 'Division 6', price: serviceType === 'rivals-1' ? 100 : 270 }
+            { value: 'elite', name: 'Elite', price: serviceType === 'rivals-1' ? 190 : 545 },
+            { value: 'div1', name: 'Division 1', price: serviceType === 'rivals-1' ? 170 : 490 },
+            { value: 'div2', name: 'Division 2', price: serviceType === 'rivals-1' ? 150 : 420 },
+            { value: 'div3', name: 'Division 3', price: serviceType === 'rivals-1' ? 130 : 375 },
+            { value: 'div4', name: 'Division 4', price: serviceType === 'rivals-1' ? 110 : 290 },
+            { value: 'div5', name: 'Division 5', price: serviceType === 'rivals-1' ? 90 : 250 },
+            { value: 'div6', name: 'Division 6', price: serviceType === 'rivals-1' ? 75 : 215 }
         ];
 
         divisions.forEach(div => {
