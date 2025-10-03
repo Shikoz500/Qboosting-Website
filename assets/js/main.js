@@ -104,6 +104,13 @@ function getXboxSubCostText() {
     const xboxSubCostConverted = convertPrice(30);
     return `Xbox (+${xboxSubCostConverted})`;
 }
+function getPCCostText() {
+    return 'PC';
+}
+
+function getPCSubCostText() {
+    return 'PC';
+}
 
 // Update mobile tab bar active state
 function updateMobileTabBar(currentPage) {
@@ -856,7 +863,7 @@ document.addEventListener('click', function (e) {
         const option = e.target.dataset.option;
         const isDelivery = option === 'normal' || option === 'express';
         const isPayment = option === 'paypal' || option === 'payoneer';
-        const isPlatform = option === 'playstation' || option === 'xbox';
+        const isPlatform = option === 'playstation' || option === 'pc' || option === 'xbox';
 
         // Update button states (make clicked button green)
         const buttonGroup = e.target.parentElement;
@@ -951,7 +958,8 @@ function updateFutPrice() {
 
         const deliveryText = (serviceOptions.fut && serviceOptions.fut.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.fut && serviceOptions.fut.payment) ? serviceOptions.fut.payment : 'paypal';
-        const platformText = (serviceOptions.fut && serviceOptions.fut.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
+        const platformText = serviceOptions.fut?.platform === 'xbox' ? getXboxCostText() : 
+                     serviceOptions.fut?.platform === 'pc' ? getPCCostText() : 'PlayStation';
 
         let summaryContent = `
                     <div class="summary-item"><span>Service:</span><span>FUT Champions</span></div>
@@ -1127,7 +1135,8 @@ function updateDivPrice() {
         const requiredDivName = required === 0 ? 'Elite Division' : `Division ${required}`;
         const deliveryText = (serviceOptions.div && serviceOptions.div.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.div && serviceOptions.div.payment) ? serviceOptions.div.payment : 'paypal';
-        const platformText = (serviceOptions.div && serviceOptions.div.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
+        const platformText = serviceOptions.div?.platform === 'xbox' ? getXboxCostText() : 
+                     serviceOptions.div?.platform === 'pc' ? getPCCostText() : 'PlayStation';
 
         let summaryContent = `
                     <div class="summary-item"><span>Service:</span><span>Division Rivals</span></div>
@@ -1263,7 +1272,8 @@ function updateDraftPrice() {
 
         const deliveryText = (serviceOptions.draft && serviceOptions.draft.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.draft && serviceOptions.draft.payment) ? serviceOptions.draft.payment : 'paypal';
-        const platformText = (serviceOptions.draft && serviceOptions.draft.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
+        const platformText = serviceOptions.draft?.platform === 'xbox' ? getXboxCostText() : 
+                     serviceOptions.draft?.platform === 'pc' ? getPCCostText() : 'PlayStation';
 
         let summaryContent = `
                     <div class="summary-item"><span>Service:</span><span>Online Draft</span></div>
@@ -1429,7 +1439,8 @@ function updateFriendlyPrice() {
         // Create summary...
         const deliveryText = (serviceOptions.friendly && serviceOptions.friendly.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.friendly && serviceOptions.friendly.payment) ? serviceOptions.friendly.payment : 'paypal';
-        const platformText = (serviceOptions.friendly && serviceOptions.friendly.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
+        const platformText = serviceOptions.friendly?.platform === 'xbox' ? getXboxCostText() : 
+                     serviceOptions.friendly?.platform === 'pc' ? getPCCostText() : 'PlayStation';
 
         // Get cup type display name
         const cupTypeNames = {
@@ -1571,7 +1582,8 @@ function updateSquadPrice() {
 
         const deliveryText = (serviceOptions.squad && serviceOptions.squad.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.squad && serviceOptions.squad.payment) ? serviceOptions.squad.payment : 'paypal';
-        const platformText = (serviceOptions.squad && serviceOptions.squad.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
+        const platformText = serviceOptions.squad?.platform === 'xbox' ? getXboxCostText() : 
+                     serviceOptions.squad?.platform === 'pc' ? getPCCostText() : 'PlayStation';
 
         let summaryContent = `
             <div class="summary-item"><span>Service:</span><span>Squad Battle</span></div>
@@ -1704,7 +1716,8 @@ function updateEvoPrice() {
 
         const deliveryText = (serviceOptions.evo && serviceOptions.evo.delivery === 'express') ? getExpressCostText() : 'Normal';
         const paymentText = (serviceOptions.evo && serviceOptions.evo.payment) ? serviceOptions.evo.payment : 'paypal';
-        const platformText = (serviceOptions.evo && serviceOptions.evo.platform === 'xbox') ? getXboxCostText() : 'PlayStation';
+        const platformText = serviceOptions.evo?.platform === 'xbox' ? getXboxCostText() : 
+                     serviceOptions.evo?.platform === 'pc' ? getPCCostText() : 'PlayStation';
 
         let summaryContent = `
             <div class="summary-item"><span>Service:</span><span>Evolution</span></div>
@@ -1878,7 +1891,8 @@ function updateSubPrice() {
             'rivals-3': 'Rivals Weekly Rewards 3 Month'
         };
 
-        const platformText = (serviceOptions.sub && serviceOptions.sub.platform === 'xbox') ? getXboxSubCostText() : 'PlayStation';
+        const platformText = serviceOptions.sub?.platform === 'xbox' ? getXboxSubCostText() : 
+                     serviceOptions.sub?.platform === 'pc' ? getPCSubCostText() : 'PlayStation';
         const paymentText = (serviceOptions.sub && serviceOptions.sub.payment) ? serviceOptions.sub.payment : 'paypal';
 
         let summaryContent = `
@@ -1934,7 +1948,8 @@ try {
     
     const orderNumber = getNextOrderNumber();
     const email = document.getElementById('sub-email').value;
-    const platformText = (serviceOptions.sub && serviceOptions.sub.platform === 'xbox') ? `Xbox (+${convertPrice(30)})` : 'PlayStation';
+    const platformText = serviceOptions.sub?.platform === 'xbox' ? getXboxCostText() : 
+                     serviceOptions.sub?.platform === 'pc' ? getPCCostText() : 'PlayStation';
     const paymentText = (serviceOptions.sub && serviceOptions.sub.payment) ? serviceOptions.sub.payment : 'paypal';
 
      // Optional: Log to server
